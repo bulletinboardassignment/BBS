@@ -1,0 +1,13 @@
+F:\EBBS angular project\EBBS\EBBS.Services\obj\Debug\EBBS.Services.csproj.CoreCompileInputs.cache
+F:\EBBS angular project\EBBS\EBBS.Services\bin\Debug\ebbs.mdf
+F:\EBBS angular project\EBBS\EBBS.Services\bin\Debug\ebbs_log.ldf
+F:\EBBS angular project\EBBS\EBBS.Services\bin\Debug\EBBS.Services.dll
+F:\EBBS angular project\EBBS\EBBS.Services\bin\Debug\EBBS.Services.pdb
+F:\EBBS angular project\EBBS\EBBS.Services\bin\Debug\EBBS.Data.dll
+F:\EBBS angular project\EBBS\EBBS.Services\bin\Debug\EntityFramework.dll
+F:\EBBS angular project\EBBS\EBBS.Services\bin\Debug\EBBS.Data.pdb
+F:\EBBS angular project\EBBS\EBBS.Services\bin\Debug\EBBS.Data.dll.config
+F:\EBBS angular project\EBBS\EBBS.Services\bin\Debug\EntityFramework.xml
+F:\EBBS angular project\EBBS\EBBS.Services\obj\Debug\EBBS.Services.csprojResolveAssemblyReference.cache
+F:\EBBS angular project\EBBS\EBBS.Services\obj\Debug\EBBS.Services.dll
+F:\EBBS angular project\EBBS\EBBS.Services\obj\Debug\EBBS.Services.pdb
