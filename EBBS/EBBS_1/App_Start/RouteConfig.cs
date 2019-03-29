@@ -1,4 +1,4 @@
-﻿using MyBlog.UI.SEO;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,10 +14,7 @@ namespace EBBS_1
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            routes.Add("PostDetails", new SeoFriendlyRoute("Post/details/{id}",
-                new RouteValueDictionary(new { controller = "Post", action = "Details" }),
-                new MvcRouteHandler()));
-
+            
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
