@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.421
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EBBS_1", "EBBS_1\EBBS_1.csproj", "{742719E4-419D-4988-B349-B3C6A1877D77}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EBBS_1.Data", "EBBS_1.Data\EBBS_1.Data.csproj", "{3AD5D45B-C2BB-43C6-9A64-838E21220A0A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EBBS_1.Service", "EBBS_1.Service\EBBS_1.Service.csproj", "{EF451782-CC5B-4451-927F-D4C2C57CCCF6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{742719E4-419D-4988-B349-B3C6A1877D77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{742719E4-419D-4988-B349-B3C6A1877D77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{742719E4-419D-4988-B349-B3C6A1877D77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{742719E4-419D-4988-B349-B3C6A1877D77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3AD5D45B-C2BB-43C6-9A64-838E21220A0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3AD5D45B-C2BB-43C6-9A64-838E21220A0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3AD5D45B-C2BB-43C6-9A64-838E21220A0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3AD5D45B-C2BB-43C6-9A64-838E21220A0A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF451782-CC5B-4451-927F-D4C2C57CCCF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF451782-CC5B-4451-927F-D4C2C57CCCF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF451782-CC5B-4451-927F-D4C2C57CCCF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF451782-CC5B-4451-927F-D4C2C57CCCF6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BB499220-8E72-4343-A012-67FEC8D2835F}
+	EndGlobalSection
+EndGlobal
