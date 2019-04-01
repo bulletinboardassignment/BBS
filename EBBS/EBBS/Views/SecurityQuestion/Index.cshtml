@@ -1,0 +1,102 @@
+﻿@model EBBS.Models.SecurityQuestionVm
+@using EBBS.Models
+@using PagedList.Mvc;
+@using PagedList;
+
+
+@{
+    ViewBag.Title = "";
+}
+
+<div>
+    <h4 style="color:green">@Html.Raw(TempData["message"])</h4>
+    <h4 style="color:green">@Html.Raw(TempData["editMessage"])</h4>
+    <h4 style="color:green">@Html.Raw(TempData["deleteMessage"])</h4>
+</div>
+
+<legend> Security Questions List </legend>
+
+<div class="form-group" style="float: right">
+    <button class="btn btn-info" onclick="location.href = '@Url.Action("Create","SecurityQuestion")'" type="button"><i class="glyphicon glyphicon-plus-sign"></i> Create New Security Question</button>
+</div>
+
+
+@if (Model.Question.Count() != 0)
+{
+    <div class="input-group" style="float: left">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+        <input style="background-color:khaki; color: black" type="text" id="search" placeholder="Search Security Question" />
+    </div>
+    
+    <br />
+    
+    <table class="table table-bordered table-hover table-responsive" style="table-layout: fixed">
+        <tr class="bg-info">
+            <th>
+                @Html.DisplayNameFor(model => model.qId)
+
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Question)
+            </th>
+
+            <th>Operations</th>
+        </tr>
+        @foreach (var item in Model.Question)
+        {
+            <tr class="searchRecord">
+                <td>
+                    @Html.DisplayFor(modelItem => item.qId)
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.question)
+
+                </td>
+                <td>
+
+                    <button class="btn btn-success" onclick="location.href = '@Url.Action("Edit", new { id=item.qId })'" type="button"><i class="glyphicon glyphicon-edit"></i> Edit</button> |
+                    <button class="btn btn-danger" onclick="location.href = '@Url.Action("Delete", "SecurityQuestion",new { id=item.qId })'" type="button"><i class="glyphicon glyphicon-remove-sign"></i> Delete</button>
+
+                </td>
+            </tr>
+        }
+
+    </table>
+    <br />
+    @Html.PagedListPager(Model.Question, Page => Url.Action("Index", "SecurityQuestion", new { Page, pageSize = Model.Question.PageSize }))
+}
+else
+{
+    <h4 style="color: orange"> -- No Security Questions Found --</h4>
+}
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        function Contains(text_one, text_two) {
+            if (text_one.indexOf(text_two) != -1)
+                return true;
+
+        }
+
+        $("#search").keyup(function () {
+            var searchText = $("#search").val().toLocaleLowerCase();
+            $(".searchRecord").each(function () {
+                if (!Contains($(this).text().toLowerCase(), searchText)) {
+                    $(this).hide();
+                } else {
+                    $(this).show();
+                }
+            });
+
+        });
+
+    });
+</script>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+}

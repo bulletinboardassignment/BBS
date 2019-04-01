@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="3eb2e51042474bae8efb4044899f4b4e" Name="Diagram1">
+        <EntityTypeShape EntityType="EBBSModel.Category" Width="1.5" PointX="5.25" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="EBBSModel.Comment" Width="1.5" PointX="9.75" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="EBBSModel.Like" Width="1.5" PointX="5.25" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="EBBSModel.Post" Width="1.5" PointX="7.5" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="EBBSModel.Role" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EBBSModel.SecurityQuestion" Width="1.5" PointX="0.75" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EBBSModel.Setting" Width="1.5" PointX="5.25" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="EBBSModel.User" Width="1.5" PointX="3" PointY="4.125" IsExpanded="true" />
+        <AssociationConnector Association="EBBSModel.FK_Category" ManuallyRouted="false" />
+        <AssociationConnector Association="EBBSModel.FK_Category_User" ManuallyRouted="false" />
+        <AssociationConnector Association="EBBSModel.FK_Comment_User" ManuallyRouted="false" />
+        <AssociationConnector Association="EBBSModel.FK_Post" ManuallyRouted="false" />
+        <AssociationConnector Association="EBBSModel.FK_Like_User" ManuallyRouted="false" />
+        <AssociationConnector Association="EBBSModel.FK_Post_User" ManuallyRouted="false" />
+        <AssociationConnector Association="EBBSModel.FK_Role" ManuallyRouted="false" />
+        <AssociationConnector Association="EBBSModel.FK_SecurityQuestion" ManuallyRouted="false" />
+        <AssociationConnector Association="EBBSModel.FK_Setting_User" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

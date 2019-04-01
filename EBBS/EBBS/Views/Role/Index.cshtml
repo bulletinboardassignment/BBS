@@ -1,0 +1,112 @@
+﻿
+@model EBBS.Models.RoleVm
+@using EBBS.Models
+@using PagedList.Mvc;
+@using PagedList;
+
+
+<div>
+
+    <h4 style="color:green">@Html.Raw(TempData["message"])</h4>
+    <h4 style="color:green">@Html.Raw(TempData["editMessage"])</h4>
+    <h4 style="color:green">@Html.Raw(TempData["deleteMessage"])</h4>
+
+
+
+</div>
+
+
+
+<legend> Roles List </legend>
+
+
+
+<div class="form-group" style="float: right">
+    <button class="btn btn-info" onclick="location.href = '@Url.Action("Create","Role")'" type="button"><i class="glyphicon glyphicon-plus-sign"></i> Create New Role</button>
+</div>
+
+
+
+
+
+@if (Model.Roles.Count() != 0)
+{
+    <div class="input-group" style="float: left">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+        <input style="background-color:khaki; color: black" type="text" id="search" placeholder="Search Role" />
+    </div>
+    
+    <br />
+    <table class="table table-bordered table-hover table-responsive" style="table-layout: fixed">
+        <tr class="bg-info">
+            <th>
+                @Html.DisplayNameFor(model => model.rId)
+               
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Roles)
+            </th>
+
+            <th>Operations</th>
+        </tr>
+
+        @foreach (var item in Model.Roles)
+        {
+            <tr class="searchRecord">
+                <td>
+                    @Html.DisplayFor(modelItem => item.rId)
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.roleName)
+
+                </td>
+                <td>
+
+                    <button class="btn btn-success" onclick="location.href = '@Url.Action("Edit", new { id=item.rId })'" type="button"><i class="glyphicon glyphicon-edit"></i> Edit</button> |
+                    <button class="btn btn-danger" onclick="location.href = '@Url.Action("Delete", "Role",new { id=item.rId })'" type="button"><i class="glyphicon glyphicon-remove-sign"></i> Delete</button>
+
+                </td>
+            </tr>
+        }
+
+    </table>
+
+    @Html.PagedListPager(Model.Roles, Page => Url.Action("Index", "Role", new { Page, pageSize = Model.Roles.PageSize }))
+
+
+
+}
+else
+{
+    <h4 style="color: orange"> -- No Roles Found --</h4>
+}
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        function Contains(text_one, text_two) {
+            if (text_one.indexOf(text_two) != -1)
+                return true;
+
+        }
+
+        $("#search").keyup(function () {
+            var searchText = $("#search").val().toLocaleLowerCase();
+            $(".searchRecord").each(function () {
+                if (!Contains($(this).text().toLowerCase(), searchText)) {
+                    $(this).hide();
+                } else {
+                    $(this).show();
+                }
+            });
+
+        });
+
+    });
+</script>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+}

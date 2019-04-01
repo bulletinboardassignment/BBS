@@ -1,0 +1,14 @@
+C:\Users\user\Desktop\Final\EBBS\EBBS.Service\bin\Debug\EBBS.Service.dll
+C:\Users\user\Desktop\Final\EBBS\EBBS.Service\bin\Debug\EBBS.Service.pdb
+C:\Users\user\Desktop\Final\EBBS\EBBS.Service\bin\Debug\EBBS.Data.dll
+C:\Users\user\Desktop\Final\EBBS\EBBS.Service\bin\Debug\EBBS.Data.pdb
+C:\Users\user\Desktop\Final\EBBS\EBBS.Service\obj\Debug\EBBS.Service.csprojAssemblyReference.cache
+C:\Users\user\Desktop\Final\EBBS\EBBS.Service\obj\Debug\EBBS.Service.csproj.CoreCompileInputs.cache
+C:\Users\user\Desktop\Final\EBBS\EBBS.Service\obj\Debug\EBBS.Service.csproj.CopyComplete
+C:\Users\user\Desktop\Final\EBBS\EBBS.Service\obj\Debug\EBBS.Service.dll
+C:\Users\user\Desktop\Final\EBBS\EBBS.Service\obj\Debug\EBBS.Service.pdb
+C:\Users\user\Desktop\Final\EBBS\EBBS.Service\bin\Debug\EBBS.mdf
+C:\Users\user\Desktop\Final\EBBS\EBBS.Service\bin\Debug\EBBS_log.ldf
+C:\Users\user\Desktop\Final\EBBS\EBBS.Service\bin\Debug\EntityFramework.dll
+C:\Users\user\Desktop\Final\EBBS\EBBS.Service\bin\Debug\EBBS.Data.dll.config
+C:\Users\user\Desktop\Final\EBBS\EBBS.Service\bin\Debug\EntityFramework.xml

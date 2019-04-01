@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="EBBSModelStoreContainer" CdmEntityContainer="EBBSEntities">
+    <EntitySetMapping Name="Category">
+      <EntityTypeMapping TypeName="EBBSModel.Category">
+        <MappingFragment StoreEntitySet="Category">
+          <ScalarProperty Name="cId" ColumnName="cId" />
+          <ScalarProperty Name="categoryName" ColumnName="categoryName" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="creatorId" ColumnName="creatorId" />
+          <ScalarProperty Name="createTime" ColumnName="createTime" />
+          <ScalarProperty Name="frequency" ColumnName="frequency" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Comment">
+      <EntityTypeMapping TypeName="EBBSModel.Comment">
+        <MappingFragment StoreEntitySet="Comment">
+          <ScalarProperty Name="commentId" ColumnName="commentId" />
+          <ScalarProperty Name="comment1" ColumnName="comment" />
+          <ScalarProperty Name="creatorId" ColumnName="creatorId" />
+          <ScalarProperty Name="postId" ColumnName="postId" />
+          <ScalarProperty Name="createTime" ColumnName="createTime" />
+          <ScalarProperty Name="updateTime" ColumnName="updateTime" />
+          <ScalarProperty Name="publish" ColumnName="publish" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Like">
+      <EntityTypeMapping TypeName="EBBSModel.Like">
+        <MappingFragment StoreEntitySet="Like">
+          <ScalarProperty Name="lId" ColumnName="lId" />
+          <ScalarProperty Name="like1" ColumnName="like" />
+          <ScalarProperty Name="likedBy" ColumnName="likedBy" />
+          <ScalarProperty Name="postId" ColumnName="postId" />
+          <ScalarProperty Name="likedOn" ColumnName="likedOn" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Post">
+      <EntityTypeMapping TypeName="EBBSModel.Post">
+        <MappingFragment StoreEntitySet="Post">
+          <ScalarProperty Name="pId" ColumnName="pId" />
+          <ScalarProperty Name="postTitle" ColumnName="postTitle" />
+          <ScalarProperty Name="postContent" ColumnName="postContent" />
+          <ScalarProperty Name="imagePath" ColumnName="imagePath" />
+          <ScalarProperty Name="imageSize" ColumnName="imageSize" />
+          <ScalarProperty Name="creatorId" ColumnName="creatorId" />
+          <ScalarProperty Name="categoryId" ColumnName="categoryId" />
+          <ScalarProperty Name="createTime" ColumnName="createTime" />
+          <ScalarProperty Name="updateTime" ColumnName="updateTime" />
+          <ScalarProperty Name="frequency" ColumnName="frequency" />
+          <ScalarProperty Name="isReported" ColumnName="isReported" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Role">
+      <EntityTypeMapping TypeName="EBBSModel.Role">
+        <MappingFragment StoreEntitySet="Role">
+          <ScalarProperty Name="rId" ColumnName="rId" />
+          <ScalarProperty Name="roleName" ColumnName="roleName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SecurityQuestion">
+      <EntityTypeMapping TypeName="EBBSModel.SecurityQuestion">
+        <MappingFragment StoreEntitySet="SecurityQuestion">
+          <ScalarProperty Name="qId" ColumnName="qId" />
+          <ScalarProperty Name="question" ColumnName="question" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Setting">
+      <EntityTypeMapping TypeName="EBBSModel.Setting">
+        <MappingFragment StoreEntitySet="Setting">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="HomeImage" ColumnName="HomeImage" />
+          <ScalarProperty Name="HomeImageText" ColumnName="HomeImageText" />
+          <ScalarProperty Name="NumberOfLastPost" ColumnName="NumberOfLastPost" />
+          <ScalarProperty Name="NumberOfCategory" ColumnName="NumberOfCategory" />
+          <ScalarProperty Name="PostNumberInPage" ColumnName="PostNumberInPage" />
+          <ScalarProperty Name="NumberOfTopPost" ColumnName="NumberOfTopPost" />
+          <ScalarProperty Name="Update_Time" ColumnName="Update_Time" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="User">
+      <EntityTypeMapping TypeName="EBBSModel.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="userId" ColumnName="userId" />
+          <ScalarProperty Name="firstName" ColumnName="firstName" />
+          <ScalarProperty Name="lastName" ColumnName="lastName" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="createTime" ColumnName="createTime" />
+          <ScalarProperty Name="updateTime" ColumnName="updateTime" />
+          <ScalarProperty Name="lastLogin" ColumnName="lastLogin" />
+          <ScalarProperty Name="userType" ColumnName="userType" />
+          <ScalarProperty Name="questionId" ColumnName="questionId" />
+          <ScalarProperty Name="answer" ColumnName="answer" />
+          <ScalarProperty Name="userImage" ColumnName="userImage" />
+          <ScalarProperty Name="imageSize" ColumnName="imageSize" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
