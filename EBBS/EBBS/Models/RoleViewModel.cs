@@ -20,6 +20,7 @@ namespace EBBS.Models
         [Required]
         [Display(Name = "Role")]
         [Index(IsUnique = true)]
+        [StringLength(50,MinimumLength = 2)]
         public string roleName { get; set; }
     }
 

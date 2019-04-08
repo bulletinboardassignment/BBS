@@ -12,6 +12,7 @@
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -24,7 +25,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -71,8 +71,10 @@
     <Compile Include="Comment.cs">
       <DependentUpon>EBBSModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DAO\RoleDAO.cs" />
-    <Compile Include="DAO\SecurityQuestionDAO.cs" />
+    <Compile Include="DAO\CategoryDao.cs" />
+    <Compile Include="DAO\UserDao.cs" />
+    <Compile Include="DAO\RoleDao.cs" />
+    <Compile Include="DAO\SecurityQuestionDao.cs" />
     <Compile Include="EBBSModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -88,8 +90,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EBBSModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="IDAO\IRoleDAO.cs" />
-    <Compile Include="IDAO\ISecurityQuestionDAO.cs" />
+    <Compile Include="IDAO\ICategoryDao.cs" />
+    <Compile Include="IDAO\IRoleDao.cs" />
+    <Compile Include="IDAO\ISecurityQuestionDao.cs" />
+    <Compile Include="IDAO\IUserDao.cs" />
     <Compile Include="Like.cs">
       <DependentUpon>EBBSModel.tt</DependentUpon>
     </Compile>
@@ -110,7 +114,25 @@
       <DependentUpon>EBBSModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="EBBS.mdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="EBBSModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>EBBSModel.edmx</DependentUpon>
+      <LastGenOutput>EBBSModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="EBBSModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>EBBSModel.edmx</DependentUpon>
+      <LastGenOutput>EBBSModel.cs</LastGenOutput>
+    </Content>
+    <Content Include="EBBS_log.ldf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <DependentUpon>EBBS.mdf</DependentUpon>
+    </Content>
+  </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
@@ -127,32 +149,13 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="EBBS.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="EBBSModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>EBBSModel.Context.cs</LastGenOutput>
-      <DependentUpon>EBBSModel.edmx</DependentUpon>
-    </Content>
-    <Content Include="EBBSModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>EBBSModel.edmx</DependentUpon>
-      <LastGenOutput>EBBSModel.cs</LastGenOutput>
-    </Content>
-    <Content Include="EBBS_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <DependentUpon>EBBS.mdf</DependentUpon>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
+    <None Include="App.Config">
+      <SubType>Designer</SubType>
+    </None>
     <EntityDeploy Include="EBBSModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>EBBSModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.Config" />
     <None Include="EBBSModel.edmx.diagram">
       <DependentUpon>EBBSModel.edmx</DependentUpon>
     </None>

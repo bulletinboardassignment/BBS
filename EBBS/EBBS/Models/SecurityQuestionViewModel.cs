@@ -18,6 +18,8 @@ namespace EBBS.Models
 
         [Required]
         [Display(Name = "Security Question")]
+        [Index(IsUnique = true)]
+        [StringLength(50,MinimumLength = 5)]
         public string question { get; set; }
     }
 

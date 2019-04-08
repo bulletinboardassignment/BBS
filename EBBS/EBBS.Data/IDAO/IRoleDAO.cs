@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EBBS.Data.IDAO
 {
-    public interface IRoleDAO
+    public interface IRoleDao
     {
         IList<Role> GetAllRoles();
 
@@ -16,9 +16,11 @@ namespace EBBS.Data.IDAO
 
         void UpdateRole(Role editRole);
 
-        void DeleteRole(Role deRole);
+        void DeleteRole(Role deleteRole);
 
-        bool UniqueRole(string roleName);
+        bool UniqueRole(string uniqueRole);
+
+        IEnumerable<Role> RoleIeNum { get; }
 
         //void Save(Role role);
 

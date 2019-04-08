@@ -12,7 +12,6 @@ namespace EBBS.Data
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-
     
     public partial class EBBSEntities : DbContext
     {
@@ -34,7 +33,5 @@ namespace EBBS.Data
         public virtual DbSet<SecurityQuestion> SecurityQuestion { get; set; }
         public virtual DbSet<Setting> Setting { get; set; }
         public virtual DbSet<User> User { get; set; }
-
-        
     }
 }

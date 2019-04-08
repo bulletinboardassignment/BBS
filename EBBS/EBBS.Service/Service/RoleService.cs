@@ -12,47 +12,45 @@ namespace EBBS.Service.Service
 {
     public class RoleService :IRoleService
     {
-        private IRoleDAO roleDao;
+        private IRoleDao _roleDao;
+
+        public IEnumerable<Role> RoleIeNum => _roleDao.RoleIeNum;
 
         public RoleService()
         {
-            roleDao = new RoleDAO();
+            _roleDao = new RoleDao();
         }
 
         public IList<Role> GetAllRoles()
         {
-            return roleDao.GetAllRoles();
+            return _roleDao.GetAllRoles();
         }
 
         public Role RoleById(int id)
         {
-            return roleDao.RoleById(id);
+            return _roleDao.RoleById(id);
         }
 
  
-        public bool UniqueRole(string roleName)
+        public bool UniqueRole(string uniqueRole)
         {
-            return roleDao.UniqueRole(roleName);
+            return _roleDao.UniqueRole(uniqueRole);
         }
 
         public void InsertRole(Role newRole)
         {
-            roleDao.InsertRole(newRole);
+            _roleDao.InsertRole(newRole);
         }
 
         public void UpdateRole(Role editRole)
         {
-            roleDao.UpdateRole(editRole);
+            _roleDao.UpdateRole(editRole);
         }
 
-        public void DeleteRole(Role deRole)
+        public void DeleteRole(Role deleteRole)
         {
-            roleDao.DeleteRole(deRole);
+            _roleDao.DeleteRole(deleteRole);
         }
-
-        //public void Save(Role role)
-        //{
-        //    roleDao.Save(role);
-        //}
+        
     }
 }

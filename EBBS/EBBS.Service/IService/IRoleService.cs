@@ -18,10 +18,11 @@ namespace EBBS.Service.IService
 
         void UpdateRole(Role editRole);
 
-        void DeleteRole(Role deRole);
+        void DeleteRole(Role deleteRole);
 
-        bool UniqueRole(string roleName);
-        //void Save(Role role);
+        bool UniqueRole(string uniqueRole);
+
+        IEnumerable<Role> RoleIeNum { get; }
 
     }
 }

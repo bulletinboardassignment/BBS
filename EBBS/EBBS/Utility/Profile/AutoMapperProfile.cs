@@ -11,6 +11,10 @@ namespace EBBS.Models
             CreateMap<Role, Models.RoleViewModel>().ReverseMap();
 
             CreateMap<SecurityQuestion, Models.SecurityQuestionViewModel>().ReverseMap();
+
+            CreateMap<Category, Models.CategoryViewModel>().ReverseMap();
+
+            CreateMap<User, Models.UserViewModel>().ReverseMap();
         }
     }
 }

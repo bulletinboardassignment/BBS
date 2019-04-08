@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace EBBS.Data.IDAO
 {
-    public interface ISecurityQuestionDAO
+    public interface ISecurityQuestionDao
     {
         IList<SecurityQuestion> GetAllSecurityQuestions();
 
@@ -19,7 +19,9 @@ namespace EBBS.Data.IDAO
 
         void DeleteSecurityQuestion(SecurityQuestion deleteSecurityQuestion);
 
-        bool UniqueRole(string secQuestion);
+        bool UniqueRole(string securityQuestion);
+
+        IEnumerable<SecurityQuestion> SqIeNum { get; }
 
     }
 }

@@ -16,16 +16,16 @@ namespace EBBS.Controllers
 {
     public class SecurityQuestionController : Controller
     {
-        private readonly ISecurityQuestionService securityQuestionService;
+        private readonly ISecurityQuestionService _securityQuestionService;
 
         public SecurityQuestionController()
         {
-            securityQuestionService = new SecurityQuestionService();
+            _securityQuestionService = new SecurityQuestionService();
         }
         // GET: SecurityQuestion
         public ActionResult Index(int page = 1, int pageSize = 5)
         {
-            var sqList = securityQuestionService.GetAllSecurityQuestions();
+            var sqList = _securityQuestionService.GetAllSecurityQuestions().OrderBy(p=>p.qId).OrderByDescending(p=>p.qId);
             var sqViewList = AutoMapper.Mapper.Map<IEnumerable<SecurityQuestion>, IEnumerable<SecurityQuestionViewModel>>(sqList);
             var model = new SecurityQuestionVm();
             model.Question = sqViewList.ToPagedList(page, pageSize);
@@ -48,22 +48,22 @@ namespace EBBS.Controllers
 
             if (ModelState.IsValid)
             {
-                bool RoleUniqe = securityQuestionService.UniqueRole(data.question.TrimEnd());
+                bool uniqueQuestion = _securityQuestionService.UniqueRole(data.question.TrimEnd());
 
-                if (RoleUniqe == true)
+                if (uniqueQuestion == true)
                 {
 
-                    TempData["UniqeMessage"] = "Record is Exist, Please Enter New One";
+                    TempData["addUniqueMessage"] = "Record is Exist, Please Enter New One";
                     return RedirectToAction("Create", "SecurityQuestion");
                 }
                 obj.question = data.question.TrimEnd();
-                securityQuestionService.InsertSecurityQuestion(obj);
+                _securityQuestionService.InsertSecurityQuestion(obj);
                 TempData["message"] = "Success ! You have created a new record";
                 return RedirectToAction("Index", "SecurityQuestion");
 
             }
 
-            return View(data);
+            return View();
         }
 
 
@@ -74,7 +74,7 @@ namespace EBBS.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            SecurityQuestion dataEdit = securityQuestionService.GetSecurityQuestionById(id);
+            SecurityQuestion dataEdit = _securityQuestionService.GetSecurityQuestionById(id);
 
             if (dataEdit == null)
             {
@@ -90,15 +90,15 @@ namespace EBBS.Controllers
         {
             if (ModelState.IsValid)
             {
-                bool RoleUniqe = securityQuestionService.UniqueRole(editData.question.TrimEnd());
-                if (RoleUniqe == true)
+                bool uniquesQuestion = _securityQuestionService.UniqueRole(editData.question.TrimEnd());
+                if (uniquesQuestion == true)
                 {
 
-                    TempData["UniqeMessage"] = "Record is Exist, Please Enter New One";
+                    TempData["uniqueMessage"] = "Record is Exist, Please modify with a new security question";
                     return RedirectToAction("Edit", "SecurityQuestion");
                 }
 
-                securityQuestionService.UpdateSecurityQuestion(editData);
+                _securityQuestionService.UpdateSecurityQuestion(editData);
                 TempData["editMessage"] = "Success ! You have modified the record";
                 return RedirectToAction("Index", "SecurityQuestion");
 
@@ -114,7 +114,7 @@ namespace EBBS.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            SecurityQuestion data = securityQuestionService.GetSecurityQuestionById(id);
+            SecurityQuestion data = _securityQuestionService.GetSecurityQuestionById(id);
             if (data == null)
             {
                 return HttpNotFound();
@@ -127,8 +127,8 @@ namespace EBBS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            SecurityQuestion data = securityQuestionService.GetSecurityQuestionById(id);
-            securityQuestionService.DeleteSecurityQuestion(data);
+            SecurityQuestion data = _securityQuestionService.GetSecurityQuestionById(id);
+            _securityQuestionService.DeleteSecurityQuestion(data);
             TempData["deleteMessage"] = "Success ! You have deleted the record.";
             return RedirectToAction("Index");
         }

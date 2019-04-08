@@ -1,0 +1,118 @@
+﻿@model EBBS.Models.CategoryVm
+@using EBBS.Models
+@using PagedList.Mvc;
+@using PagedList;
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div>
+
+    <h4 style="color:green">@Html.Raw(TempData["message"])</h4>
+    <h4 style="color:green">@Html.Raw(TempData["editMessage"])</h4>
+    <h4 style="color:green">@Html.Raw(TempData["deleteMessage"])</h4>
+   
+
+</div>
+
+
+<legend> Categories List </legend>
+
+<div class="form-group" style="float: right">
+    <button class="btn" style="background-color:lightgoldenrodyellow" onclick="location.href = '@Url.Action("Create","Category")'" type="button"><i class="glyphicon glyphicon-plus-sign"></i> Create New Category</button>
+    
+
+</div>
+
+
+@if (Model.Category.Count() != 0)
+{
+<div class="input-group" style="float: left">
+    <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+    <input style="background-color:khaki; color: black" type="text" id="search" placeholder="Search Category" />
+    
+</div>
+
+    <br />
+    <table class="table table-bordered table-hover table-responsive" style="table-layout: fixed">
+        <tr class="bg-info">
+            <th>
+                @Html.DisplayNameFor(model => model.cId)
+
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.categoryName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.creatorId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.frequency)
+
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.createTime)
+            </th>
+            <th>Operations</th>
+        </tr>
+
+        @foreach (var item in Model.Category)
+        {
+            <tr class="searchRecord">
+                <td>
+                    @Html.DisplayFor(modelItem => item.cId)
+
+                </td>
+                <td class="longString">
+                    @Html.DisplayFor(modelItem => item.categoryName)
+
+                </td>
+                <td class="longString">
+                    @Html.DisplayFor(modelItem => item.description)
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.creatorId)
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.frequency)
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.createTime)
+
+                </td>
+                <td>
+
+                    <button class="btn btn-success" onclick="location.href = '@Url.Action("Edit", new { id=item.cId })'" type="button"><i class="glyphicon glyphicon-edit"></i> </button> |
+                    <button class="btn btn-info" onclick="location.href = '@Url.Action("Details", new { id=item.cId })'" type="button"><i class="glyphicon glyphicon-eye-open"></i> </button> |
+                    <button class="btn btn-danger" onclick="location.href = '@Url.Action("Delete", "Category",new { id=item.cId })'" type="button"><i class="glyphicon glyphicon-remove-sign"></i> </button>
+
+                </td>
+            </tr>
+        }
+
+    </table>
+
+    @Html.PagedListPager(Model.Category, Page => Url.Action("Index", "Category", new { Page, pageSize = Model.Category.PageSize }))
+
+
+
+}
+else
+{
+    <h4 style="color: orange"> -- No Categories Found --</h4>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/myscripts.js"></script>
+}

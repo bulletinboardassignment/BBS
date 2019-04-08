@@ -65,17 +65,17 @@
   </EntityType>
   <EntityType Name="Setting">
     <Key>
-      <PropertyRef Name="Id" />
+      <PropertyRef Name="id" />
     </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="HomeImage" Type="nvarchar(max)" />
-    <Property Name="HomeImageText" Type="nvarchar(max)" />
-    <Property Name="NumberOfLastPost" Type="int" />
-    <Property Name="NumberOfCategory" Type="int" />
-    <Property Name="PostNumberInPage" Type="int" />
-    <Property Name="NumberOfTopPost" Type="int" />
-    <Property Name="Update_Time" Type="datetime" />
-    <Property Name="UserId" Type="int" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="homeImage" Type="nvarchar(max)" />
+    <Property Name="homeImageText" Type="nvarchar(max)" />
+    <Property Name="numberOfLastPost" Type="int" />
+    <Property Name="numberOfCategory" Type="int" />
+    <Property Name="postNumberInPage" Type="int" />
+    <Property Name="numberOfTopPost" Type="int" />
+    <Property Name="updateTime" Type="datetime" />
+    <Property Name="userId" Type="int" />
   </EntityType>
   <EntityType Name="User">
     <Key>
@@ -199,7 +199,7 @@
         <PropertyRef Name="userId" />
       </Principal>
       <Dependent Role="Setting">
-        <PropertyRef Name="UserId" />
+        <PropertyRef Name="userId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

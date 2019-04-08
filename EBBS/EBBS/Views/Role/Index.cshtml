@@ -22,7 +22,7 @@
 
 
 <div class="form-group" style="float: right">
-    <button class="btn btn-info" onclick="location.href = '@Url.Action("Create","Role")'" type="button"><i class="glyphicon glyphicon-plus-sign"></i> Create New Role</button>
+    <button class="btn" style="background-color:lightgoldenrodyellow" onclick="location.href = '@Url.Action("Create","Role")'" type="button"><i class="glyphicon glyphicon-plus-sign"></i> Create New Role</button>
 </div>
 
 
@@ -35,13 +35,13 @@
         <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
         <input style="background-color:khaki; color: black" type="text" id="search" placeholder="Search Role" />
     </div>
-    
+
     <br />
     <table class="table table-bordered table-hover table-responsive" style="table-layout: fixed">
         <tr class="bg-info">
             <th>
                 @Html.DisplayNameFor(model => model.rId)
-               
+
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Roles)
@@ -81,32 +81,9 @@ else
 {
     <h4 style="color: orange"> -- No Roles Found --</h4>
 }
-<script src="~/Scripts/jquery-3.3.1.min.js"></script>
-<script>
-    $(document).ready(function () {
-        function Contains(text_one, text_two) {
-            if (text_one.indexOf(text_two) != -1)
-                return true;
-
-        }
-
-        $("#search").keyup(function () {
-            var searchText = $("#search").val().toLocaleLowerCase();
-            $(".searchRecord").each(function () {
-                if (!Contains($(this).text().toLowerCase(), searchText)) {
-                    $(this).hide();
-                } else {
-                    $(this).show();
-                }
-            });
-
-        });
-
-    });
-</script>
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/myscripts.js"></script>
 }

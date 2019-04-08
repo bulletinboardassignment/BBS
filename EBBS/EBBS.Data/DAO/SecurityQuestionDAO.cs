@@ -12,40 +12,35 @@ using EBBS.Data.IDAO;
 
 namespace EBBS.Data.DAO
 {
-    public class SecurityQuestionDAO : ISecurityQuestionDAO
+    public class SecurityQuestionDao : ISecurityQuestionDao
     {
-        private EBBSEntities db;
+        private EBBSEntities context;
 
-        public SecurityQuestionDAO()
+        public SecurityQuestionDao()
         {
-            db = new EBBSEntities();
+            context = new EBBSEntities();
         }
 
         public IList<SecurityQuestion> GetAllSecurityQuestions()
         {
 
-            //IQueryable<SecurityQuestion> _securityQuestions;
-            //_securityQuestions = from sq 
-            //                     in db.SecurityQuestion
-            //                     select sq;
-            //return _securityQuestions.ToList<SecurityQuestion>();
-
-           return db.SecurityQuestion.ToList();
+           return context.SecurityQuestion.ToList();
 
         }
 
         
+
         public void InsertSecurityQuestion(SecurityQuestion newSecurityQuestion)
         {
             try
             {
-                if (db.SecurityQuestion == null)
+                if (context.SecurityQuestion == null)
                 {
                     throw new ArgumentNullException("newSecurityQuestion");
                 }
 
-                this.db.SecurityQuestion.Add(newSecurityQuestion);
-                this.db.SaveChanges();
+                this.context.SecurityQuestion.Add(newSecurityQuestion);
+                this.context.SaveChanges();
             }
             catch (DbEntityValidationException dbEx)
             {
@@ -68,10 +63,8 @@ namespace EBBS.Data.DAO
 
         public SecurityQuestion GetSecurityQuestionById(int id)
         {
-            //SecurityQuestion sq = db.SecurityQuestion.Where(x => x.qId == id).FirstOrDefault();
-            //return sq;
-
-            SecurityQuestion singleRecord = db.SecurityQuestion.SingleOrDefault(x => x.qId == id);
+         
+            SecurityQuestion singleRecord = context.SecurityQuestion.SingleOrDefault(x => x.qId == id);
             return singleRecord;
         }
 
@@ -79,14 +72,14 @@ namespace EBBS.Data.DAO
         {
             try
             {
-                if (db.SecurityQuestion == null)
+                if (context.SecurityQuestion == null)
                 {
                     throw new ArgumentNullException("editSecurityQuestion");
                 }
 
                 SecurityQuestion securityQuestion = GetSecurityQuestionById(editSecurityQuestion.qId);
                 securityQuestion.question = editSecurityQuestion.question;
-                this.db.SaveChanges();
+                this.context.SaveChanges();
             }
             catch (DbEntityValidationException dbEx)
             {
@@ -111,16 +104,16 @@ namespace EBBS.Data.DAO
         {
             try
             {
-                if (db.SecurityQuestion == null)
+                if (context.SecurityQuestion == null)
                 {
                     throw new ArgumentNullException("deleteSecurityQuestion");
                 }
 
                 SecurityQuestion securityQuestion = GetSecurityQuestionById(deleteSecurityQuestion.qId);
 
-                this.db.SecurityQuestion.Remove(securityQuestion);
+                this.context.SecurityQuestion.Remove(securityQuestion);
 
-                this.db.SaveChanges();
+                this.context.SaveChanges();
 
             }
 
@@ -140,10 +133,10 @@ namespace EBBS.Data.DAO
             }
         }
 
-        public bool UniqueRole(string secQuestion)
+        public bool UniqueRole(string securityQuestion)
         {
             var result = true;
-            var uniqueSecurityQuestion = db.SecurityQuestion.FirstOrDefault(x => x.question == secQuestion);
+            var uniqueSecurityQuestion = context.SecurityQuestion.FirstOrDefault(x => x.question == securityQuestion);
 
             if(uniqueSecurityQuestion != null)
             {
@@ -157,6 +150,11 @@ namespace EBBS.Data.DAO
             return result;
 
             
+        }
+
+        public IEnumerable<SecurityQuestion> SqIeNum
+        {
+            get { return context.SecurityQuestion; }
         }
     }
 }

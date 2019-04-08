@@ -10,11 +10,11 @@ using EBBS.Data.IDAO;
 
 namespace EBBS.Data.DAO
 {
-    public class RoleDAO : IRoleDAO
+    public class RoleDao : IRoleDao
     {
         private EBBSEntities context;
 
-        public RoleDAO()
+        public RoleDao()
         {
             context=new EBBSEntities();
             
@@ -28,9 +28,6 @@ namespace EBBS.Data.DAO
 
         public Role RoleById(int id)
         {
-            //Role roleType = context.Role.Where(x => x.rId == id).FirstOrDefault();
-            //return roleType;
-
             Role roleType = context.Role.SingleOrDefault(x => x.rId == id);
             return roleType;
         }
@@ -38,68 +35,33 @@ namespace EBBS.Data.DAO
         public void InsertRole(Role newRole)
         {
 
-            Role _Role = new Role();
-            _Role.roleName = newRole.roleName;
-            context.Role.Add(_Role);
+            Role role = new Role();
+            role.roleName = newRole.roleName;
+            context.Role.Add(role);
             context.SaveChanges();
         }
-
-        //public void Edit(Role editRole)
-        //    {
-               
-
-        //            try
-        //            {
-        //                if (context.Role == null)
-        //                {
-        //                    throw new ArgumentNullException("editRole");
-        //                }
-
-        //                Role role = RoleById(editRole.rId);
-        //                role.roleName = editRole.roleName;
-        //                this.context.SaveChanges();
-        //            }
-        //            catch (DbEntityValidationException dbEx)
-        //            {
-        //                string errorMessage = "";
-        //                foreach (var validationErrors in dbEx.EntityValidationErrors)
-        //                {
-
-        //                    foreach (var validationError in validationErrors.ValidationErrors)
-        //                    {
-
-        //                        errorMessage += string.Format("Property: {0} Error: {1}",
-        //                                            validationError.PropertyName, validationError.ErrorMessage) 
-        //                                        + Environment.NewLine;
-        //                    }
-        //                }
-
-        //                throw new Exception(errorMessage, dbEx);
-        //            }
-
-        //}
 
 
         public void UpdateRole(Role editRole)
         {
-            Role role = RoleById(editRole.rId);
-            role.roleName = editRole.roleName;
+            Role roleById = RoleById(editRole.rId);
+            roleById.roleName = editRole.roleName;
             context.SaveChanges();
         }
 
 
-        public void DeleteRole(Role deRole)
+        public void DeleteRole(Role deleteRole)
         {
             try
             {
                 if (context.Role == null)
                 {
-                    throw new ArgumentNullException("delRole");
+                    throw new ArgumentNullException("deleteRole");
                 }
 
-                Role roleBy = RoleById(deRole.rId);
+                Role roleById = RoleById(deleteRole.rId);
 
-                this.context.Role.Remove(roleBy);
+                this.context.Role.Remove(roleById);
 
                 this.context.SaveChanges();
             }
@@ -120,12 +82,12 @@ namespace EBBS.Data.DAO
             }
         }
 
-        public bool UniqueRole(string roleName)
+        public bool UniqueRole(string uniqueRole)
         {
             var result = true;
-            var roleUnique = context.Role.FirstOrDefault(x=>x.roleName==roleName);
+            var roleByUnique = context.Role.FirstOrDefault(x=>x.roleName== uniqueRole);
 
-            if (roleUnique != null)
+            if (roleByUnique != null)
             {
                 result = true;
             }
@@ -136,28 +98,9 @@ namespace EBBS.Data.DAO
             return result;
         }
 
-        //public void Save(Role role)
-        //{
-        //    if (role.rId == 0)
-        //    {
-
-        //        Role _Role = new Role();
-        //        _Role.roleName = role.roleName;
-        //        context.Role.Add(_Role);
-        //        context.SaveChanges();
-
-        //    }
-        //    else
-        //    {
-        //        Role dbEntry = context.Role.Find(role.rId);
-        //        if (dbEntry != null)
-        //        {
-        //            dbEntry.rId = role.rId;
-        //            dbEntry.roleName = role.roleName;
-        //            context.SaveChanges();
-        //            role.rId = dbEntry.rId;
-        //        }
-        //    }
-        //}
+        public IEnumerable<Role> RoleIeNum
+        {
+            get { return context.Role; }
+        }
     }
 }

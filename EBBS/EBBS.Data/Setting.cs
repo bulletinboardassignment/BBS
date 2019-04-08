@@ -14,15 +14,15 @@ namespace EBBS.Data
     
     public partial class Setting
     {
-        public int Id { get; set; }
-        public string HomeImage { get; set; }
-        public string HomeImageText { get; set; }
-        public Nullable<int> NumberOfLastPost { get; set; }
-        public Nullable<int> NumberOfCategory { get; set; }
-        public Nullable<int> PostNumberInPage { get; set; }
-        public Nullable<int> NumberOfTopPost { get; set; }
-        public Nullable<System.DateTime> Update_Time { get; set; }
-        public Nullable<int> UserId { get; set; }
+        public int id { get; set; }
+        public string homeImage { get; set; }
+        public string homeImageText { get; set; }
+        public Nullable<int> numberOfLastPost { get; set; }
+        public Nullable<int> numberOfCategory { get; set; }
+        public Nullable<int> postNumberInPage { get; set; }
+        public Nullable<int> numberOfTopPost { get; set; }
+        public Nullable<System.DateTime> updateTime { get; set; }
+        public Nullable<int> userId { get; set; }
     
         public virtual User User { get; set; }
     }

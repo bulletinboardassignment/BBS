@@ -18,24 +18,21 @@ namespace EBBS.Controllers
     public class RoleController : Controller
     {
 
-        private readonly IRoleService roleService;
+        private readonly IRoleService _roleService;
 
         //public object Mapper { get; set; }
 
         public RoleController()
         {
-            roleService = new RoleService();
+            _roleService = new RoleService();
         }
         
         // GET: Role
         //[Authorize(Roles = "Admin")]
         public ActionResult Index(int page =1, int pageSize=5)
         {
-            //IEnumerable<Role> roleList = roleService.GetAllRoles();
-            //PagedList<Role> model = new PagedList<Role>(roleList, page, pageSize);
-            //return View(model);
-           
-            var roleList = roleService.GetAllRoles();
+
+            var roleList = _roleService.GetAllRoles().OrderBy(p=>p.rId).OrderByDescending(p=>p.rId);
             var roleViewList = AutoMapper.Mapper.Map<IEnumerable<Role>, IEnumerable<RoleViewModel>>(roleList);
             var model = new RoleVm();
             model.Roles = roleViewList.ToPagedList(page,pageSize);
@@ -57,25 +54,24 @@ namespace EBBS.Controllers
         public ActionResult Create(RoleViewModel data)
 
         {
-
             Role obj = new Role();
             if (ModelState.IsValid)
             {
-                bool RoleUniqe = roleService.UniqueRole(data.roleName.TrimEnd());
-                if (RoleUniqe == true)
+                bool role = _roleService.UniqueRole(data.roleName.TrimEnd());
+                if (role == true)
                 {
 
-                    TempData["UniqeMessage"] = "Record is Exist, Please Enter New One";
+                    TempData["addUniqueMessage"] = "Record is Exist, Please Enter a New One";
                     return RedirectToAction("Create", "Role");
                 }
                 obj.roleName = data.roleName.TrimEnd();
-                roleService.InsertRole(obj);
+                _roleService.InsertRole(obj);
                 TempData["message"] = "Success ! You have created a new record";
                 return RedirectToAction("Index", "Role");
 
             }
 
-            return View(data);
+            return View();
         }
 
         
@@ -85,7 +81,7 @@ namespace EBBS.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Role role = roleService.RoleById(id);
+            Role role = _roleService.RoleById(id);
             if (role == null)
             {
                 return HttpNotFound();
@@ -98,8 +94,8 @@ namespace EBBS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Role role = roleService.RoleById(id);
-            roleService.DeleteRole(role);
+            Role role = _roleService.RoleById(id);
+            _roleService.DeleteRole(role);
             TempData["deleteMessage"] = "Success ! You have deleted a record";
             return RedirectToAction("Index");
         }
@@ -112,7 +108,7 @@ namespace EBBS.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Role roleEdit = roleService.RoleById(id);
+            Role roleEdit = _roleService.RoleById(id);
 
             if (roleEdit == null)
             {
@@ -131,15 +127,15 @@ namespace EBBS.Controllers
         {
             if (ModelState.IsValid)
             {
-                bool RoleUniqe = roleService.UniqueRole(editData.roleName.TrimEnd());
-                if (RoleUniqe == true)
+                bool uniqueRole = _roleService.UniqueRole(editData.roleName.TrimEnd());
+                if (uniqueRole == true)
                 {
 
-                    TempData["UniqeMessage"] = "Record is Exist, Please Enter New One";
+                    TempData["uniqueMessage"] = "Record is Exist, Please modify with a new role";
                     return RedirectToAction("Edit", "Role");
                 }
 
-                    roleService.UpdateRole(editData);
+                    _roleService.UpdateRole(editData);
                     TempData["editMessage"] = "Success ! You have modified the record";
                     return RedirectToAction("Index", "Role");
                 
@@ -148,15 +144,7 @@ namespace EBBS.Controllers
             return View(editData);
         }
 
-        
-        //private Users GetUserSession()
-        //{
-        //    if (Session["user"] == null)
-        //    {
-        //        Session["user"] = new Users();
-        //    }
-        //    return (Users)Session["user"];
-        //}
+     
 
 
     }

@@ -12,12 +12,14 @@ namespace EBBS.Service.Service
 {
     public class SecurityQuestionService : ISecurityQuestionService
     {
-        private ISecurityQuestionDAO _questionDao;
+        private ISecurityQuestionDao _questionDao;
 
         public SecurityQuestionService()
         {
-            _questionDao=new SecurityQuestionDAO();
+            _questionDao=new SecurityQuestionDao();
         }
+
+        public IEnumerable<SecurityQuestion> SqIeNum => _questionDao.SqIeNum;
 
         public void DeleteSecurityQuestion(SecurityQuestion deleteSecurityQuestion)
         {

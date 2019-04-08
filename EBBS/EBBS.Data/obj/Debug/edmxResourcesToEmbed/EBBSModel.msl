@@ -73,15 +73,15 @@
     <EntitySetMapping Name="Setting">
       <EntityTypeMapping TypeName="EBBSModel.Setting">
         <MappingFragment StoreEntitySet="Setting">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="HomeImage" ColumnName="HomeImage" />
-          <ScalarProperty Name="HomeImageText" ColumnName="HomeImageText" />
-          <ScalarProperty Name="NumberOfLastPost" ColumnName="NumberOfLastPost" />
-          <ScalarProperty Name="NumberOfCategory" ColumnName="NumberOfCategory" />
-          <ScalarProperty Name="PostNumberInPage" ColumnName="PostNumberInPage" />
-          <ScalarProperty Name="NumberOfTopPost" ColumnName="NumberOfTopPost" />
-          <ScalarProperty Name="Update_Time" ColumnName="Update_Time" />
-          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="homeImage" ColumnName="homeImage" />
+          <ScalarProperty Name="homeImageText" ColumnName="homeImageText" />
+          <ScalarProperty Name="numberOfLastPost" ColumnName="numberOfLastPost" />
+          <ScalarProperty Name="numberOfCategory" ColumnName="numberOfCategory" />
+          <ScalarProperty Name="postNumberInPage" ColumnName="postNumberInPage" />
+          <ScalarProperty Name="numberOfTopPost" ColumnName="numberOfTopPost" />
+          <ScalarProperty Name="updateTime" ColumnName="updateTime" />
+          <ScalarProperty Name="userId" ColumnName="userId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

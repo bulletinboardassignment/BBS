@@ -47,7 +47,11 @@ namespace EBBS.Data
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Post> Post { get; set; }
         public virtual Role Role { get; set; }
+
+        virtual public IEnumerable<Role> IENUMRoleDetails { get; set; }
         public virtual SecurityQuestion SecurityQuestion { get; set; }
+        virtual public IEnumerable<SecurityQuestion> IENUMQuestionDetails { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Setting> Setting { get; set; }
     }
