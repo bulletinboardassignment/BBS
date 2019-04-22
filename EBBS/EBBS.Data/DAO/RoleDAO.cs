@@ -12,11 +12,11 @@ namespace EBBS.Data.DAO
 {
     public class RoleDao : IRoleDao
     {
-        private EBBSEntities context;
+        private EbbSEntities context;
 
         public RoleDao()
         {
-            context=new EBBSEntities();
+            context=new EbbSEntities();
             
         }
 

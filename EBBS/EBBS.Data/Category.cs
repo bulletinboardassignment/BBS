@@ -11,8 +11,7 @@ namespace EBBS.Data
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Category
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,27 +19,17 @@ namespace EBBS.Data
         {
             this.Post = new HashSet<Post>();
         }
-
-        [Display(Name = "Category ID")]
-
+    
         public int cId { get; set; }
-
-        [Display(Name = "Title")]
         public string categoryName { get; set; }
-        [Display(Name = "Description")]
         public string description { get; set; }
-        [Display(Name = "Creator")]
+        public Nullable<int> frequency { get; set; }
         public Nullable<int> creatorId { get; set; }
-
-
-        [Display(Name = "Created On")]
         public Nullable<System.DateTime> createTime { get; set; }
 
-        [Display(Name = "Frequency")]
-        public Nullable<int> frequency { get; set; }
     
+        public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Post> Post { get; set; }
-        public virtual User User { get; set; }
     }
 }

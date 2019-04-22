@@ -9,7 +9,7 @@ namespace EBBS.Service.IService
 {
    public interface ISecurityQuestionService
     {
-        IList<SecurityQuestion> GetAllSecurityQuestions();
+        List<SecurityQuestion> GetMySQs();
 
         SecurityQuestion GetSecurityQuestionById(int id);
 

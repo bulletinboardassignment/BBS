@@ -16,7 +16,7 @@ namespace EBBS.Controllers
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
-
+            
             return View();
         }
 
@@ -26,5 +26,16 @@ namespace EBBS.Controllers
 
             return View();
         }
+
+        public ActionResult LogMeOut()
+        {
+
+            Session.Clear();
+            return View();
+        }
+
+
+
+
     }
 }

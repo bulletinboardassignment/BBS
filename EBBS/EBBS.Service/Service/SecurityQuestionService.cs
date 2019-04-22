@@ -27,10 +27,7 @@ namespace EBBS.Service.Service
         }
 
 
-        public IList<SecurityQuestion> GetAllSecurityQuestions()
-        {
-            return _questionDao.GetAllSecurityQuestions();
-        }
+    
 
         public SecurityQuestion GetSecurityQuestionById(int id)
         {
@@ -50,6 +47,11 @@ namespace EBBS.Service.Service
         public void UpdateSecurityQuestion(SecurityQuestion editSecurityQuestion)
         {
             _questionDao.UpdateSecurityQuestion(editSecurityQuestion);
+        }
+
+        public List<SecurityQuestion> GetMySQs()
+        {
+            return _questionDao.GetMySQs();
         }
     }
 }

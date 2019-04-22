@@ -27,6 +27,11 @@ namespace EBBS.Controllers
         public ActionResult Index(int page = 1, int pageSize = 5)
         {
 
+            User user = GetUserSession();
+            string userType = user.Role.roleName;
+
+            ViewBag.userType = userType;
+
             var categoryList = _categoryService.GetAllCategories().OrderBy(p => p.cId)
                 .OrderByDescending(p => p.cId);
             var categoryViewList = AutoMapper.Mapper.Map<IEnumerable<Category>, IEnumerable<CategoryViewModel>>(categoryList);
@@ -48,17 +53,7 @@ namespace EBBS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "cId,categoryName,description,creatorId,createTime,frequency")] Category data)
         {
-            //var identity = (HttpContext.User as MyPrincipal).Identity as MyIdentity;
-            //if (identity == null)
-            //{
-            //    throw new ArgumentNullException("");
-            //}
-            //else
-            //{
-                //int currentUserId = Convert.ToInt32(identity.User.userId);
-            //}
-           
-
+          
             Category obj = GetCategorySession();
        
             if (ModelState.IsValid)
@@ -164,18 +159,6 @@ namespace EBBS.Controllers
             return View(category);
         }
 
-        ////[AllowAnonymous]
-        ////[ChildActionOnly]
-
-        //public ActionResult LastCategory()
-        //{
-        //    Setting _NumOfCategory;
-        //    _NumOfCategory = repositorySetting.GetSetting;
-        //    IEnumerable<Category> Model;
-        //    Model = repositoryICategory.CategoryIList.Take(_NumOfCategory.NumberOfCategory).Distinct(); ;
-
-        //    return PartialView("_LastCategory", Model);
-        //}
 
         private Category GetCategorySession()
         {
@@ -184,6 +167,20 @@ namespace EBBS.Controllers
                 Session["category"] = new Category();
             }
             return (Category)Session["category"];
+        }
+
+
+        private User GetUserSession()
+        {
+            if (Session["lUser"] != null)
+            {
+                User user = (User)Session["lUser"];
+                return user;
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

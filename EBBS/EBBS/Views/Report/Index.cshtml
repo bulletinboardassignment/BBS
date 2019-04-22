@@ -1,0 +1,97 @@
+﻿@model IEnumerable<EBBS.Data.Reports>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.rId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.postId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.reason)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.reportedBy)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.rId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Post.postTitle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.reason)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.username)
+        </td>
+        <td>
+            <a data="@item.postId" class="btn btn-success allow">Allow Post!</a>
+            <a data="@item.postId" class="btn btn-danger delete">Delete Post!</a>
+        </td>
+    </tr>
+}
+
+</table>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script>
+    $(".allow").click(function () {
+        var id = $(this).attr("data");
+
+        $.ajax({
+            type: 'POST',
+            data: { id: id },
+            url: '/Report/Stay',
+            success: function (response) {
+                alert(response);
+                window.location.href = "/Report/Index";
+            },
+            error: function (a, b, c) {
+
+            }
+
+        });
+        
+    });
+
+    $(".delete").click(function () {
+        var id = $(this).attr("data");
+
+        $.ajax({
+            type: 'POST',
+            data: { id: id },
+            url: '/Report/DeletePost',
+            success: function (response) {
+                alert(response);
+                window.location.href = "/Report/Index";
+            },
+            error: function (a, b, c) {
+
+            }
+
+        });
+
+    });
+
+    
+
+
+
+
+
+
+
+
+
+
+</script>

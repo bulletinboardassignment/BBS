@@ -23,5 +23,6 @@ namespace EBBS.Data.IDAO
 
         IEnumerable<SecurityQuestion> SqIeNum { get; }
 
+        List<SecurityQuestion> GetMySQs();
     }
 }

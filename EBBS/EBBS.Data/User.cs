@@ -20,7 +20,9 @@ namespace EBBS.Data
             this.Category = new HashSet<Category>();
             this.Comment = new HashSet<Comment>();
             this.Like = new HashSet<Like>();
+            this.Logs = new HashSet<Logs>();
             this.Post = new HashSet<Post>();
+            this.Reports = new HashSet<Reports>();
             this.Setting = new HashSet<Setting>();
         }
     
@@ -45,13 +47,13 @@ namespace EBBS.Data
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Like> Like { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Logs> Logs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Post> Post { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Reports> Reports { get; set; }
         public virtual Role Role { get; set; }
-
-        virtual public IEnumerable<Role> IENUMRoleDetails { get; set; }
         public virtual SecurityQuestion SecurityQuestion { get; set; }
-        virtual public IEnumerable<SecurityQuestion> IENUMQuestionDetails { get; set; }
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Setting> Setting { get; set; }
     }

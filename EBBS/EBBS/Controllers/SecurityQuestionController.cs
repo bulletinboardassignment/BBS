@@ -25,7 +25,7 @@ namespace EBBS.Controllers
         // GET: SecurityQuestion
         public ActionResult Index(int page = 1, int pageSize = 5)
         {
-            var sqList = _securityQuestionService.GetAllSecurityQuestions().OrderBy(p=>p.qId).OrderByDescending(p=>p.qId);
+            var sqList = _securityQuestionService.GetMySQs().OrderBy(p=>p.qId).OrderByDescending(p=>p.qId);
             var sqViewList = AutoMapper.Mapper.Map<IEnumerable<SecurityQuestion>, IEnumerable<SecurityQuestionViewModel>>(sqList);
             var model = new SecurityQuestionVm();
             model.Question = sqViewList.ToPagedList(page, pageSize);
@@ -131,6 +131,20 @@ namespace EBBS.Controllers
             _securityQuestionService.DeleteSecurityQuestion(data);
             TempData["deleteMessage"] = "Success ! You have deleted the record.";
             return RedirectToAction("Index");
+        }
+
+
+        private User GetUserSession()
+        {
+            if (Session["lUser"] != null)
+            {
+                User user = (User)Session["lUser"];
+                return user;
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

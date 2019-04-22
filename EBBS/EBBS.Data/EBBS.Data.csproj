@@ -57,6 +57,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -66,72 +67,67 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Category.cs">
-      <DependentUpon>EBBSModel.tt</DependentUpon>
+      <DependentUpon>EbbsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Comment.cs">
-      <DependentUpon>EBBSModel.tt</DependentUpon>
+      <DependentUpon>EbbsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DAO\CategoryDao.cs" />
+    <Compile Include="DAO\LogDAO.cs" />
+    <Compile Include="DAO\CommentDAO.cs" />
+    <Compile Include="DAO\PostDAO.cs" />
+    <Compile Include="DAO\ReportDAO.cs" />
     <Compile Include="DAO\UserDao.cs" />
     <Compile Include="DAO\RoleDao.cs" />
     <Compile Include="DAO\SecurityQuestionDao.cs" />
-    <Compile Include="EBBSModel.Context.cs">
+    <Compile Include="EbbsModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>EBBSModel.Context.tt</DependentUpon>
+      <DependentUpon>EbbsModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="EBBSModel.cs">
+    <Compile Include="EbbsModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>EBBSModel.tt</DependentUpon>
+      <DependentUpon>EbbsModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="EBBSModel.Designer.cs">
+    <Compile Include="EbbsModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>EBBSModel.edmx</DependentUpon>
+      <DependentUpon>EbbsModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="IDAO\ICommentDAO.cs" />
     <Compile Include="IDAO\ICategoryDao.cs" />
+    <Compile Include="IDAO\ILogDAO.cs" />
+    <Compile Include="IDAO\IPostDAO.cs" />
+    <Compile Include="IDAO\IReportDAO.cs" />
     <Compile Include="IDAO\IRoleDao.cs" />
     <Compile Include="IDAO\ISecurityQuestionDao.cs" />
     <Compile Include="IDAO\IUserDao.cs" />
     <Compile Include="Like.cs">
-      <DependentUpon>EBBSModel.tt</DependentUpon>
+      <DependentUpon>EbbsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Logs.cs">
+      <DependentUpon>EbbsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Post.cs">
-      <DependentUpon>EBBSModel.tt</DependentUpon>
+      <DependentUpon>EbbsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reports.cs">
+      <DependentUpon>EbbsModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Role.cs">
-      <DependentUpon>EBBSModel.tt</DependentUpon>
+      <DependentUpon>EbbsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="SecurityQuestion.cs">
-      <DependentUpon>EBBSModel.tt</DependentUpon>
+      <DependentUpon>EbbsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Setting.cs">
-      <DependentUpon>EBBSModel.tt</DependentUpon>
+      <DependentUpon>EbbsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="User.cs">
-      <DependentUpon>EBBSModel.tt</DependentUpon>
+      <DependentUpon>EbbsModel.tt</DependentUpon>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="EBBS.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="EBBSModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>EBBSModel.edmx</DependentUpon>
-      <LastGenOutput>EBBSModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="EBBSModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>EBBSModel.edmx</DependentUpon>
-      <LastGenOutput>EBBSModel.cs</LastGenOutput>
-    </Content>
-    <Content Include="EBBS_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <DependentUpon>EBBS.mdf</DependentUpon>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -149,15 +145,34 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.Config">
-      <SubType>Designer</SubType>
-    </None>
-    <EntityDeploy Include="EBBSModel.edmx">
+    <Content Include="EBBS.mdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="EbbsModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>EbbsModel.Context.cs</LastGenOutput>
+      <DependentUpon>EbbsModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="EbbsModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>EbbsModel.edmx</DependentUpon>
+      <LastGenOutput>EbbsModel.cs</LastGenOutput>
+    </Content>
+    <Content Include="EBBS_log.ldf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <DependentUpon>EBBS.mdf</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="EbbsModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>EBBSModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>EbbsModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="EBBSModel.edmx.diagram">
-      <DependentUpon>EBBSModel.edmx</DependentUpon>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <None Include="EbbsModel.edmx.diagram">
+      <DependentUpon>EbbsModel.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
   </ItemGroup>

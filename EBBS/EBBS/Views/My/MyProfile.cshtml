@@ -1,0 +1,94 @@
+﻿@model EBBS.Data.User
+
+<div>
+    <h4>User</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.firstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.firstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.lastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.lastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.username)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.username)
+        </dd>
+ 
+
+        <dt>
+            @Html.DisplayNameFor(model => model.createTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.createTime)
+        </dd>
+ 
+
+        <dt>
+            @Html.DisplayNameFor(model => model.lastLogin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.lastLogin)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.answer)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.answer)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.userImage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.userImage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.imageSize)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.imageSize)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Role.roleName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Role.roleName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SecurityQuestion.question)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SecurityQuestion.question)
+        </dd>
+
+    </dl>
+</div>
+<img src="~/images/@Model.userImage" width="400" height="400"  alt="no image found" />
+<p>
+    <a href="/My/MyEdit/@Model.userId" class="btn btn-default">Edit My Profile</a>
+</p>

@@ -1,0 +1,64 @@
+﻿
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+@model EBBS.Models.PostModel
+
+<div class="row">
+    <div class="col-md-6">
+        <form id="newPost" method="post" enctype="multipart/form-data">
+            <label>Title</label><br />
+            <input type="tel" id="postTitle" name="postTitle" class="form-control" placeholder="Post Title" />
+
+            <label>Content</label>
+            <textarea name="postContent" id="postContent" class="form-control"></textarea>
+
+            <label>Category</label>
+            @Html.DropDownList("categoryId", (IEnumerable<SelectListItem>) ViewBag.categories )
+            <br />
+
+            <label>Media</label>
+            <input type="file" id="file" name="file" />
+
+            <a href="#" class="btn btn-default" onclick="UploadImage()" >Upload</a>
+        </form>
+
+    </div>
+
+</div>
+
+<script type="text/javascript" src="~/Scripts/jquery-3.3.1.min.js"></script>
+   
+<script>
+    var UploadImage = function () {
+        var file = $("#file").get(0).files;
+        var data = new FormData;
+
+        data.append("postTitle", $("#postTitle").val());
+        data.append("postContent", $("#postContent").val());
+        data.append("postImage", file[0]);
+        data.append("categoryId", $("#categoryId").val());
+        alert($("#categoryId").val());
+
+        $.ajax({
+            type: 'POST',
+            url: "/Post/Create",
+            data: data,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                window.location.href = "/Post/Index";
+                alert("You added some post");
+            },
+            error: function () {
+
+
+            }
+        });
+
+    }
+
+
+</script>

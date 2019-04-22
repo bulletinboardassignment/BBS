@@ -1,21 +1,10 @@
-﻿ @model IEnumerable<EBBS.Data.User>
-@*@using PagedList
-@using PagedList.Mvc*@
-
-@{
-    ViewBag.Title = "Index";
-}
-
-<h2>Index</h2>
+﻿@model IEnumerable<EBBS.Data.User>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.userId)
-        </th>
         <th>
             @Html.DisplayNameFor(model => model.firstName)
         </th>
@@ -24,29 +13,36 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.username)
+        </th> 
+        <th>
+            @Html.DisplayNameFor(model => model.createTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.updateTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.lastLogin)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.answer)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.userImage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.imageSize)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Role.roleName)
         </th>
-
         <th>
-            @Html.DisplayNameFor(model => model.createTime)
+            @Html.DisplayNameFor(model => model.SecurityQuestion.question)
         </th>
-
-        <th>
-            @Html.DisplayNameFor(model => model.lastLogin)
-        </th>
-
-
-
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.userId)
-        </td>
         <td>
             @Html.DisplayFor(modelItem => item.firstName)
         </td>
@@ -55,27 +51,36 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.username)
+        </td> 
+        <td>
+            @Html.DisplayFor(modelItem => item.createTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.updateTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.lastLogin)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.answer)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.userImage)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.imageSize)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Role.roleName)
         </td>
-
         <td>
-            @Html.DisplayFor(modelItem => item.createTime)
+            @Html.DisplayFor(modelItem => item.SecurityQuestion.question)
         </td>
-
         <td>
-            @Html.DisplayFor(modelItem => item.lastLogin)
-        </td>
-
-
-
-
-
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.userId }) |
-            @Html.ActionLink("Details", "Details", new { id = item.userId }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.userId })
+            <a class="btn btn-info" href="/User/Details/@item.userId">Details</a>
+            
+            @Html.ActionLink("Details", "Details", new { id=item.userId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.userId })
         </td>
     </tr>
 }

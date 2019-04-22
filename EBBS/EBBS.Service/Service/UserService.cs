@@ -76,5 +76,40 @@ namespace EBBS.Service.Service
         {
             return _userDao.UniqueEmail(email);
         }
+
+        public List<User> GetAllUsersExceptMe(int currentUserId)
+        {
+            return _userDao.GetAllUsersExceptMe(currentUserId);
+        }
+
+        public User GetUser(int userId)
+        {
+            return _userDao.GetUser(userId);
+        }
+
+        public void DeleteUser(int userId)
+        {
+            _userDao.Delete(userId);
+        }
+
+        public void EditUser(int oldUserId, User newUser)
+        {
+            _userDao.EditUser(oldUserId, newUser);
+        }
+
+        public string GetUserPassword(int userId)
+        {
+            return _userDao.GetUserPassword(userId);
+        }
+
+        public void ChangeUserPassword(int userId, string newPassword)
+        {
+            _userDao.ChangeUserPassword(userId, newPassword);
+        }
+
+        public int AreResetCredentialsTrue(string username, int sqId, string answer)
+        {
+            return _userDao.AreResetCredentialsTrue(username, sqId, answer);
+        }
     }
 }

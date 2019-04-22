@@ -13,10 +13,10 @@ namespace EBBS.Data
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class EBBSEntities : DbContext
+    public partial class EbbSEntities : DbContext
     {
-        public EBBSEntities()
-            : base("name=EBBSEntities")
+        public EbbSEntities()
+            : base("name=EbbSEntities")
         {
         }
     
@@ -28,7 +28,9 @@ namespace EBBS.Data
         public virtual DbSet<Category> Category { get; set; }
         public virtual DbSet<Comment> Comment { get; set; }
         public virtual DbSet<Like> Like { get; set; }
+        public virtual DbSet<Logs> Logs { get; set; }
         public virtual DbSet<Post> Post { get; set; }
+        public virtual DbSet<Reports> Reports { get; set; }
         public virtual DbSet<Role> Role { get; set; }
         public virtual DbSet<SecurityQuestion> SecurityQuestion { get; set; }
         public virtual DbSet<Setting> Setting { get; set; }

@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\user\Desktop\Final\EBBS\EBBS.Data\EBBSModel.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\user\Desktop\last bbs so far\bbs\BBS-02e05bf3670de0391aff8912d005aacd41d3ad85\EBBS\EBBS.Data\EbbsModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

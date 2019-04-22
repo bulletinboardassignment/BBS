@@ -1,0 +1,22 @@
+﻿@model IEnumerable<EBBS.Data.Comment>
+
+
+
+@foreach (var comment in Model)
+{
+    <div class="comment">
+        <h1>@comment.User.firstName @comment.User.lastName</h1>
+        <p>@comment.commentText</p>
+        <p>@comment.createTime</p>
+        <span>Post Title:</span><p>@comment.Post.postTitle</p>
+        <a class="btn btn-danger delete" href="/Comment/Delete/@comment.commentId">Delete</a>
+        <a class="btn btn-warning edit" href="/Comment/Edit/@comment.commentId">Edit</a>
+
+    </div>
+
+}
+
+
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>

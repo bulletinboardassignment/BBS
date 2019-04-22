@@ -24,9 +24,14 @@ namespace EBBS.Service.IService
 
         User Authenticate(string username, string password);
         bool Logout();
+        List<User> GetAllUsersExceptMe(int currentUserId);
         string Encrypt(string clearText);
         string Decrypt(string cipherText);
-
-
+        string GetUserPassword(int userId);
+        User GetUser(int userId);
+        void DeleteUser(int userId);
+        void ChangeUserPassword(int userId, string newPassword);
+        void EditUser(int oldUserId, User newUser);
+        int AreResetCredentialsTrue(string username, int sqId, string answer);
     }
 }

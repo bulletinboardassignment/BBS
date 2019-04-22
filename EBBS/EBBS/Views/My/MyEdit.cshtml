@@ -1,0 +1,59 @@
+﻿@model EBBS.Models.UserUpdateModel
+
+
+<form id="userUpdateForm" method="post" enctype="multipart/form-data">
+    <span>First Name:</span><input type="text" class="form-control" id="firstname" name="firstname" value="@ViewBag.user.firstName"   />
+    <input type="text" class="form-control" id="lastname"  name="lastname" value="@ViewBag.user.lastName" />
+    <input type="text" class="form-control" id="username"   name="username" value="@ViewBag.user.username"/>
+    <select id="questionId" name="qId">
+        @foreach (var question in (List<EBBS.Data.SecurityQuestion>)ViewBag.securityQuestions)
+        {
+            <option value="@question.qId">@question.question</option>
+        }
+    </select>
+    <input type="text" class="form-control" id="answer"  name="answer" value="@ViewBag.user.answer"/>
+    <img src="~/images/@ViewBag.user.userImage" alt="not found" />
+    <input type="file" id="userImage" name="userImage" />
+    <a href="#" class="btn btn-default" id="saveChanges" onclick="updateUser()">Save Changes</a>
+
+</form>
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+
+<script>
+    var updateUser = function () {
+        var firstname = $("#firstname").val();
+        var lastname = $("#lastname").val();
+        var username = $("#username").val();
+        var qId = $("#questionId").val();
+        var answer = $("#answer").val();
+        var userImage = $("#userImage").get(0).files; 
+
+        var data = new FormData;
+        data.append("firstname", firstname);
+        data.append("lastname", lastname);
+        data.append("username", username);
+        data.append("qId", qId);
+        data.append("answer", answer);
+        data.append("userImage", userImage[0]);
+
+
+        $.ajax({
+            type: 'POST',
+            url: '/My/MyEdit',
+            data: data,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                alert(response);
+            },
+            error: function (a, b, c) {
+                alert(c);
+            }
+        });
+
+
+    };
+
+
+</script>

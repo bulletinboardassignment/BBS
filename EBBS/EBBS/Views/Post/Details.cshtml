@@ -1,0 +1,77 @@
+﻿@model EBBS.Data.Post
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+<div class="row">
+    <div class="col-md-6">
+        <form id="newPost" method="post" enctype="multipart/form-data">
+
+            <input type="hidden" value="@Model.pId" id="pId" disabled />
+            <label>Title</label><br />
+            <input type="text" id="postTitle" value="@Model.postTitle" name="postTitle" class="form-control" placeholder="Post Title" disabled />
+
+            <label>Content</label>
+            <textarea name="postContent" id="postContent" class="form-control" disabled>@Model.postContent</textarea>
+
+            <label>Category:</label>
+            @Html.DropDownList("categoryId", (IEnumerable<SelectListItem>)ViewBag.categories)
+            <br />
+             
+            @if (Model.mediaType == "image/jpeg" || Model.mediaType == "image/jpg")
+            {
+                <img src="~/images/@Model.mediaPath" width="100" height="100" />
+            }
+            else if (Model.mediaType == "video/mp4")
+            {
+                <video width="320" height="240" controls>
+                    <source src="~/images/@Model.mediaPath" type="@Model.mediaType">
+
+                    Your browser does not support the video tag.
+                </video>
+            }
+             
+        </form>
+
+    </div>
+
+</div><br />
+<hr />
+@foreach (var comment in (List<EBBS.Data.Comment>)ViewBag.comments) {
+<div class="comment">
+    <h1>@comment.User.firstName @comment.User.lastName</h1>
+    <p>@comment.commentText</p>
+    <p>@comment.createTime</p>
+    
+    @if (@comment.commentedBy == (int) ViewBag.currentUser)
+    {
+        
+        <a class="btn btn-info" href="/Comment/Edit/@comment.commentId">Edit</a>
+        <a class="btn btn-danger" href="/Comment/Delete/@comment.commentId">Delete</a>
+    }
+
+
+
+</div>
+         
+}
+
+
+<div>
+    <h4>Post</h4>
+    <hr />
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.pId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+<style>
+    .comment {
+        background-color:aliceblue;
+        width:500px;
+        height:300px;
+    }
+
+</style>

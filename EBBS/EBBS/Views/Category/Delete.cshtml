@@ -11,47 +11,15 @@
 
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.categoryName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.categoryName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.description)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.description)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.createTime)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.createTime)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.frequency)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.frequency)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.User.firstName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.User.firstName)
-        </dd>
-
-    </dl>
+            <dt>Category Name :</dt>
+            <dd>@Html.DisplayFor(model => model.categoryName)</dd>
+            <dt>Description : </dt>
+            <dd>@Html.DisplayFor(model => model.description)</dd>
+            <dt> Created By: </dt>
+            <dd> @Model.User.firstName @Model.User.lastName</dd>
+            <dt> Created On : </dt>
+            <dd>@Html.DisplayFor(model => model.createTime)</dd>
+   </dl>
 
     @using (Html.BeginForm("delete", "Category", FormMethod.Post))
     {

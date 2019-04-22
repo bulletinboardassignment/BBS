@@ -14,11 +14,11 @@ namespace EBBS.Data.DAO
 {
     public class UserDao : IUserDao
     {
-        private EBBSEntities context;
+        private EbbSEntities context;
 
         public UserDao()
         {
-            context = new EBBSEntities();
+            context = new EbbSEntities();
 
         }
 
@@ -209,11 +209,60 @@ namespace EBBS.Data.DAO
             return false;
         }
 
+        public List<User> GetAllUsersExceptMe(int currentUserId)
+        {
+            return context.User.Where(x => x.userId != currentUserId).ToList();
+        }
 
+        public User GetUser(int userId)
+        {
+            return context.User.Where(x => x.userId == userId).FirstOrDefault();
+        }
 
+        public void DeleteUser(int userId)
+        {
+            context.User.Remove(this.GetUser(userId));
+            context.SaveChanges();
+        }
 
+        public void EditUser(int oldUserId, User newUser)
+        {
+            User oldUser = this.GetUser(oldUserId);
+            oldUser.answer = newUser.answer;
+            oldUser.firstName = newUser.firstName;
+            oldUser.lastName = newUser.lastName;
+            oldUser.questionId = newUser.questionId;
 
+            oldUser.username = newUser.username; 
+            oldUser.userImage = newUser.userImage; 
 
+            context.SaveChanges();
+
+        }
+
+        public string GetUserPassword(int userId)
+        {
+            return this.GetUser(userId).password;
+        }
+
+        public void ChangeUserPassword(int userId, string newPassword)
+        {
+            User user = this.GetUser(userId);
+            user.password = newPassword;
+            context.SaveChanges();
+        }
+
+        public int AreResetCredentialsTrue(string username, int sqId, string answer)
+        {
+            User user = context.User.Where(x => x.username == username && x.SecurityQuestion.qId == sqId && x.answer == answer).FirstOrDefault();
+            if (user != null)
+            {
+                return user.userId;
+            }
+            else {
+                return -1;
+            }
+        }
     }
 
 }

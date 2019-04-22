@@ -1,0 +1,83 @@
+﻿@model EBBS.Data.Post
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+
+<div class="row">
+    <div class="col-md-6">
+        <form id="newPost" method="post" enctype="multipart/form-data"">
+
+            <input type="hidden" value="@Model.pId" id="pId" />
+            <label>Title</label><br />
+            <input type="text" id="postTitle" value="@Model.postTitle" name="postTitle" class="form-control" placeholder="Post Title" />
+
+            <label>Content</label>
+            <textarea name="postContent" id="postContent" class="form-control">@Model.postContent</textarea>
+
+            <label>Category:</label>
+            @Html.DropDownList("categoryId", (IEnumerable<SelectListItem>)ViewBag.categories)
+            <br />
+
+            <label>Media</label>
+            <input type="file" id="file" name="file" />
+            @if (Model.mediaType == "image/jpeg" || Model.mediaType == "image/jpg")
+            {
+                <img src="~/images/@Model.mediaPath" width="100" height="100" />
+            }
+            else if (Model.mediaType == "video/mp4")
+            {
+                <video width="320" height="240" controls>
+                    <source src="~/images/@Model.mediaPath" type="@Model.mediaType">
+
+                    Your browser does not support the video tag.
+                </video>
+            }
+
+            <a href="#" class="btn btn-default" onclick="UploadImage()">Edit</a>
+        </form>
+
+    </div>
+
+</div>
+
+<script type="text/javascript" src="~/Scripts/jquery-3.3.1.min.js"></script>
+
+<script>
+    var UploadImage = function () {
+        var file = $("#file").get(0).files;
+        var data = new FormData;
+        
+        data.append("pId", $("#pId").val());
+        data.append("postTitle", $("#postTitle").val());
+        data.append("postContent", $("#postContent").val());
+        data.append("postImage", file[0]);
+        data.append("categoryId", $("#categoryId").val());
+   
+
+        $.ajax({
+            type: 'POST',
+            url: "/Post/Edit/@Model.pId",
+            data: data,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                alert("edited successfully");
+                window.location.href = "/Post"
+            },
+            error: function () {
+
+
+            }
+        });
+
+    }
+
+
+</script>
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

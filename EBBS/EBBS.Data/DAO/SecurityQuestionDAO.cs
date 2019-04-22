@@ -14,11 +14,11 @@ namespace EBBS.Data.DAO
 {
     public class SecurityQuestionDao : ISecurityQuestionDao
     {
-        private EBBSEntities context;
+        private EbbSEntities context;
 
         public SecurityQuestionDao()
         {
-            context = new EBBSEntities();
+            context = new EbbSEntities();
         }
 
         public IList<SecurityQuestion> GetAllSecurityQuestions()
@@ -146,10 +146,12 @@ namespace EBBS.Data.DAO
             {
                 result = false;
             }
+            return result;            
+        }
 
-            return result;
-
-            
+        public List<SecurityQuestion> GetMySQs()
+        {
+            return context.SecurityQuestion.ToList();
         }
 
         public IEnumerable<SecurityQuestion> SqIeNum

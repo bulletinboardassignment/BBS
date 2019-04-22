@@ -26,8 +26,13 @@ namespace EBBS.Data.IDAO
         bool Logout();
         string Encrypt(string clearText);
         string Decrypt(string cipherText);
+        List<User> GetAllUsersExceptMe(int currentUserId);
 
-      
-
+        User GetUser(int userId);
+        void DeleteUser(int userId);
+        void EditUser(int oldUserId, User newUser);
+        string GetUserPassword(int userId);
+        void ChangeUserPassword(int userId, string newPassword);
+        int AreResetCredentialsTrue(string username, int sqId, string answer);
     }
 }

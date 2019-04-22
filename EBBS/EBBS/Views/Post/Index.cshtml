@@ -1,0 +1,215 @@
+﻿@using System.Web.UI.WebControls
+@model IEnumerable<EBBS.Data.Post>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<div class="row">
+
+    @foreach (var item in Model)
+    {
+    <div class="post" id="@item.pId">
+        <span>@Html.DisplayFor(modelItem => item.postTitle)</span>
+        <p>@Html.DisplayFor(modelItem => item.postContent)</p>
+        <p>Created in: @Html.DisplayFor(modelItem => item.createTime) </p>
+        <p>Category: @Html.DisplayFor(modelItem => item.Category.categoryName)</p>
+        <p>Created By: @Html.DisplayFor(modelItem => item.User.firstName)</p>
+        @if (item.mediaType == "image/jpeg" || item.mediaType == "image/jpg")
+        {
+            <img src="~/images/@item.mediaPath" width="100" height="100" />
+        }
+        else if (item.mediaType == "video/mp4")
+        {
+            <video width="320" height="240" controls>
+                <source src="~/images/@item.mediaPath" type="@item.mediaType">
+
+                Your browser does not support the video tag.
+            </video>
+        }
+
+        
+        @if (ViewBag.userType == @item.creatorId)
+        {
+
+            <a href="/Post/Delete/@item.pId" class="btn btn-danger">Delete</a>
+            <a href="/Post/Edit/@item.pId" class="btn btn-default">Edit</a>
+        }
+
+
+        <a href="/Post/Details/@item.pId" class="btn btn-info">Details</a>
+        <a data="@item.pId" class="btn btn-success like"><span class="badge">@item.nLikes &nbsp;</span>Like</a>
+        <a data="@item.pId" class="btn btn-danger dislike"><span class="badge">@item.nDislikes &nbsp;</span>Dislike</a>
+        <a data="@item.pId" class="btn btn-success comment">Comment</a>
+        <a data="@item.pId" class="btn btn-danger report" data-toggle="modal">Report</a>
+
+
+    </div>
+    }
+
+</div>
+
+<div id="reportModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="rpostId" />
+                <textarea id="reportReason" class="form-control"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <a href="#" class="btn btn-warning" id="mreport">Report</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="commentModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Comment</h4>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="pcId" />
+                <textarea class="form-control" id="commentText"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <a href="#" class="btn btn-warning" id="mComment">Comment</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script>
+
+    $(".comment").click(function () {
+        var id = $(this).attr("data");
+        $("#pcId").val(id);
+        $("#commentModal").modal("show");
+       
+
+    });
+
+    $("#mComment").click(function (e) {
+        e.preventDefault();
+        var comment = $("#commentText").val();
+        var postId = $("#pcId").val();
+        $.ajax({
+            type: 'POST',
+            data: { postId: postId, commentText: comment },
+            url: '/Comment/Comment',
+            success: function (response) {
+                $("#commentModal").modal("hide");
+                alert(response);
+                $("#commentText").val("");
+            },
+            error: function (a, b, c) {
+                alert(c + "");
+            }
+
+
+
+        });
+    });
+
+    
+
+
+    $(".report").click(function () {
+        var id = $(this).attr("data");
+        $("#rpostId").val(id);
+        $("#reportModal").modal("show");
+
+    });
+
+    $("#mreport").click(function (e) {
+        e.preventDefault();
+        var postId = $("#rpostId").val();
+        var reason = $("#reportReason").val();
+   
+
+        $.ajax({
+            type: "POST",
+            data: { postId: postId, reason: reason },
+            url: '/Post/Report',
+            success: function (response) {
+                $("#reportModal").modal("hide");
+                $("#reportReason").val("");
+                alert(response);
+                window.location.href = "/Post/Index";
+            },
+            error: function (a, b, c) {
+                alert("Sorry could not report it!");
+            }
+
+        });
+
+    });
+
+
+
+
+
+    $(".like").click(function () {
+        var id = $(this).attr("data");
+        var vote = "like";
+        $.ajax({
+            type: 'POST',
+            data: {postId: id, vote: vote },
+            url: '/Post/Like',
+            success: function (response) {
+                alert(response);
+                window.location.href = "/Post/Index";
+            },
+            error: function (a, b, c) {
+                alert("could not like the post");
+            }
+        });
+
+    });
+
+    $(".dislike").click(function () {
+        var id = $(this).attr("data");
+        var vote = "dislike";
+        $.ajax({
+            type: 'POST',
+            data: { postId: id, vote: vote },
+            url: '/Post/Dislike',
+            success: function (response) {
+                alert(response);
+                window.location.href = "/Post/Index";
+            },
+            error: function (a, b, c) {
+                alert("could not dislike the post");
+            }
+        });
+
+    });
+</script>
+
+<style>
+    div.post {
+        display: inline-block;
+        width: 300px;
+        height: 400px;
+        background-color: palegreen;
+        border-radius: 5px;
+    }
+</style>

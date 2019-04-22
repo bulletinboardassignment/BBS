@@ -144,8 +144,20 @@ namespace EBBS.Controllers
             return View(editData);
         }
 
-     
 
+
+        private User GetUserSession()
+        {
+            if (Session["lUser"] != null)
+            {
+                User user = (User)Session["lUser"];
+                return user;
+            }
+            else
+            {
+                return null;
+            }
+        }
 
     }
 }

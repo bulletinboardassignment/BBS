@@ -1,0 +1,34 @@
+﻿@model IEnumerable<EBBS.Data.Post>
+
+<div class="row">
+
+    @foreach (var item in Model)
+    {
+        <div class="post" id="@item.pId">
+            <span>@Html.DisplayFor(modelItem => item.postTitle)</span>
+            <p>@Html.DisplayFor(modelItem => item.postContent)</p>
+            <p>Created in: @Html.DisplayFor(modelItem => item.createTime) </p>
+            <p>Category: @Html.DisplayFor(modelItem => item.Category.categoryName)</p>
+            <p>Created By: @Html.DisplayFor(modelItem => item.User.firstName)</p>
+            @if (item.mediaType == "image/jpeg" || item.mediaType == "image/jpg")
+            {
+                <img src="~/images/@item.mediaPath" width="100" height="100" />
+            }
+            else if (item.mediaType == "video/mp4")
+            {
+                <video width="320" height="240" controls>
+                    <source src="~/images/@item.mediaPath" type="@item.mediaType">
+
+                    Your browser does not support the video tag.
+                </video>
+            }
+
+            <a href="/Post/Delete/@item.pId" class="btn btn-danger">Delete</a>
+            <a href="/Post/Edit/@item.pId" class="btn btn-default">Edit</a>
+            <a href="/Post/Details/@item.pId" class="btn btn-info">Details</a>
+
+
+        </div>
+    }
+
+</div>

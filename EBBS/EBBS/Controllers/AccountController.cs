@@ -22,18 +22,21 @@ using Microsoft.Ajax.Utilities;
 namespace EBBS.Controllers
 {
     [Authorize]
+
+    
     public class AccountController : Controller
     {
         private readonly IUserService _userService;
         private readonly ISecurityQuestionService _securityQuestionService;
         private readonly IRoleService _roleService;
+        private ILogService logService;
 
         public AccountController()
         {
             _userService = new UserService();
             _securityQuestionService = new SecurityQuestionService();
             _roleService = new RoleService();
-
+            logService = new LogService();
 
         }
 
@@ -99,23 +102,27 @@ namespace EBBS.Controllers
                     cookie.Expires = DateTime.Now.AddDays(2);
                     Response.Cookies.Add(authoCookies);
 
+                    Logs logIn = new Logs();
+                    logIn.userId = user.userId;
+                    logIn.loggedTime = DateTime.Now;
+                    logService.Add(logIn);
 
-
+                    Session["lUser"] = user;
                     if (user.userType == 1) //Admin
                     {
-                        Session["User"] = user.username;
                         TempData["Message"] = "<script>alert('Login Successfull !!')</script>";
-                        return RedirectToAction("Index", "Home"); //Admin dash
+                        return RedirectToAction("Index", "Category"); //Admin dash
                     }
                     else if (user.userType == 2) //User
                     {
-                        Session["User"] = user.username;
                         TempData["Message"] = "<script>alert('Login Successfull !!')</script>";
-                        return RedirectToAction("Index", "Role"); //SuperUser Dash
+                        return RedirectToAction("Index", "Category"); //SuperUser Dash
                     }
-                    Session["User"] = user.username;
-                    TempData["Message"] = "<script>alert('Login Successfull !!')</script>";
-                    return RedirectToAction("Index", "SecurityQuestion"); //User HomePage
+                    else {
+
+                        TempData["Message"] = "<script>alert('Login Successfull !!')</script>";
+                        return RedirectToAction("Index", "Category"); //User HomePage
+                    }
                 }
 
                 else
@@ -132,17 +139,17 @@ namespace EBBS.Controllers
         }
 
 
-        // GET: Account
-        public ActionResult Logout()
-        {
-            if (Session["User"] != null)
-            {
-                Session.Abandon();
-                return RedirectToAction("Login", "Account");
-            }
-            return View();
+        //// GET: Account
+        //public ActionResult Logout()
+        //{
+        //    if (Session["User"] != null)
+        //    {
+        //        Session.Abandon();
+        //        return RedirectToAction("Login", "Account");
+        //    }
+        //    return View();
 
-        }
+        //}
 
 
 
@@ -151,27 +158,11 @@ namespace EBBS.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            //var model = _securityQuestionService.SqIeNum;
 
-
-
-            //List<SelectListItem> questionsList = new List<SelectListItem>();
-            //foreach (var item in model)
-            //{
-            //    questionsList.Add(new SelectListItem()
-            //    {
-            //        Text = item.question,
-            //        Value = item.qId.ToString()
-            //    });
-
-            //}
-
-            //ViewBag.questions = questionsList;
-            //ViewBag.QuestionList =model;
-
-            ViewBag.QuestionList = new SelectList(_securityQuestionService.SqIeNum.ToList(), "qid", "question");
-
+            var dQuery = (from d in _securityQuestionService.SqIeNum select d).ToList();
+            ViewBag.QuestionList = new SelectList(_securityQuestionService.SqIeNum, "qId", "question");
             return View();
+           
         }
 
 
@@ -181,13 +172,18 @@ namespace EBBS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Register(RegisterViewModel data)
         {
+            //if fail, the dropdown list will not be set to null.
+            var dQuery = (from d in _securityQuestionService.SqIeNum select d).ToList();
+            ViewBag.QuestionList = new SelectList(_securityQuestionService.SqIeNum, "qId", "question");
+
             var result = false;
-            User obj = GetUserSession();
+            User obj = new User();
             if (ModelState.IsValid)
             {
-               
                 obj.firstName = data.firstname;
                 obj.lastName = data.lastname;
+                obj.questionId = data.questionId;
+                obj.answer = data.answer;
 
                 bool uniqueUsername = _userService.UniqueEmail(data.username.TrimEnd());
                 if (uniqueUsername == true)
@@ -198,19 +194,13 @@ namespace EBBS.Controllers
                 obj.username = data.username.TrimEnd();
                 string encryptedPw = _userService.Encrypt(data.Password.TrimEnd());
                 obj.password = encryptedPw;
-                //if (data.questionId == null)
-                //{
-                //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                //}
-                obj.questionId = Int32.Parse(data.questionId.ToString());
-                //obj.answer = data.answer;
                 obj.createTime = DateTime.Now;
                 obj.updateTime = DateTime.Now;
                 obj.lastLogin = DateTime.Now;
-                //obj.userType = 2; //TO be normal user Role
-                result = _userService.Save(obj) ;
+                obj.userType = 3; //TO be normal user Role
+                result = _userService.Save(obj);
 
-              
+
                 if (result == true)
                 {
 
@@ -238,9 +228,9 @@ namespace EBBS.Controllers
 
         private User GetUserSession()
         {
-            if (Session["user"] == null)
+            if (Session["lUser"] == null)
             {
-                Session["user"] = new User();
+                Session["lUser"] = new User();
             }
             return (User)Session["user"];
         }

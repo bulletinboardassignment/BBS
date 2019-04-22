@@ -15,7 +15,7 @@ namespace EBBS.Data
     public partial class Like
     {
         public int lId { get; set; }
-        public Nullable<bool> like1 { get; set; }
+        public string vote { get; set; }
         public Nullable<int> likedBy { get; set; }
         public Nullable<int> postId { get; set; }
         public Nullable<System.DateTime> likedOn { get; set; }

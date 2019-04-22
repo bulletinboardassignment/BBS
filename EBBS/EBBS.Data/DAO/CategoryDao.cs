@@ -12,11 +12,11 @@ namespace EBBS.Data.DAO
 {
     public class CategoryDao : ICategoryDao
     {
-        private EBBSEntities _context;
+        private EbbSEntities _context;
 
         public CategoryDao()
         {
-            _context = new EBBSEntities();
+            _context = new EbbSEntities();
         }
 
         public IEnumerable<Category> LastCategory

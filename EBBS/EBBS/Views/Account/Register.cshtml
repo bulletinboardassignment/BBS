@@ -50,25 +50,19 @@
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-eye-close"></i></span>
 
-                            @*@Html.DropDownListFor(model => model.questionId, (List<SelectListItem>) ViewBag.questions)*@
-
-                            @*check dropdown css and username exist validation*@
-
-                            @*@Html.DropDownListFor(model => model.questionId, new SelectList(ViewBag.QuestionList as System.Collections.IEnumerable, "qId", "question",""), new {htmlAttributes = new {@class = "form-control", @PlaceHolder = "Please select a product" } })*@
-                            @Html.DropDownListFor(model => Model.questionId, ViewBag.QuestionList as IEnumerable<SelectListItem>, "qid", "question")
-                            
-                           @* @Html.DropDownListFor(model => Model.questionId, new SelectList(ViewBag.QuestionList as IEnumerable), "--Select--", "question")*@
-
+                            @Html.DropDownListFor(model => Model.questionId, ViewBag.QuestionList as SelectList, "Select", new { id = "qid" })
+                            @Html.ValidationMessageFor(model => model.questionId, "", new {@class = "text-danger"})
+                          
                         </div>
                     </div>
 
-                    @*<div class="form-group">
+                    <div class="form-group">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-font"></i></span>
                             @Html.EditorFor(model => model.answer, new { htmlAttributes = new { @class = "form-control", @PlaceHolder = "Answer" } })
                         </div>
                         @Html.ValidationMessageFor(model => model.answer, "", new { @class = "text-danger" })
-                    </div>*@
+                    </div>
 
                     <div class="form-group">
                         <div class="input-group">

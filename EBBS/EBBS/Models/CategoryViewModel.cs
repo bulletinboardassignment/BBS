@@ -37,9 +37,11 @@ namespace EBBS.Models
         public Nullable<System.DateTime> createTime { get; set; }
 
 
+        public virtual User User { get; set; }
 
-        [Display(Name = "Frequency")]
-        public Nullable<int> frequency { get; set; }
+
+        //[Display(Name = "Frequency")]
+        //public Nullable<int> frequency { get; set; }
 
     }
 
@@ -61,6 +63,8 @@ namespace EBBS.Models
         public Nullable<System.DateTime> createTime { get; set; }
         [Display(Name = "Frequency")]
         public Nullable<int> frequency { get; set; }
+
+        public virtual User User { get; set; }
         public PagedList.IPagedList<CategoryViewModel> Category { get; set; }
     }
 }

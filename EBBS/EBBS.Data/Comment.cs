@@ -15,12 +15,11 @@ namespace EBBS.Data
     public partial class Comment
     {
         public int commentId { get; set; }
-        public string comment1 { get; set; }
-        public Nullable<int> creatorId { get; set; }
+        public string commentText { get; set; }
+        public Nullable<int> commentedBy { get; set; }
         public Nullable<int> postId { get; set; }
         public Nullable<System.DateTime> createTime { get; set; }
         public Nullable<System.DateTime> updateTime { get; set; }
-        public Nullable<bool> publish { get; set; }
     
         public virtual User User { get; set; }
         public virtual Post Post { get; set; }

@@ -1,31 +1,9 @@
 ﻿@model EBBS.Data.User
 
-@{
-    ViewBag.Title = "Details";
-}
-
-<h2>Details</h2>
-
 <div>
     <h4>User</h4>
     <hr />
     <dl class="dl-horizontal">
-
-        <dt>
-            @Html.DisplayNameFor(model => model.userId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.userId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.userImage)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.userImage)
-        </dd>
         <dt>
             @Html.DisplayNameFor(model => model.firstName)
         </dt>
@@ -49,29 +27,7 @@
         <dd>
             @Html.DisplayFor(model => model.username)
         </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.SecurityQuestion.question)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.SecurityQuestion.question)
-        </dd>
-
-
-        <dt>
-            @Html.DisplayNameFor(model => model.answer)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.answer)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.password)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.password)
-        </dd>
 
         <dt>
             @Html.DisplayNameFor(model => model.createTime)
@@ -97,6 +53,29 @@
             @Html.DisplayFor(model => model.lastLogin)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.answer)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.answer)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.userImage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.userImage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.imageSize)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.imageSize)
+        </dd>
 
         <dt>
             @Html.DisplayNameFor(model => model.Role.roleName)
@@ -106,7 +85,13 @@
             @Html.DisplayFor(model => model.Role.roleName)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.SecurityQuestion.question)
+        </dt>
 
+        <dd>
+            @Html.DisplayFor(model => model.SecurityQuestion.question)
+        </dd>
 
     </dl>
 </div>

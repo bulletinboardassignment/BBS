@@ -7,31 +7,38 @@
     <Property Name="cId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="categoryName" Type="nvarchar" MaxLength="50" />
     <Property Name="description" Type="nvarchar(max)" />
-    <Property Name="creatorId" Type="int" />
-    <Property Name="createTime" Type="datetime2" Precision="7" />
     <Property Name="frequency" Type="int" />
+    <Property Name="creatorId" Type="int" />
+    <Property Name="createTime" Type="datetime" />
   </EntityType>
   <EntityType Name="Comment">
     <Key>
       <PropertyRef Name="commentId" />
     </Key>
     <Property Name="commentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="comment" Type="nvarchar(max)" />
-    <Property Name="creatorId" Type="int" />
+    <Property Name="commentText" Type="nvarchar(max)" />
+    <Property Name="commentedBy" Type="int" />
     <Property Name="postId" Type="int" />
     <Property Name="createTime" Type="datetime" />
     <Property Name="updateTime" Type="datetime" />
-    <Property Name="publish" Type="bit" />
   </EntityType>
   <EntityType Name="Like">
     <Key>
       <PropertyRef Name="lId" />
     </Key>
     <Property Name="lId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="like" Type="bit" />
+    <Property Name="vote" Type="varchar" MaxLength="50" />
     <Property Name="likedBy" Type="int" />
     <Property Name="postId" Type="int" />
     <Property Name="likedOn" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Logs">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="userId" Type="int" Nullable="false" />
+    <Property Name="loggedTime" Type="datetime" Nullable="false" />
   </EntityType>
   <EntityType Name="Post">
     <Key>
@@ -40,14 +47,23 @@
     <Property Name="pId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="postTitle" Type="nvarchar(max)" Nullable="false" />
     <Property Name="postContent" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="imagePath" Type="nvarchar(max)" />
-    <Property Name="imageSize" Type="float" />
+    <Property Name="mediaPath" Type="nvarchar(max)" />
     <Property Name="creatorId" Type="int" />
     <Property Name="categoryId" Type="int" />
     <Property Name="createTime" Type="datetime" />
     <Property Name="updateTime" Type="datetime" />
     <Property Name="frequency" Type="int" />
     <Property Name="isReported" Type="bit" />
+    <Property Name="mediaType" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Reports">
+    <Key>
+      <PropertyRef Name="rId" />
+    </Key>
+    <Property Name="rId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="postId" Type="int" Nullable="false" />
+    <Property Name="reason" Type="text" />
+    <Property Name="reportedBy" Type="int" />
   </EntityType>
   <EntityType Name="Role">
     <Key>
@@ -95,6 +111,66 @@
     <Property Name="userImage" Type="nvarchar(max)" />
     <Property Name="imageSize" Type="float" />
   </EntityType>
+  <Association Name="FK__Category__creato__607251E5">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Category" Type="Self.Category" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="userId" />
+      </Principal>
+      <Dependent Role="Category">
+        <PropertyRef Name="creatorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Logs__userId__4F47C5E3">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="Logs" Type="Self.Logs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="userId" />
+      </Principal>
+      <Dependent Role="Logs">
+        <PropertyRef Name="userId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Reports__postId__02FC7413">
+    <End Role="Post" Type="Self.Post" Multiplicity="1" />
+    <End Role="Reports" Type="Self.Reports" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Post">
+        <PropertyRef Name="pId" />
+      </Principal>
+      <Dependent Role="Reports">
+        <PropertyRef Name="postId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Reports__reporte__14270015">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Reports" Type="Self.Reports" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="userId" />
+      </Principal>
+      <Dependent Role="Reports">
+        <PropertyRef Name="reportedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__User__questionId__3A4CA8FD">
+    <End Role="SecurityQuestion" Type="Self.SecurityQuestion" Multiplicity="0..1" />
+    <End Role="User" Type="Self.User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SecurityQuestion">
+        <PropertyRef Name="qId" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="questionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Category">
     <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
     <End Role="Post" Type="Self.Post" Multiplicity="*" />
@@ -107,18 +183,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Category_User">
-    <End Role="User" Type="Self.User" Multiplicity="0..1" />
-    <End Role="Category" Type="Self.Category" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="User">
-        <PropertyRef Name="userId" />
-      </Principal>
-      <Dependent Role="Category">
-        <PropertyRef Name="creatorId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_Comment_User">
     <End Role="User" Type="Self.User" Multiplicity="0..1" />
     <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
@@ -127,7 +191,7 @@
         <PropertyRef Name="userId" />
       </Principal>
       <Dependent Role="Comment">
-        <PropertyRef Name="creatorId" />
+        <PropertyRef Name="commentedBy" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -179,18 +243,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_SecurityQuestion">
-    <End Role="SecurityQuestion" Type="Self.SecurityQuestion" Multiplicity="0..1" />
-    <End Role="User" Type="Self.User" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="SecurityQuestion">
-        <PropertyRef Name="qId" />
-      </Principal>
-      <Dependent Role="User">
-        <PropertyRef Name="questionId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_Setting_User">
     <End Role="User" Type="Self.User" Multiplicity="0..1" />
     <End Role="Setting" Type="Self.Setting" Multiplicity="*" />
@@ -207,18 +259,36 @@
     <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Comment" EntityType="Self.Comment" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Like" EntityType="Self.Like" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Logs" EntityType="Self.Logs" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Post" EntityType="Self.Post" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Reports" EntityType="Self.Reports" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SecurityQuestion" EntityType="Self.SecurityQuestion" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Setting" EntityType="Self.Setting" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Category__creato__607251E5" Association="Self.FK__Category__creato__607251E5">
+      <End Role="User" EntitySet="User" />
+      <End Role="Category" EntitySet="Category" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Logs__userId__4F47C5E3" Association="Self.FK__Logs__userId__4F47C5E3">
+      <End Role="User" EntitySet="User" />
+      <End Role="Logs" EntitySet="Logs" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Reports__postId__02FC7413" Association="Self.FK__Reports__postId__02FC7413">
+      <End Role="Post" EntitySet="Post" />
+      <End Role="Reports" EntitySet="Reports" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Reports__reporte__14270015" Association="Self.FK__Reports__reporte__14270015">
+      <End Role="User" EntitySet="User" />
+      <End Role="Reports" EntitySet="Reports" />
+    </AssociationSet>
+    <AssociationSet Name="FK__User__questionId__3A4CA8FD" Association="Self.FK__User__questionId__3A4CA8FD">
+      <End Role="SecurityQuestion" EntitySet="SecurityQuestion" />
+      <End Role="User" EntitySet="User" />
+    </AssociationSet>
     <AssociationSet Name="FK_Category" Association="Self.FK_Category">
       <End Role="Category" EntitySet="Category" />
       <End Role="Post" EntitySet="Post" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Category_User" Association="Self.FK_Category_User">
-      <End Role="User" EntitySet="User" />
-      <End Role="Category" EntitySet="Category" />
     </AssociationSet>
     <AssociationSet Name="FK_Comment_User" Association="Self.FK_Comment_User">
       <End Role="User" EntitySet="User" />
@@ -238,10 +308,6 @@
     </AssociationSet>
     <AssociationSet Name="FK_Role" Association="Self.FK_Role">
       <End Role="Role" EntitySet="Role" />
-      <End Role="User" EntitySet="User" />
-    </AssociationSet>
-    <AssociationSet Name="FK_SecurityQuestion" Association="Self.FK_SecurityQuestion">
-      <End Role="SecurityQuestion" EntitySet="SecurityQuestion" />
       <End Role="User" EntitySet="User" />
     </AssociationSet>
     <AssociationSet Name="FK_Setting_User" Association="Self.FK_Setting_User">
