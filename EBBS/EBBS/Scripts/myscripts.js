@@ -36,3 +36,5 @@ $(document).ready(function () {
             $(this).attr('maxlength', $(this).attr('data-val-length-max'));
         });
 });
+
+

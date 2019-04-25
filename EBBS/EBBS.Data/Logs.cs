@@ -11,11 +11,16 @@ namespace EBBS.Data
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Logs
     {
         public int Id { get; set; }
+
+        [Display(Name = "Logged In user")]
         public int userId { get; set; }
+
+        [Display(Name = "Logged In Time")]
         public System.DateTime loggedTime { get; set; }
     
         public virtual User User { get; set; }

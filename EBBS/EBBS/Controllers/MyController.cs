@@ -1,4 +1,5 @@
 ﻿using EBBS.Data;
+using EBBS.Models;
 using EBBS.Service.IService;
 using EBBS.Service.Service;
 using System;
@@ -41,10 +42,9 @@ namespace EBBS.Controllers
             User user = new User();
                 user.firstName = userUpdateModel.firstname;
                 user.lastName = userUpdateModel.lastname;
-                user.answer = userUpdateModel.answer;
-                user.username = userUpdateModel.username;
                 user.questionId = userUpdateModel.qId;
-
+                user.answer = userUpdateModel.answer;
+                //user.username = userUpdateModel.username;
                 var image = userUpdateModel.userImage;
                 if (image != null)
                 {
@@ -62,16 +62,7 @@ namespace EBBS.Controllers
             return Json(result);
         }
 
-
-
-
-
-
-
-
-
-
-
+        
         // GET: My
 
         public ActionResult Index()
@@ -87,7 +78,8 @@ namespace EBBS.Controllers
             newPassword = userService.Encrypt(newPassword);
             if (password.Equals(userService.GetUserPassword(this.GetUserSession().userId))) {
                 userService.ChangeUserPassword(this.GetUserSession().userId, newPassword);
-                result = "You successfully changed the password!";
+                result = "You have been successfully changed the password!";
+                //return Json(new { Url = "Login/Account" });
             }
             else {
                 result = "Password could not be changed! Try again later!";
@@ -102,7 +94,8 @@ namespace EBBS.Controllers
 
 
 
-        public ActionResult ForgotPassword() {
+        public ActionResult ForgotPassword()
+        {
 
             List<SecurityQuestion> securityQuestions = securityQuestionService.GetMySQs();
             ViewBag.securityQuestions = securityQuestions;
@@ -110,27 +103,32 @@ namespace EBBS.Controllers
             return View();
         }
 
+      
+
         [HttpPost]
-        public JsonResult ForgotPassword(string username, int sqId, string answer) {
-            
+        public JsonResult ForgotPassword(string username, int sqId, string answer)
+        {
+        
+                string[] results = new string[3];
 
-            string[] results = new string[3];
-            
-            int genuine = userService.AreResetCredentialsTrue(username, sqId, answer);
-            if (genuine > 0)
-            {
-                results[0] = "success";
-                results[1] = "Credentials are true. You are being navigated to password reset page.";
-                results[2] = "" + genuine;
-                Session["ruId"] = genuine;
-            }
-            else {
-                results[0] = "failure";
-                results[1] = "Credentials are wrong.";
-            }
+                int genuine = userService.AreResetCredentialsTrue(username, sqId, answer);
+                if (genuine > 0)
+                {
+                    results[0] = "success";
+                    results[1] = "Credentials are true. You are being navigated to password reset page !";
+                    results[2] = "" + genuine;
+                    Session["ruId"] = genuine;
+                }
+                else
+                {
+                    results[0] = "failure";
+                    results[1] = "Sorry, Your Credentials are wrong !";
+                }
 
-            return Json(results);
+                return Json(results);
+           
         }
+
 
         public ActionResult ResetPassword(string userId) {
             
@@ -145,10 +143,10 @@ namespace EBBS.Controllers
             try
             {
                userService.ChangeUserPassword(id, userService.Encrypt(password));
-               result = "Your password was reset successfully!";
+               result = "Your password has been reset successfully !";
             }
             catch (Exception e) {
-                result = "Could not reset your password!"+e.ToString();
+                result = "Sorry, unable to reset your password !"+e.ToString();
             }
 
             return Json(result);

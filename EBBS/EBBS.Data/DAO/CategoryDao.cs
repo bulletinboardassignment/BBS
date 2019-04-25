@@ -109,6 +109,8 @@ namespace EBBS.Data.DAO
                 category.categoryName = newCategory.categoryName;
                 category.description = newCategory.description;
                 category.frequency = newCategory.frequency;
+                category.creatorId = newCategory.creatorId;
+                category.createTime = DateTime.Now;
                 this._context.Category.Add(newCategory);
               
                 this._context.SaveChanges();
@@ -152,8 +154,9 @@ namespace EBBS.Data.DAO
                 category.categoryName = editCategory.categoryName;
                 category.description = editCategory.description;
                 category.frequency = editCategory.frequency;
+                category.creatorId = editCategory.creatorId;
+                category.createTime = DateTime.Now;
                 _context.SaveChanges();
-
             }
             catch (Exception e)
             {
@@ -163,39 +166,5 @@ namespace EBBS.Data.DAO
         }
 
 
-
-        //public void AddEditCategory(Category addEditCategory)
-        //{
-
-        //    if (addEditCategory.cId == 0)
-        //    {
-        //        Category category = new Category();
-
-        //        category.cId = addEditCategory.cId;
-        //        category.categoryName = addEditCategory.categoryName;
-        //        category.description = addEditCategory.description;
-        //        category.creatorId = addEditCategory.creatorId;
-        //        category.createTime = DateTime.Now;
-        //        category.frequency = addEditCategory.frequency;
-        //        this._context.Category.Add(addEditCategory);
-        //        this._context.SaveChanges();
-        //    }
-        //    else
-        //    {
-        //        Category dbEntry = _context.Category.Find(addEditCategory.cId);
-        //        if (dbEntry != null)
-        //        {
-        //            dbEntry.cId = addEditCategory.cId;
-        //            dbEntry.categoryName = addEditCategory.categoryName;
-        //            dbEntry.description = addEditCategory.description;
-        //            dbEntry.creatorId = addEditCategory.creatorId;
-        //            dbEntry.createTime = DateTime.Now;
-        //            dbEntry.frequency = addEditCategory.frequency;
-        //            this._context.SaveChanges();
-        //            addEditCategory.cId = dbEntry.cId;
-        //        }
-        //    }
-
-        //}
     }
 }

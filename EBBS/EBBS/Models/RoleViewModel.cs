@@ -10,7 +10,7 @@ using AutoMapper;
 
 namespace EBBS.Models
 {
-    //[MetadataType(typeof(RoleMetaData))]
+
     public partial class RoleViewModel
     {
         [Key]
@@ -23,12 +23,6 @@ namespace EBBS.Models
         [StringLength(50,MinimumLength = 2)]
         public string roleName { get; set; }
     }
-
-    //public class RoleMetaData
-    //{
-    //    [Remote("isRoleExists", "Role",ErrorMessage = "Role already exists")]
-    //    public string roleName { get; set; }
-    //}
 
     public class RoleVm
     {

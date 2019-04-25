@@ -38,3 +38,17 @@ C:\Users\user\Desktop\last bbs so far\bbs\BBS-02e05bf3670de0391aff8912d005aacd41
 C:\Users\user\Desktop\last bbs so far\bbs\BBS-02e05bf3670de0391aff8912d005aacd41d3ad85\EBBS\EBBS.Data\obj\Debug\EBBS.Data.pdb
 C:\Users\user\Desktop\last bbs so far\bbs\BBS-02e05bf3670de0391aff8912d005aacd41d3ad85\EBBS\EBBS.Data\bin\Debug\EBBS.mdf
 C:\Users\user\Desktop\last bbs so far\bbs\BBS-02e05bf3670de0391aff8912d005aacd41d3ad85\EBBS\EBBS.Data\bin\Debug\EBBS_log.ldf
+C:\Users\user\Desktop\BackendCodeCompleted\bbs\BBS-02e05bf3670de0391aff8912d005aacd41d3ad85\EBBS\EBBS.Data\bin\Debug\EBBS.mdf
+C:\Users\user\Desktop\BackendCodeCompleted\bbs\BBS-02e05bf3670de0391aff8912d005aacd41d3ad85\EBBS\EBBS.Data\bin\Debug\EBBS_log.ldf
+C:\Users\user\Desktop\BackendCodeCompleted\bbs\BBS-02e05bf3670de0391aff8912d005aacd41d3ad85\EBBS\EBBS.Data\bin\Debug\EBBS.Data.dll.config
+C:\Users\user\Desktop\BackendCodeCompleted\bbs\BBS-02e05bf3670de0391aff8912d005aacd41d3ad85\EBBS\EBBS.Data\bin\Debug\EBBS.Data.dll
+C:\Users\user\Desktop\BackendCodeCompleted\bbs\BBS-02e05bf3670de0391aff8912d005aacd41d3ad85\EBBS\EBBS.Data\bin\Debug\EBBS.Data.pdb
+C:\Users\user\Desktop\BackendCodeCompleted\bbs\BBS-02e05bf3670de0391aff8912d005aacd41d3ad85\EBBS\EBBS.Data\bin\Debug\EntityFramework.dll
+C:\Users\user\Desktop\BackendCodeCompleted\bbs\BBS-02e05bf3670de0391aff8912d005aacd41d3ad85\EBBS\EBBS.Data\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\user\Desktop\BackendCodeCompleted\bbs\BBS-02e05bf3670de0391aff8912d005aacd41d3ad85\EBBS\EBBS.Data\bin\Debug\EntityFramework.xml
+C:\Users\user\Desktop\BackendCodeCompleted\bbs\BBS-02e05bf3670de0391aff8912d005aacd41d3ad85\EBBS\EBBS.Data\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\user\Desktop\BackendCodeCompleted\bbs\BBS-02e05bf3670de0391aff8912d005aacd41d3ad85\EBBS\EBBS.Data\obj\Debug\EBBS.Data.csprojAssemblyReference.cache
+C:\Users\user\Desktop\BackendCodeCompleted\bbs\BBS-02e05bf3670de0391aff8912d005aacd41d3ad85\EBBS\EBBS.Data\obj\Debug\EBBS.Data.csproj.CoreCompileInputs.cache
+C:\Users\user\Desktop\BackendCodeCompleted\bbs\BBS-02e05bf3670de0391aff8912d005aacd41d3ad85\EBBS\EBBS.Data\obj\Debug\EBBS.Data.csproj.CopyComplete
+C:\Users\user\Desktop\BackendCodeCompleted\bbs\BBS-02e05bf3670de0391aff8912d005aacd41d3ad85\EBBS\EBBS.Data\obj\Debug\EBBS.Data.dll
+C:\Users\user\Desktop\BackendCodeCompleted\bbs\BBS-02e05bf3670de0391aff8912d005aacd41d3ad85\EBBS\EBBS.Data\obj\Debug\EBBS.Data.pdb

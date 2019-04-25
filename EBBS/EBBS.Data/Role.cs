@@ -11,7 +11,9 @@ namespace EBBS.Data
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
     public partial class Role
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,10 +21,17 @@ namespace EBBS.Data
         {
             this.User = new HashSet<User>();
         }
-    
+
+        [Key]
+        [Display(Name = "Role ID")]
         public int rId { get; set; }
+
+        [Required]
+        [Display(Name = "Role")]
+        [Index(IsUnique = true)]
+        [StringLength(50, MinimumLength = 2)]
         public string roleName { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<User> User { get; set; }
     }

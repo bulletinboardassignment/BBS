@@ -116,12 +116,12 @@ namespace EBBS.Controllers
                     else if (user.userType == 2) //User
                     {
                         TempData["Message"] = "<script>alert('Login Successfull !!')</script>";
-                        return RedirectToAction("Index", "Category"); //SuperUser Dash
+                        return RedirectToAction("Index", "Category"); //User Dash
                     }
                     else {
 
                         TempData["Message"] = "<script>alert('Login Successfull !!')</script>";
-                        return RedirectToAction("Index", "Category"); //User HomePage
+                        return RedirectToAction("Index", "Category"); //Other User types HomePage
                     }
                 }
 

@@ -14,10 +14,11 @@ using AutoMapper;
 
 namespace EBBS.Controllers
 {
+    
     public class SecurityQuestionController : Controller
     {
         private readonly ISecurityQuestionService _securityQuestionService;
-
+        
         public SecurityQuestionController()
         {
             _securityQuestionService = new SecurityQuestionService();
@@ -25,6 +26,7 @@ namespace EBBS.Controllers
         // GET: SecurityQuestion
         public ActionResult Index(int page = 1, int pageSize = 5)
         {
+            User user = GetUserSession();
             var sqList = _securityQuestionService.GetMySQs().OrderBy(p=>p.qId).OrderByDescending(p=>p.qId);
             var sqViewList = AutoMapper.Mapper.Map<IEnumerable<SecurityQuestion>, IEnumerable<SecurityQuestionViewModel>>(sqList);
             var model = new SecurityQuestionVm();
@@ -48,12 +50,12 @@ namespace EBBS.Controllers
 
             if (ModelState.IsValid)
             {
-                bool uniqueQuestion = _securityQuestionService.UniqueRole(data.question.TrimEnd());
+                bool uniqueQuestion = _securityQuestionService.UniqueSecurityQuestion(data.question.TrimEnd());
 
                 if (uniqueQuestion == true)
                 {
 
-                    TempData["addUniqueMessage"] = "Record is Exist, Please Enter New One";
+                    TempData["addUniqueMessage"] = "Record is Exist, Please Enter a new security question";
                     return RedirectToAction("Create", "SecurityQuestion");
                 }
                 obj.question = data.question.TrimEnd();
@@ -90,7 +92,7 @@ namespace EBBS.Controllers
         {
             if (ModelState.IsValid)
             {
-                bool uniquesQuestion = _securityQuestionService.UniqueRole(editData.question.TrimEnd());
+                bool uniquesQuestion = _securityQuestionService.UniqueSecurityQuestion(editData.question.TrimEnd());
                 if (uniquesQuestion == true)
                 {
 

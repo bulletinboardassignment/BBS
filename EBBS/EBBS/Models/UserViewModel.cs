@@ -16,7 +16,7 @@ namespace EBBS.Models
     public partial class UserViewModel
     {
         [Key]
-        [DisplayName("Membership ID")]
+        [DisplayName("User ID")]
         public int userId { get; set; }
 
         [DisplayName("First Name")]
@@ -37,7 +37,7 @@ namespace EBBS.Models
 
         [DisplayName("Password")]
         [Required(ErrorMessage = "Password is Required")]
-        [StringLength(100, MinimumLength = 4)]
+        [StringLength(100, MinimumLength = 6)]
         [DataType(DataType.Password)]
         public string password { get; set; }
 

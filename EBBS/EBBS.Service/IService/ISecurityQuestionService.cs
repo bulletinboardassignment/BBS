@@ -19,7 +19,7 @@ namespace EBBS.Service.IService
 
         void DeleteSecurityQuestion(SecurityQuestion deleteSecurityQuestion);
 
-        bool UniqueRole(string secQuestion);
+        bool UniqueSecurityQuestion(string secQuestion);
 
         IEnumerable<SecurityQuestion> SqIeNum { get; }
     }

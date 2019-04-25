@@ -4,50 +4,61 @@
 @using PagedList.Mvc;
 @using PagedList;
 
+<head>
+    <style> 
+td.test {
+  white-space: nowrap; 
+  width: 200px; 
+  overflow: hidden; 
+  border: 1px solid #000000;
+}
+
+td.test:hover {
+  overflow: visible;
+}
+</style>
+</head>
+
+
+<br/>
+<br />
 
 <div>
-
-    <h4 style="color:green">@Html.Raw(TempData["message"])</h4>
-    <h4 style="color:green">@Html.Raw(TempData["editMessage"])</h4>
-    <h4 style="color:green">@Html.Raw(TempData["deleteMessage"])</h4>
-
-
-
+    <h2><span class="mySpan"> User Roles</span></h2>
 </div>
 
+<hr />
 
-
-<legend> Roles List </legend>
-
-
+<body id="grad">
 
 <div class="form-group" style="float: right">
-    <button class="btn" style="background-color:lightgoldenrodyellow" onclick="location.href = '@Url.Action("Create","Role")'" type="button"><i class="glyphicon glyphicon-plus-sign"></i> Create New Role</button>
+    <button class="btn" style="background-color:lightgoldenrodyellow; color: black" onclick="location.href = '@Url.Action("Create","Role")'" type="button"><i class="glyphicon glyphicon-plus-sign"></i> Create New Role</button>
 </div>
-
-
-
-
 
 @if (Model.Roles.Count() != 0)
 {
+    <div class="text-left">
+        <h4 style="color:green">@Html.Raw(TempData["message"])</h4>
+        <h4 style="color:green">@Html.Raw(TempData["editMessage"])</h4>
+        <h4 style="color:green">@Html.Raw(TempData["deleteMessage"])</h4>
+    </div>
+
     <div class="input-group" style="float: left">
         <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-        <input style="background-color:khaki; color: black" type="text" id="search" placeholder="Search Role" />
+        <input class="form-control" style="background-color:khaki; color: black" type="text" id="search" placeholder="Search Role" />
     </div>
 
     <br />
     <table class="table table-bordered table-hover table-responsive" style="table-layout: fixed">
-        <tr class="bg-info">
-            <th>
+        <tr class="bg-info" style="background-color: lightgrey">
+            <th class="text-center">
                 @Html.DisplayNameFor(model => model.rId)
-
             </th>
-            <th>
+            <th class="text-center">
                 @Html.DisplayNameFor(model => model.Roles)
             </th>
 
-            <th>Operations</th>
+            <th class="text-center">Operations</th>
         </tr>
 
         @foreach (var item in Model.Roles)
@@ -57,14 +68,14 @@
                     @Html.DisplayFor(modelItem => item.rId)
 
                 </td>
-                <td>
+                <td class="test" style="text-overflow:ellipsis;">
                     @Html.DisplayFor(modelItem => item.roleName)
 
                 </td>
                 <td>
 
                     <button class="btn btn-success" onclick="location.href = '@Url.Action("Edit", new { id=item.rId })'" type="button"><i class="glyphicon glyphicon-edit"></i> Edit</button> |
-                    <button class="btn btn-danger" onclick="location.href = '@Url.Action("Delete", "Role",new { id=item.rId })'" type="button"><i class="glyphicon glyphicon-remove-sign"></i> Delete</button>
+                    <button class="btn btn-danger" onclick="location.href = '@Url.Action("Delete", "Role",new { id=item.rId })'" type="button"><i class="glyphicon glyphicon-trash"></i> Delete</button>
 
                 </td>
             </tr>
@@ -81,6 +92,9 @@ else
 {
     <h4 style="color: orange"> -- No Roles Found --</h4>
 }
+
+</body>
+
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script src="~/Scripts/jquery.validate.min.js"></script>

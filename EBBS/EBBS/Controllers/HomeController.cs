@@ -31,7 +31,7 @@ namespace EBBS.Controllers
         {
 
             Session.Clear();
-            return View();
+            return RedirectToAction("Login","Account");
         }
 
 

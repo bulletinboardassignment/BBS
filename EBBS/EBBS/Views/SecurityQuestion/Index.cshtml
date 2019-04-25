@@ -8,73 +8,93 @@
     ViewBag.Title = "";
 }
 
+<head>
+    <style> 
+td.test {
+  white-space: nowrap; 
+  width: 200px; 
+  overflow: hidden; 
+  border: 1px solid #000000;
+}
+
+td.test:hover {
+  overflow: visible;
+}
+</style>
+</head>
+
+<br/>
+<br />
+
 <div>
-    <h4 style="color:green">@Html.Raw(TempData["message"])</h4>
-    <h4 style="color:green">@Html.Raw(TempData["editMessage"])</h4>
-    <h4 style="color:green">@Html.Raw(TempData["deleteMessage"])</h4>
+    <h2><span class="mySpan"> Security Questions</span></h2>
 </div>
 
-<legend> Security Questions List </legend>
-
-<div class="form-group" style="float: right">
-    <button class="btn" style="background-color:lightgoldenrodyellow" onclick="location.href = '@Url.Action("Create","SecurityQuestion")'" type="button"><i class="glyphicon glyphicon-plus-sign"></i> Create New Security Question</button>
-</div>
+<hr />
 
 
-@if (Model.Question.Count() != 0)
-{
-    <div class="input-group" style="float: left">
-        <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-        <input style="background-color:khaki; color: black" type="text" id="search" placeholder="Search Security Question" />
+
+<body id="grad">
+
+    <div class="form-group" style="float: right">
+        <button class="btn" style="background-color:lightgoldenrodyellow; color: black" onclick="location.href = '@Url.Action("Create","SecurityQuestion")'" type="button"><i class="glyphicon glyphicon-plus-sign"></i> Create New Security Question</button>
     </div>
 
-    <br />
+    @if (Model.Question.Count() != 0)
+    {
 
-    <table class="table table-bordered table-hover table-responsive" style="table-layout: fixed">
-        <tr class="bg-info">
-            <th>
-                @Html.DisplayNameFor(model => model.qId)
+        <div class="text-left">
+            <h4 style="color:green">@Html.Raw(TempData["message"])</h4>
+            <h4 style="color:green">@Html.Raw(TempData["editMessage"])</h4>
+            <h4 style="color:green">@Html.Raw(TempData["deleteMessage"])</h4>
+        </div>
 
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Question)
-            </th>
+        <div class="input-group" style="float: left">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+            <input class="form-control" style="background-color:khaki; color: black" type="text" id="search" placeholder="Search Security Question" />
+        </div>
 
-            <th>Operations</th>
-        </tr>
-        @foreach (var item in Model.Question)
-        {
-            <tr class="searchRecord">
-                <td>
-                    @Html.DisplayFor(modelItem => item.qId)
+        <br />
 
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.question)
-
-                </td>
-                <td>
-
-                    <button class="btn btn-success" onclick="location.href = '@Url.Action("Edit", new { id=item.qId })'" type="button"><i class="glyphicon glyphicon-edit"></i> Edit</button> |
-                    <button class="btn btn-danger" onclick="location.href = '@Url.Action("Delete", "SecurityQuestion",new { id=item.qId })'" type="button"><i class="glyphicon glyphicon-remove-sign"></i> Delete</button>
-
-                </td>
+        <table class="table table-bordered table-hover table-responsive" style="table-layout: fixed" >
+            <tr class="bg-info" style="background-color: lightgrey">
+                <th class="text-center">
+                    @Html.DisplayNameFor(model => model.qId)
+                </th>
+                <th class="text-center">
+                    @Html.DisplayNameFor(model => model.Question)
+                </th>
+                <th class="text-center">Operations</th>
             </tr>
-        }
-
-    </table>
-    <br />
-    @Html.PagedListPager(Model.Question, Page => Url.Action("Index", "SecurityQuestion", new { Page, pageSize = Model.Question.PageSize }))
-}
-else
-{
-    <h4 style="color: orange"> -- No Security Questions Found --</h4>
-}
-
+            @foreach (var item in Model.Question)
+            {
+                <tr class="searchRecord">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.qId)
+                    </td>
+                    <td class="test" style="text-overflow:ellipsis;">
+                        @Html.DisplayFor(modelItem => item.question)
+                    </td>
+                    <td>
+                        <button class="btn btn-success" onclick="location.href = '@Url.Action("Edit", new { id=item.qId })'" type="button"><i class="glyphicon glyphicon-edit"></i> Edit</button> |
+                        <button class="btn btn-danger" onclick="location.href = '@Url.Action("Delete", "SecurityQuestion",new { id=item.qId })'" type="button"><i class="glyphicon glyphicon-trash"></i> Delete</button>
+                    </td>
+                </tr>
+            }
+        </table>
+        <br />
+        @Html.PagedListPager(Model.Question, Page => Url.Action("Index", "SecurityQuestion", new { Page, pageSize = Model.Question.PageSize }))
+    }
+    else
+    {
+        <h4 style="color: orange"> -- No Security Questions Found --</h4>
+    }
+    
+</body>
 
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-    <script src="~/Scripts/jquery.validate.min.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-    <script src="~/Scripts/myscripts.js"></script>
-}
+        @Scripts.Render("~/bundles/jqueryval")
+        <script src="~/Scripts/jquery.validate.min.js"></script>
+        <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+        <script src="~/Scripts/myscripts.js"></script>
+    }

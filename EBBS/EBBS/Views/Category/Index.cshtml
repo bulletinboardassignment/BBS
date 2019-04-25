@@ -5,48 +5,79 @@
 @{
     ViewBag.Title = "Index";
 }
-<script src="~/Scripts/jquery-3.3.1.min.js"></script>
-<script src="~/Scripts/bootstrap.min.js"></script>
+@*<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>*@
+
+<head>
+<style> 
+td.test {
+  white-space: nowrap; 
+  width: 200px; 
+  overflow: hidden; 
+  border: 1px solid #000000;
+}
+
+td.test:hover {
+  overflow: visible;
+}
+</style>
+</head>
+
+
+<br/>
+<br />
+
 <div>
-    <h4 style="color:green">@Html.Raw(TempData["message"])</h4>
-    <h4 style="color:green">@Html.Raw(TempData["editMessage"])</h4>
-    <h4 style="color:green">@Html.Raw(TempData["deleteMessage"])</h4>
-
+    <h2><span class="mySpan"> Bulletin Boards</span></h2>
 </div>
 
-<legend> Categories List </legend>
-<div class="form-group" style="float: right">
-    <button class="btn" style="background-color:lightgoldenrodyellow" onclick="location.href = '@Url.Action("Create","Category")'" type="button"><i class="glyphicon glyphicon-plus-sign"></i> Create New Category</button>
+<hr />
 
-</div>
+<body id="grad">
+
+
+
+
+   
+@if (ViewBag.userType == "Admin")
+{
+    <div class="form-group" style="float: right">
+        <button class="btn" style="background-color:lightgoldenrodyellow; color: black" onclick="location.href = '@Url.Action("Create", "Category")'" type="button"><i class="glyphicon glyphicon-plus-sign"></i> Create a New Bulletin Board</button>
+    </div>
+}
+
 
 @if (Model.Category.Count() != 0)
 {
+    <div class="text-left">
+        <h4 style="color:green">@Html.Raw(TempData["message"])</h4>
+        <h4 style="color:green">@Html.Raw(TempData["editMessage"])</h4>
+        <h4 style="color:green">@Html.Raw(TempData["deleteMessage"])</h4>
+
+    </div>
+
     <div class="input-group" style="float: left">
         <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-        <input style="background-color:khaki; color: black" type="text" id="search" placeholder="Search Category" />
+        <input class="form-control" style="background-color:khaki; color: black" type="text" id="search" placeholder="Search Category" />
 
     </div>
 
     <br />
     <table class="table table-bordered table-hover table-responsive" style="table-layout: fixed">
-        <tr class="bg-info">
-            <th>
+        <tr class="bg-info" style="background-color: lightgrey">
+            <th class="text-center">
                 @Html.DisplayNameFor(model => model.cId)
             </th>
-            <th>
+            <th class="text-center">
                 @Html.DisplayNameFor(model => model.categoryName)
             </th>
-            <th>
+            <th class="text-center">
                 @Html.DisplayNameFor(model => model.description)
             </th>
-            <th>
+            <th class="text-center">
                 @Html.DisplayNameFor(model => model.creatorId)
-            </th> 
-            <th>
-                @Html.DisplayNameFor(model => model.createTime)
             </th>
-            <th>Operations</th>
+            <th colspan="4" class="text-center">Operations</th>
         </tr>
         @foreach (var item in Model.Category)
         {
@@ -60,18 +91,20 @@
                 <td class="longString">
                     @Html.DisplayFor(modelItem => item.description)
                 </td> 
-                <td>@item.User.firstName @item.User.lastName </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.createTime)
+                <td class="test" style="text-overflow:ellipsis;">
+                    @item.User.firstName  @item.User.lastName
+                   
                 </td>
-                <td>
-                     |
-                    <a class="btn btn-info" href="/Category/Details/@item.cId"><i class="glyphicon glyphicon-eye-open"></i> </a> |
-                     @if(ViewBag.userType == "Admin") { 
-                    <a class="btn btn-success" href="/Category/Edit/@item.cId"><i class="glyphicon glyphicon-edit"></i> </a>
-                    <a class="btn btn-danger" href="/Category/Delete/@item.cId"><i class="glyphicon glyphicon-remove-sign"></i> </a>
-                     }
-                     <a href="/Post/CategoryPosts/@item.cId" class="btn btn-info posts" >View Posts</a>
+                <td colspan="4">
+                    
+                    <a class="btn btn-info" href="/Category/Details/@item.cId"><i class="glyphicon glyphicon-eye-open"></i> Details </a> |
+                    @if (ViewBag.userType == "Admin")
+                    {
+                        <a class="btn btn-success" href="/Category/Edit/@item.cId"><i class="glyphicon glyphicon-edit"></i> Edit</a> <span>|</span>
+                        <a class="btn btn-danger" href="/Category/Delete/@item.cId"><i class="glyphicon glyphicon-trash"></i> Delete </a>
+                    }|
+                    <a class="btn" style="background-color: burlywood" href="/Post/CategoryPosts/@item.cId"><i class="glyphicon glyphicon-paperclip"></i> View Post</a>
+                    
                 </td>
             </tr>
         }
@@ -87,7 +120,7 @@ else
     <h4 style="color: orange"> -- No Categories Found --</h4>
 }
 
-
+    </body>
 
 
 @section Scripts {

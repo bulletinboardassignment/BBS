@@ -4,20 +4,27 @@
     ViewBag.Title = "Edit";
 }
 
+<br />
+<br />
+<div>
+    <h2><span class="mySpan">  Edit User Role</span></h2>
+</div>
+<hr />
+<body id="grad">
 
 @using (Html.BeginForm("Edit", "Role", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
 
 
-    <div class="form-horizontal">
-        <h4>Edit Role</h4>
-        <hr />
+<div class="form-horizontal">
+    @Html.AntiForgeryToken()
+    
+    
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.rId)
 
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.rId)
-
-        <p style="color: red">@Html.Raw(TempData["uniqueMessage"])</p>
+        <p class="text-left" style="color: red">@Html.Raw(TempData["uniqueMessage"])</p>
 
 
         <div class="form-group">
@@ -31,27 +38,24 @@
         <div class="form-group">
             @Html.LabelFor(model => model.roleName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.roleName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.roleName, new { htmlAttributes = new { @class = "form-control",@PlaceHolder = "Enter User Role (*)" } })
                 @Html.ValidationMessageFor(model => model.roleName, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" align="left">
             <div class="col-md-offset-2 col-md-10">
 
-                <button class="btn btn-success" type="submit"> <i class="glyphicon glyphicon-plus-sign"></i> Submit </button>
+                <button class="btn btn-success" type="submit"> <i class="glyphicon glyphicon-edit"></i> Edit </button>
                 <button class="btn" style="background-color: lightgray" type="reset"> <i class="glyphicon glyphicon-refresh"></i> Reset </button>
-                <button class="btn btn-info" onclick="location.href = '@Url.Action("Index","Role")'" type="button"><i class="glyphicon glyphicon-plus-sign"></i> Cancel</button>
-
-
-
+                <button class="btn btn-primary" onclick="location.href = '@Url.Action("Index","Role")'" type="button"><i class="glyphicon glyphicon-minus"></i> Cancel</button>
             </div>
         </div>
-    </div>
+  </div>
 }
 
 
-
+</body>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jquery")

@@ -21,14 +21,18 @@ namespace EBBS.Data.DAO
             context = new EbbSEntities();
         }
 
-        public IList<SecurityQuestion> GetAllSecurityQuestions()
+        //public IList<SecurityQuestion> GetAllSecurityQuestions()
+        //{
+
+        //   return context.SecurityQuestion.ToList();
+
+        //}
+
+        public List<SecurityQuestion> GetMySQs()
         {
-
-           return context.SecurityQuestion.ToList();
-
+            return context.SecurityQuestion.ToList();
         }
 
-        
 
         public void InsertSecurityQuestion(SecurityQuestion newSecurityQuestion)
         {
@@ -133,7 +137,7 @@ namespace EBBS.Data.DAO
             }
         }
 
-        public bool UniqueRole(string securityQuestion)
+        public bool UniqueSecurityQuestion(string securityQuestion)
         {
             var result = true;
             var uniqueSecurityQuestion = context.SecurityQuestion.FirstOrDefault(x => x.question == securityQuestion);
@@ -149,10 +153,7 @@ namespace EBBS.Data.DAO
             return result;            
         }
 
-        public List<SecurityQuestion> GetMySQs()
-        {
-            return context.SecurityQuestion.ToList();
-        }
+     
 
         public IEnumerable<SecurityQuestion> SqIeNum
         {

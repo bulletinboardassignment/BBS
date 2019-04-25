@@ -232,8 +232,7 @@ namespace EBBS.Data.DAO
             oldUser.firstName = newUser.firstName;
             oldUser.lastName = newUser.lastName;
             oldUser.questionId = newUser.questionId;
-
-            oldUser.username = newUser.username; 
+            //oldUser.username = newUser.username; 
             oldUser.userImage = newUser.userImage; 
 
             context.SaveChanges();

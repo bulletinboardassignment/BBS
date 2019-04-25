@@ -35,18 +35,75 @@ namespace EBBS.Data.DAO
         public void InsertRole(Role newRole)
         {
 
-            Role role = new Role();
-            role.roleName = newRole.roleName;
-            context.Role.Add(role);
-            context.SaveChanges();
-        }
+            //Role role = new Role();
+            //role.roleName = newRole.roleName;
+            //context.Role.Add(role);
+            //context.SaveChanges();
+            try
+            {
+                if (context.Role == null)
+                {
+                    throw new ArgumentNullException("newRole");
+                }
+
+                this.context.Role.Add(newRole);
+                this.context.SaveChanges();
+            }
+            catch (DbEntityValidationException dbEx)
+            {
+                string errorMessage = "";
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+
+                        errorMessage += string.Format("Property: {0} Error: {1}",
+                                            validationError.PropertyName, validationError.ErrorMessage) +
+                                        Environment.NewLine;
+                    }
+                }
+
+                throw new Exception(errorMessage, dbEx);
+            }
+
+         }
 
 
         public void UpdateRole(Role editRole)
         {
-            Role roleById = RoleById(editRole.rId);
-            roleById.roleName = editRole.roleName;
-            context.SaveChanges();
+            //Role roleById = RoleById(editRole.rId);
+            //roleById.roleName = editRole.roleName;
+            //context.SaveChanges();
+
+            try
+            {
+                if (context.Role == null)
+                {
+                    throw new ArgumentNullException("editRole");
+                }
+
+                Role role = RoleById(editRole.rId);
+                role.roleName = editRole.roleName;
+                this.context.SaveChanges();
+            }
+            catch (DbEntityValidationException dbEx)
+            {
+                string errorMessage = "";
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+
+                        errorMessage += string.Format("Property: {0} Error: {1}",
+                                            validationError.PropertyName, validationError.ErrorMessage) +
+                                        Environment.NewLine;
+                    }
+                }
+
+                throw new Exception(errorMessage, dbEx);
+            }
         }
 
 

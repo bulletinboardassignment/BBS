@@ -39,9 +39,9 @@ namespace EBBS.Service.Service
             _questionDao.InsertSecurityQuestion(newSecurityQuestion);
         }
 
-        public bool UniqueRole(string secQuestion)
+        public bool UniqueSecurityQuestion(string secQuestion)
         {
-            return _questionDao.UniqueRole(secQuestion);
+            return _questionDao.UniqueSecurityQuestion(secQuestion);
         }
 
         public void UpdateSecurityQuestion(SecurityQuestion editSecurityQuestion)
@@ -53,5 +53,6 @@ namespace EBBS.Service.Service
         {
             return _questionDao.GetMySQs();
         }
+
     }
 }

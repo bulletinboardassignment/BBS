@@ -1,51 +1,50 @@
 ﻿@model EBBS.Data.Role
-
 @{
     ViewBag.Title = "Delete";
 }
-
-<legend>Delete Role</legend>
-
-<div class="alert-danger"></div>
-<h3>Are you sure you want to delete this?</h3>
+<br />
+<br />
 <div>
-   
-   @using (Html.BeginForm("Delete","Role", FormMethod.Post)) {
+    <h2><span class="mySpan">  Delete User Role</span></h2>
+</div>
+<hr />
+<body id="grad">
+    <div class="alert-danger" "></div>
+    <h3 align="left" style="color: red">Are you sure you want to delete this?</h3>
+<div>
+
+    @using (Html.BeginForm("Delete", "Role", FormMethod.Post))
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-horizontal">
-            
+
             <hr />
-        
+
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-           
-        
+
 
             <div class="form-group">
                 @Html.LabelFor(model => model.rId, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.rId, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
-
                 </div>
             </div>
-
             <div class="form-group">
                 @Html.LabelFor(model => model.roleName, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.roleName, new { htmlAttributes = new { @class = "form-control" , @disabled = "disabled"} })
+                    @Html.EditorFor(model => model.roleName, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
                     @Html.ValidationMessageFor(model => model.roleName, "", new { @class = "text-danger" })
                 </div>
             </div>
-
-            <div class="form-group">
-                <div >
-
-                    <button class="btn btn-success" type="submit"> <i class="glyphicon glyphicon-plus-sign"></i> Submit </button>
-                    <button class="btn btn-info" onclick="location.href = '@Url.Action("Index","Role")'" type="button"><i class="glyphicon glyphicon-plus-sign"></i> Cancel</button>
+            <div class="form-group" align="left">
+                <div>
+                    <button class="btn btn-danger" type="submit"> <i class="glyphicon glyphicon-trash"></i> Delete </button>
+                    <button class="btn btn-primary" onclick="location.href = '@Url.Action("Index","Role")'" type="button"><i class="glyphicon glyphicon-minus"></i> Cancel</button>
                 </div>
             </div>
         </div>
-       
-    }
 
+    }
 </div>
+</body>

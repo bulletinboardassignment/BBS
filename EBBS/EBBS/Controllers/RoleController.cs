@@ -75,6 +75,8 @@ namespace EBBS.Controllers
         }
 
         
+
+
         public ActionResult Delete(int id)
         {
             if (id == 0)
@@ -101,49 +103,45 @@ namespace EBBS.Controllers
         }
 
 
+        // GET: Role/Edit/5
         public ActionResult Edit(int id)
         {
-
             if (id == 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Role roleEdit = _roleService.RoleById(id);
+            Role dataEdit = _roleService.RoleById(id);
 
-            if (roleEdit == null)
+            if (dataEdit == null)
             {
                 return HttpNotFound();
             }
-            return View(roleEdit);
-
+            return View(dataEdit);
         }
 
-
+        // POST: Role/Edit/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        //[Authorize(Roles = "Admin")]
         public ActionResult Edit(Role editData)
 
         {
             if (ModelState.IsValid)
             {
-                bool uniqueRole = _roleService.UniqueRole(editData.roleName.TrimEnd());
-                if (uniqueRole == true)
+                bool uniquesRole = _roleService.UniqueRole(editData.roleName.TrimEnd());
+                if (uniquesRole == true)
                 {
 
-                    TempData["uniqueMessage"] = "Record is Exist, Please modify with a new role";
+                    TempData["uniqueMessage"] = "Record is Exist, Please modify with a new user role";
                     return RedirectToAction("Edit", "Role");
                 }
 
-                    _roleService.UpdateRole(editData);
-                    TempData["editMessage"] = "Success ! You have modified the record";
-                    return RedirectToAction("Index", "Role");
-                
+                _roleService.UpdateRole(editData);
+                TempData["editMessage"] = "Success ! You have modified the record";
+                return RedirectToAction("Index", "Role");
+
             }
 
             return View(editData);
         }
-
 
 
         private User GetUserSession()

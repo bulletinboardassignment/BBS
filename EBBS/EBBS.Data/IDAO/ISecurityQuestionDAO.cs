@@ -9,7 +9,7 @@ namespace EBBS.Data.IDAO
 {
     public interface ISecurityQuestionDao
     {
-        IList<SecurityQuestion> GetAllSecurityQuestions();
+        //IList<SecurityQuestion> GetAllSecurityQuestions();
 
         SecurityQuestion GetSecurityQuestionById(int id);
 
@@ -19,7 +19,7 @@ namespace EBBS.Data.IDAO
 
         void DeleteSecurityQuestion(SecurityQuestion deleteSecurityQuestion);
 
-        bool UniqueRole(string securityQuestion);
+        bool UniqueSecurityQuestion(string securityQuestion);
 
         IEnumerable<SecurityQuestion> SqIeNum { get; }
 

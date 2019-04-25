@@ -11,7 +11,9 @@ namespace EBBS.Data
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
     public partial class SecurityQuestion
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,10 +21,14 @@ namespace EBBS.Data
         {
             this.User = new HashSet<User>();
         }
-    
+        [Display(Name = "Question ID")]
         public int qId { get; set; }
+        [Required]
+        [Display(Name = "Security Question")]
+        [Index(IsUnique = true)]
+        [StringLength(50, MinimumLength = 5)]
         public string question { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<User> User { get; set; }
     }

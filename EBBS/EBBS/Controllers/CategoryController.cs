@@ -53,7 +53,7 @@ namespace EBBS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "cId,categoryName,description,creatorId,createTime,frequency")] Category data)
         {
-          
+            User user = GetUserSession();
             Category obj = GetCategorySession();
        
             if (ModelState.IsValid)
@@ -66,8 +66,9 @@ namespace EBBS.Controllers
                     return RedirectToAction("Create", "Category");
                 }
                 obj.categoryName = data.categoryName;
-               
                 obj.description = data.description;
+                obj.creatorId = user.userId;
+                obj.createTime = DateTime.Now;
                 obj.frequency = 0;
                 _categoryService.InsertCategory(obj);
                 TempData["message"] = "Success ! You have created a new record";
@@ -101,10 +102,18 @@ namespace EBBS.Controllers
         public ActionResult Edit(Category editData)
 
         {
+            User user = GetUserSession();
+            Category obj = GetCategorySession();
             if (ModelState.IsValid)
             {
-               
-                _categoryService.UpdateCategory(editData);
+                obj.cId = editData.cId;
+                obj.categoryName = editData.categoryName;
+                obj.description = editData.description;
+                obj.creatorId = user.userId;
+                obj.createTime = DateTime.Now;
+                obj.frequency = 0;
+
+                _categoryService.UpdateCategory(obj);
                 TempData["editMessage"] = "Success ! You have modified the record";
                 return RedirectToAction("Index", "Category");
 
