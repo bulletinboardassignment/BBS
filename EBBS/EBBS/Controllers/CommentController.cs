@@ -70,9 +70,7 @@ namespace EBBS.Controllers
         // GET: Comment/Edit/5
         public ActionResult Edit(int id)
         {
-
-
-            return View(commentService.GetComment(id));
+               return View(commentService.GetComment(id));
         }
 
         // POST: Comment/Edit/5

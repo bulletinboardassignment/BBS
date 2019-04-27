@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace EBBS.Controllers
 {
@@ -27,12 +28,15 @@ namespace EBBS.Controllers
             return View();
         }
 
-        public ActionResult LogMeOut()
-        {
+        //public ActionResult LogMeOut()
+        //{
 
-            Session.Clear();
-            return RedirectToAction("Login","Account");
-        }
+        //    //Session.Clear();
+        //    //return RedirectToAction("Login","Account");
+
+        //    FormsAuthentication.SignOut();
+        //    return RedirectToAction("Login", "Account");
+        //}
 
 
 

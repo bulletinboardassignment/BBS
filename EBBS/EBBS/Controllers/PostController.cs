@@ -9,7 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 
 namespace EBBS.Controllers
-{
+{ 
     public class PostController : Controller
     {
         private IPostService postService;
@@ -36,11 +36,7 @@ namespace EBBS.Controllers
                 return null;
             }
         }
-
-
-
-
-
+       
         // GET: Post
         public ActionResult Index()
         {
@@ -57,13 +53,7 @@ namespace EBBS.Controllers
 
             return View(posts);
         }
-
-        
-
-
-
-
-
+    
 
         // GET: Post/Details/5
         public ActionResult Details(int id)
@@ -87,7 +77,7 @@ namespace EBBS.Controllers
 
             return View(postService.GetPost(id));
         }
-
+         
         // GET: Post/Create
         public ActionResult Create()
         {
@@ -109,18 +99,14 @@ namespace EBBS.Controllers
         {
             postService.ReportPost(reportModel.postId);
 
-            Reports report = new Reports();
-            report.postId = reportModel.postId;
-            report.reason = reportModel.reason;
-            report.reportedBy = GetUserSession().userId;
-
-            reportService.Add(report);
-
-            string result = "You reported it";
-            return Json(result);
+                Reports report = new Reports();
+                report.postId = reportModel.postId;
+                report.reason = reportModel.reason;
+                report.reportedBy = GetUserSession().userId;
+                reportService.Add(report);
+                string result = "You have been successfully reported the post";
+                return Json(result);
         }
-
-
 
 
 
@@ -187,11 +173,16 @@ namespace EBBS.Controllers
             savePost.createTime = DateTime.Now;
             savePost.postTitle = post.postTitle;
             savePost.postContent = post.postContent;
-
-
-            postService.Add(savePost);
-
-            string result = "ok success";
+            string result = "";
+            try
+            {
+                postService.Add(savePost);
+                result = "Data saved successfully!";
+            }
+            catch (Exception e) {
+                result = e.ToString();
+            }
+             
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 

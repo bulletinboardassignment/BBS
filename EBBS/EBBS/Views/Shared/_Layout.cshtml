@@ -7,8 +7,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@ViewBag.Title - EBBS Application</title>
     <link rel="stylesheet" href="~/Content/Site.css" />
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+
+
 </head>
 <body>
 <div class="navbar navbar-inverse navbar-fixed-top">
@@ -27,7 +30,8 @@
                 
         <ul>
             <li class="nav navbar-right">
-                <a href="/Home/LogMeOut"> <img src="~/images/Userlogout.png"></a>
+                @*<a href="/Home/LogMeOut"> <img src="~/images/Userlogout.png"></a>*@
+                <a href="/Account/LogMeOut"> <img src="~/images/Userlogout.png"></a>
             </li>
         </ul>
            

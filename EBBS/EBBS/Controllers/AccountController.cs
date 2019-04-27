@@ -21,7 +21,7 @@ using Microsoft.Ajax.Utilities;
 
 namespace EBBS.Controllers
 {
-    [Authorize]
+    //[Authorize]
 
     
     public class AccountController : Controller
@@ -140,16 +140,11 @@ namespace EBBS.Controllers
 
 
         //// GET: Account
-        //public ActionResult Logout()
-        //{
-        //    if (Session["User"] != null)
-        //    {
-        //        Session.Abandon();
-        //        return RedirectToAction("Login", "Account");
-        //    }
-        //    return View();
-
-        //}
+        public ActionResult LogMeOut()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Login", "Account");
+        }
 
 
 

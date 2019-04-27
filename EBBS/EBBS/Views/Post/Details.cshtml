@@ -4,74 +4,99 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
-<div class="row">
-    <div class="col-md-6">
-        <form id="newPost" method="post" enctype="multipart/form-data">
 
-            <input type="hidden" value="@Model.pId" id="pId" disabled />
-            <label>Title</label><br />
-            <input type="text" id="postTitle" value="@Model.postTitle" name="postTitle" class="form-control" placeholder="Post Title" disabled />
-
-            <label>Content</label>
-            <textarea name="postContent" id="postContent" class="form-control" disabled>@Model.postContent</textarea>
-
-            <label>Category:</label>
-            @Html.DropDownList("categoryId", (IEnumerable<SelectListItem>)ViewBag.categories)
-            <br />
-             
-            @if (Model.mediaType == "image/jpeg" || Model.mediaType == "image/jpg")
-            {
-                <img src="~/images/@Model.mediaPath" width="100" height="100" />
-            }
-            else if (Model.mediaType == "video/mp4")
-            {
-                <video width="320" height="240" controls>
-                    <source src="~/images/@Model.mediaPath" type="@Model.mediaType">
-
-                    Your browser does not support the video tag.
-                </video>
-            }
-             
-        </form>
-
-    </div>
-
-</div><br />
-<hr />
-@foreach (var comment in (List<EBBS.Data.Comment>)ViewBag.comments) {
-<div class="comment">
-    <h1>@comment.User.firstName @comment.User.lastName</h1>
-    <p>@comment.commentText</p>
-    <p>@comment.createTime</p>
-    
-    @if (@comment.commentedBy == (int) ViewBag.currentUser)
-    {
-        
-        <a class="btn btn-info" href="/Comment/Edit/@comment.commentId">Edit</a>
-        <a class="btn btn-danger" href="/Comment/Delete/@comment.commentId">Delete</a>
-    }
-
-
-
-</div>
-         
-}
-
-
+<br />
 <div>
-    <h4>Post</h4>
-    <hr />
+    <h2><span class="mySpan">  Post Details</span></h2>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.pId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
-<style>
-    .comment {
-        background-color:aliceblue;
-        width:500px;
-        height:300px;
-    }
+<hr />
+<body id="grad">
 
-</style>
+    <div class="form-horizontal">
+
+        <form id="newPost" method="post" enctype="multipart/form-data">
+            <div class="form-group" align="right">
+                <div>
+                    <button class="btn btn-success" onclick="location.href = '@Url.Action("Edit", new { id = Model.pId })'" type="button"><i class="glyphicon glyphicon-edit"></i> Edit</button> |
+                    <button class="btn btn-primary" onclick="location.href = '@Url.Action("Index","Post")'" type="button"><i class="glyphicon glyphicon-backward"></i> Back to List</button>
+                </div>
+            </div>
+            <input type="hidden" value="@Model.pId" id="pId" disabled />
+
+            <section class="container">
+                <div class="col-md-12">
+                    <article class="post-preview">
+                        <header class="modal-title">
+                            <div class="form-group" style="align-content:stretch">
+                                <h3><i class="glyphicon glyphicon-pencil"></i> @Model.postTitle</h3>
+                            </div>
+                        </header>
+
+                        <p class="post-subtitle">
+                            <h5 style="text-align:justify">@Html.Raw(@Model.postContent)</h5>
+                        </p>
+
+                        @if (Model.mediaType == "image/jpeg")
+                        {
+                            <img align="middle" src="~/images/@Model.mediaPath" width="500" height="500" />
+                        }
+                        else if (Model.mediaType == "video/mp4")
+                        {
+                            <video width="500" height="500" controls>
+                                <source src="~/images/@Model.mediaPath" type="@Model.mediaType">
+                                Your browser does not support the video tag.
+                            </video>
+                        }
+                        <br />
+                        <footer class="post-meta">
+                            <span class="fa fa-user" aria-hidden="true"> Posted by</span>
+                            <p>@Model.User.firstName @Model.User.lastName</p>
+                            <span class="fa fa-calendar" aria-hidden="true"> on</span>
+                            <p>@Model.createTime</p>
+                        </footer>
+                    </article>
+                </div>
+
+
+
+            </section>
+
+            <section class="container">
+                <div class="col-md-12">
+                    <article class="post-preview">
+                        <header class="modal-title">
+                            <h3 style="text-align:left"><i class="fa fa-comment"></i> Comments</h3>
+                        </header>
+
+                        @foreach (var comment in (List<EBBS.Data.Comment>)ViewBag.comments)
+                        {
+                       
+                            <div class="form-group">
+                                <div style="text-align:justify">
+                                    <h5>@Html.Raw(@comment.commentText)</h5> 
+                                </div>
+
+                                <div style="text-align:left">
+                                    <p class="fa fa-user" aria-hidden="true"> Commented by :@comment.User.firstName @comment.User.lastName</p>
+                                    | <p style="text-align:left" class="fa fa-calendar" aria-hidden="true"> on @comment.createTime</p>
+                                </div>
+
+                            </div>
+                            <div class="form-group" align="left">
+                                @if (@comment.commentedBy == (int)ViewBag.currentUser)
+                                {
+                                <div>
+                                    <a style="color:green" href="/Comment/Edit/@comment.commentId"><i class="glyphicon glyphicon-edit"></i> <b> Edit</b> </a> <span>|</span>
+
+                                    <a style="color:red" href="/Comment/Delete/@comment.commentId"><i class="glyphicon glyphicon-trash"></i> <b> Delete</b></a>
+                                </div>
+                                 }
+                            </div>
+                        }
+
+                    </article>
+                </div>
+            </section>
+</form>
+</div>
+</body>

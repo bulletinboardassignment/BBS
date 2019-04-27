@@ -4,59 +4,86 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
+<br />
+<br />
 
+<div>
+    <h2><span class="mySpan"> Update My Post</span></h2>
+</div>
 
-<div class="row">
-    <div class="col-md-6">
-        <form id="newPost" method="post" enctype="multipart/form-data"">
+<hr />
+
+<body id="grad">
+
+    <div class="form-horizontal">
+        <form id="newPost" method="post" enctype="multipart/form-data">
 
             <input type="hidden" value="@Model.pId" id="pId" />
-            <label>Title</label><br />
-            <input type="text" id="postTitle" value="@Model.postTitle" name="postTitle" class="form-control" placeholder="Post Title" />
 
-            <label>Content</label>
-            <textarea name="postContent" id="postContent" class="form-control">@Model.postContent</textarea>
+                <div class="form-group">
+                <span class="control-label col-md-2 text-left"><b>Upload Image or Video</b></span>
+                <input class="form-control" type="file" id="file" name="file" />
+                <br />
+                @if (Model.mediaType == "image/jpeg" || Model.mediaType == "image/jpg")
+                {
+                    <img align="middle" src="~/images/@Model.mediaPath" width="250" height="250" alt="not found" />
+                }
+                else if (Model.mediaType == "video/mp4")
+                {
+                    <div class="form-group">
+                        <video width="500" height="500" controls>
+                            <source src="~/images/@Model.mediaPath" type="@Model.mediaType" class="form-control" alt="not found">
+                             Your browser does not support the video tag.
+                        </video>
+                    </div>
+                }
+            </div>
 
-            <label>Category:</label>
-            @Html.DropDownList("categoryId", (IEnumerable<SelectListItem>)ViewBag.categories)
-            <br />
+            <div class="form-group" style="align-content:stretch">
+                <span class="control-label col-md-2 text-left"><b>Title:</b></span>
+                 <input align="left" type="text" id="postTitle" value="@Model.postTitle" name="postTitle" class="form-control" placeholder="Enter Title (*)" />
+            </div>
 
-            <label>Media</label>
-            <input type="file" id="file" name="file" />
-            @if (Model.mediaType == "image/jpeg" || Model.mediaType == "image/jpg")
-            {
-                <img src="~/images/@Model.mediaPath" width="100" height="100" />
-            }
-            else if (Model.mediaType == "video/mp4")
-            {
-                <video width="320" height="240" controls>
-                    <source src="~/images/@Model.mediaPath" type="@Model.mediaType">
+            <div class="form-group">
+                <span class="control-label col-md-2 text-left"><b>Description</b></span>
+                <textarea rows="8" cols="5" name="postContent" id="postContent" class="form-control" placeholder="Enter Description (*)">@Model.postContent</textarea>
+            </div>
 
-                    Your browser does not support the video tag.
-                </video>
-            }
+            <div class="form-group">
+                <span class="control-label col-md-2 text-left"><b>Board:</b></span>
+                @Html.DropDownList("categoryId", (IEnumerable<SelectListItem>)ViewBag.categories, "Select Board (*)", new { @class = "form-control" })
+            </div>
 
-            <a href="#" class="btn btn-default" onclick="UploadImage()">Edit</a>
+
+
+            <div class="form-group" align="left">
+                <div class="col-md-offset-2 col-md-10">
+                    <a href="#" class="btn btn-default" onclick="UploadImage()"><i class="glyphicon glyphicon-edit"></i> Edit</a>
+                    <button class="btn" style="background-color: lightgray" type="reset"> <i class="glyphicon glyphicon-refresh"></i> Reset </button>
+                    <button class="btn btn-primary" onclick="location.href = '@Url.Action("Index","Post")'" type="button"><i class="glyphicon glyphicon-minus"></i> Cancel</button>
+
+                </div>
+            </div>
         </form>
 
     </div>
+</body>
 
-</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
 
-<script type="text/javascript" src="~/Scripts/jquery-3.3.1.min.js"></script>
-
-<script>
+    <script>
     var UploadImage = function () {
         var file = $("#file").get(0).files;
         var data = new FormData;
-        
+
         data.append("pId", $("#pId").val());
         data.append("postTitle", $("#postTitle").val());
         data.append("postContent", $("#postContent").val());
         data.append("postImage", file[0]);
         data.append("categoryId", $("#categoryId").val());
-   
 
         $.ajax({
             type: 'POST',
@@ -66,7 +93,7 @@
             processData: false,
             success: function (response) {
                 alert("edited successfully");
-                window.location.href = "/Post"
+                window.location.href = "/Post/Index";
             },
             error: function () {
 
@@ -75,9 +102,85 @@
         });
 
     }
+    </script>
+}
 
 
-</script>
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+
+@*<h2>Edit</h2>
+
+
+    <div class="row">
+        <div class="col-md-6">
+            <form id="newPost" method="post" enctype="multipart/form-data"">
+
+                <input type="hidden" value="@Model.pId" id="pId" />
+                <label>Title</label><br />
+                <input type="text" id="postTitle" value="@Model.postTitle" name="postTitle" class="form-control" placeholder="Post Title" />
+
+                <label>Content</label>
+                <textarea name="postContent" id="postContent" class="form-control">@Model.postContent</textarea>
+
+                <label>Category:</label>
+                @Html.DropDownList("categoryId", (IEnumerable<SelectListItem>)ViewBag.categories)
+                <br />
+
+                <label>Media</label>
+                <input type="file" id="file" name="file" />
+                @if (Model.mediaType == "image/jpeg" || Model.mediaType == "image/jpg")
+                {
+                    <img src="~/images/@Model.mediaPath" width="100" height="100" />
+                }
+                else if (Model.mediaType == "video/mp4")
+                {
+                    <video width="320" height="240" controls>
+                        <source src="~/images/@Model.mediaPath" type="@Model.mediaType">
+
+                        Your browser does not support the video tag.
+                    </video>
+                }
+
+                <a href="#" class="btn btn-default" onclick="UploadImage()">Edit</a>
+            </form>
+
+        </div>
+
+    </div>
+
+    <script type="text/javascript" src="~/Scripts/jquery-3.3.1.min.js"></script>
+
+    <script>
+        var UploadImage = function () {
+            var file = $("#file").get(0).files;
+            var data = new FormData;
+
+            data.append("pId", $("#pId").val());
+            data.append("postTitle", $("#postTitle").val());
+            data.append("postContent", $("#postContent").val());
+            data.append("postImage", file[0]);
+            data.append("categoryId", $("#categoryId").val());
+
+
+            $.ajax({
+                type: 'POST',
+                url: "/Post/Edit/@Model.pId",
+                data: data,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    alert("edited successfully");
+                    window.location.href = "/Post/index"
+                },
+                error: function () {
+
+
+                }
+            });
+
+        }
+
+
+    </script>
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>*@

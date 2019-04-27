@@ -1,64 +1,86 @@
-﻿
+﻿@model EBBS.Models.PostModel
 @{
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
-@model EBBS.Models.PostModel
+<br />
+<br />
 
-<div class="row">
-    <div class="col-md-6">
-        <form id="newPost" method="post" enctype="multipart/form-data">
-            <label>Title</label><br />
-            <input type="tel" id="postTitle" name="postTitle" class="form-control" placeholder="Post Title" />
-
-            <label>Content</label>
-            <textarea name="postContent" id="postContent" class="form-control"></textarea>
-
-            <label>Category</label>
-            @Html.DropDownList("categoryId", (IEnumerable<SelectListItem>) ViewBag.categories )
-            <br />
-
-            <label>Media</label>
-            <input type="file" id="file" name="file" />
-
-            <a href="#" class="btn btn-default" onclick="UploadImage()" >Upload</a>
-        </form>
-
-    </div>
-
+<div>
+    <h2><span class="mySpan"> Create Posts</span></h2>
 </div>
 
-<script type="text/javascript" src="~/Scripts/jquery-3.3.1.min.js"></script>
-   
-<script>
-    var UploadImage = function () {
-        var file = $("#file").get(0).files;
-        var data = new FormData;
+<hr />
 
-        data.append("postTitle", $("#postTitle").val());
-        data.append("postContent", $("#postContent").val());
-        data.append("postImage", file[0]);
-        data.append("categoryId", $("#categoryId").val());
-        alert($("#categoryId").val());
+<body id="grad">
 
-        $.ajax({
-            type: 'POST',
-            url: "/Post/Create",
-            data: data,
-            contentType: false,
-            processData: false,
-            success: function (response) {
-                window.location.href = "/Post/Index";
-                alert("You added some post");
-            },
-            error: function () {
+    <div class="form-horizontal">
+        <form id="newPost" method="post" enctype="multipart/form-data">
+            <div class="form-group" style="align-content:stretch">
+                <span class="control-label col-md-2 text-left"><b>Title:</b></span>
+                <input align="left" type="text" class="form-control" id="postTitle" name="postTitle" placeholder="Enter Title (*)" required />
+            </div>
+
+            <div class="form-group">
+                <span class="control-label col-md-2 text-left"><b>Description</b></span>
+                <textarea rows="4" cols="50" type="text" class="form-control" id="postContent" placeholder="Enter Description here (*)"></textarea>
+            </div>
+
+            <div class="form-group">
+                <span class="control-label col-md-2 text-left"><b>Board:</b></span>
+                @Html.DropDownListFor(model => model.categoryId, (IEnumerable<SelectListItem>)ViewBag.categories, "Select Board (*)", new { id = "categoryId", @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                <span class="control-label col-md-2 text-left"><b>Upload Image or Video</b></span>
+                <input class="form-control" type="file" id="file" name="file" />
+            </div>
+
+            <div class="form-group" align="left">
+                <div class="col-md-offset-2 col-md-10">
+                    <button class="btn" style="background-color:lightgoldenrodyellow; color: black" type="submit" onclick="UploadImage()"><i class="glyphicon glyphicon-plus-sign"></i> Publish</button>
+                    <button class="btn" style="background-color: lightgray" type="reset"> <i class="glyphicon glyphicon-refresh"></i> Reset </button>
+                    <button class="btn btn-primary" onclick="location.href = '@Url.Action("Index","Post")'" type="button"><i class="glyphicon glyphicon-minus"></i> Cancel</button>
+
+                </div>
+            </div>
+
+        </form>
+    </div>
+</body>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    <script>
+        var UploadImage = function () {
+            var file = $("#file").get(0).files;
+            var data = new FormData;
+
+            data.append("postTitle", $("#postTitle").val());
+            data.append("postContent", $("#postContent").val());
+            data.append("postImage", file[0]);
+            data.append("categoryId", $("#categoryId").val());
+            alert($("#categoryId").val());
+
+            $.ajax({
+                type: 'POST',
+                url: "/Post/Create",
+                data: data,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    window.location.href = "/Post/Index";
+                    alert("You added some post");
+                },
+                error: function () {
 
 
-            }
-        });
+                }
+            });
+        }
+    </script>
+}
 
-    }
-
-
-</script>
