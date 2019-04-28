@@ -3,8 +3,6 @@
 @{
     ViewBag.Title = "Details";
 }
-
-
 <br />
 <div>
     <h2><span class="mySpan">  Post Details</span></h2>
@@ -16,86 +14,96 @@
 
         <form id="newPost" method="post" enctype="multipart/form-data">
             <div class="form-group" align="right">
-                <div>
-                    <button class="btn btn-success" onclick="location.href = '@Url.Action("Edit", new { id = Model.pId })'" type="button"><i class="glyphicon glyphicon-edit"></i> Edit</button> |
+             
+                    <button class="btn btn-success" onclick="location.href = '@Url.Action("Edit", new { id = Model.pId })'" type="button"><i class="glyphicon glyphicon-edit"></i> Edit</button> 
                     <button class="btn btn-primary" onclick="location.href = '@Url.Action("Index","Post")'" type="button"><i class="glyphicon glyphicon-backward"></i> Back to List</button>
-                </div>
+             
             </div>
             <input type="hidden" value="@Model.pId" id="pId" disabled />
 
             <section class="container">
                 <div class="col-md-12">
-                    <article class="post-preview">
-                        <header class="modal-title">
-                            <div class="form-group" style="align-content:stretch">
-                                <h3><i class="glyphicon glyphicon-pencil"></i> @Model.postTitle</h3>
-                            </div>
-                        </header>
+                    <div class="commentSection ; paragraph">
+                        <article>
+                            <header class="modal-title">
+                                <div class="form-group" style="align-content:stretch">
+                                    <h3><i class="glyphicon glyphicon-pencil"></i> @Model.postTitle</h3>
+                                </div>
+                            </header>
 
-                        <p class="post-subtitle">
-                            <h5 style="text-align:justify">@Html.Raw(@Model.postContent)</h5>
-                        </p>
+                            <p>@Html.DisplayFor(modelItem => Model.postContent)</p>
 
-                        @if (Model.mediaType == "image/jpeg")
-                        {
-                            <img align="middle" src="~/images/@Model.mediaPath" width="500" height="500" />
-                        }
-                        else if (Model.mediaType == "video/mp4")
-                        {
-                            <video width="500" height="500" controls>
-                                <source src="~/images/@Model.mediaPath" type="@Model.mediaType">
-                                Your browser does not support the video tag.
-                            </video>
-                        }
-                        <br />
-                        <footer class="post-meta">
-                            <span class="fa fa-user" aria-hidden="true"> Posted by</span>
-                            <p>@Model.User.firstName @Model.User.lastName</p>
-                            <span class="fa fa-calendar" aria-hidden="true"> on</span>
-                            <p>@Model.createTime</p>
-                        </footer>
-                    </article>
+                            @if (Model.mediaType == "image/jpeg")
+                            {
+                                <img align="middle" style="width:100%; max-width:100%" src="~/images/@Model.mediaPath" width="250" height="250" />
+                            }
+                            else if (Model.mediaType == "video/mp4")
+                            {
+                                <div class="form-group">
+                                    <video width="500" height="500" style="width: 75%; max-width: 100%;" controls>
+                                        <source src="~/images/@Model.mediaPath" type="@Model.mediaType" class="form-control" alt="not found">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                </div>
+                            }
+                            <p>
+                                Category: @Model.Category.categoryName
+                            </p>
+                            <br />
+                            <footer>
+                                <div style="text-align:center">
+                                    <p class="fa fa-user" aria-hidden="true"> Posted by :@Model.User.firstName @Model.User.lastName</p>
+                                    | <p style="text-align:left" class="fa fa-calendar" aria-hidden="true"> Posted on @Model.createTime</p>
+
+                                </div>
+                            </footer>
+                        </article>
+                    </div>
                 </div>
-
-
-
             </section>
 
             <section class="container">
-                <div class="col-md-12">
+                <div class="col-md-12 ; paragraph">
                     <article class="post-preview">
                         <header class="modal-title">
                             <h3 style="text-align:left"><i class="fa fa-comment"></i> Comments</h3>
                         </header>
-
-                        @foreach (var comment in (List<EBBS.Data.Comment>)ViewBag.comments)
-                        {
-                       
+                          
+                            @foreach (var comment in (List<EBBS.Data.Comment>)ViewBag.comments)
+                            {
+                        <div class="commentSection">
                             <div class="form-group">
-                                <div style="text-align:justify">
-                                    <h5>@Html.Raw(@comment.commentText)</h5> 
-                                </div>
 
-                                <div style="text-align:left">
-                                    <p class="fa fa-user" aria-hidden="true"> Commented by :@comment.User.firstName @comment.User.lastName</p>
-                                    | <p style="text-align:left" class="fa fa-calendar" aria-hidden="true"> on @comment.createTime</p>
-                                </div>
+                                <div style="text-align:center">
 
+                                    <h6 class="fa fa-user" aria-hidden="true"> Commented by :@comment.User.firstName @comment.User.lastName</h6>
+                                    | <h6 style="text-align:left" class="fa fa-calendar" aria-hidden="true"> Commented on @comment.createTime</h6>
+                                </div>
                             </div>
+                            <p style="text-align:center">@Html.Raw(@comment.commentText)</p>
                             <div class="form-group" align="left">
                                 @if (@comment.commentedBy == (int)ViewBag.currentUser)
                                 {
-                                <div>
-                                    <a style="color:green" href="/Comment/Edit/@comment.commentId"><i class="glyphicon glyphicon-edit"></i> <b> Edit</b> </a> <span>|</span>
+                                    <div class="form-group" align="center">
+                                        <div class="col-md-offset-2 col-md-10">
+                                            <h6 style="align-content:center">
+                                                <a style="color:green" href="/Comment/Edit/@comment.commentId"><i class="glyphicon glyphicon-edit"></i> <b> Edit</b> </a> <span>|</span>
+                                                <a style="color:red" href="/Comment/Delete/@comment.commentId"><i class="glyphicon glyphicon-trash"></i> <b> Delete</b></a>
+                                            </h6>
+                                        </div>
+                                    </div>
 
-                                    <a style="color:red" href="/Comment/Delete/@comment.commentId"><i class="glyphicon glyphicon-trash"></i> <b> Delete</b></a>
-                                </div>
-                                 }
+
+                                }
                             </div>
-                        }
-
+                                </div>
+                              <br />
+                             
+                            }
                     </article>
                 </div>
+                <hr />
+
             </section>
 </form>
 </div>

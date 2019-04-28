@@ -11,10 +11,16 @@ namespace EBBS.Data
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Comment
     {
+        
         public int commentId { get; set; }
+        [DisplayName("Comment")]
+        [Required(ErrorMessage = "Comment is Required")]
+        
         public string commentText { get; set; }
         public Nullable<int> commentedBy { get; set; }
         public Nullable<int> postId { get; set; }

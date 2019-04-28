@@ -5,211 +5,284 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<div class="row">
-
-    @foreach (var item in Model)
-    {
-    <div class="post" id="@item.pId">
-        <span>@Html.DisplayFor(modelItem => item.postTitle)</span>
-        <p>@Html.DisplayFor(modelItem => item.postContent)</p>
-        <p>Created in: @Html.DisplayFor(modelItem => item.createTime) </p>
-        <p>Category: @Html.DisplayFor(modelItem => item.Category.categoryName)</p>
-        <p>Created By: @Html.DisplayFor(modelItem => item.User.firstName)</p>
-        @if (item.mediaType == "image/jpeg" || item.mediaType == "image/jpg")
-        {
-            <img src="~/images/@item.mediaPath" width="100" height="100" />
-        }
-        else if (item.mediaType == "video/mp4")
-        {
-            <video width="320" height="240" controls>
-                <source src="~/images/@item.mediaPath" type="@item.mediaType">
-
-                Your browser does not support the video tag.
-            </video>
-        }
-
-        
-        @if (ViewBag.userType == @item.creatorId)
-        {
-
-            <a href="/Post/Delete/@item.pId" class="btn btn-danger">Delete</a>
-            <a href="/Post/Edit/@item.pId" class="btn btn-default">Edit</a>
-        }
-
-
-        <a href="/Post/Details/@item.pId" class="btn btn-info">Details</a>
-        <a data="@item.pId" class="btn btn-success like"><span class="badge">@item.nLikes &nbsp;</span>Like</a>
-        <a data="@item.pId" class="btn btn-danger dislike"><span class="badge">@item.nDislikes &nbsp;</span>Dislike</a>
-        <a data="@item.pId" class="btn btn-success comment">Comment</a>
-        <a data="@item.pId" class="btn btn-danger report" data-toggle="modal">Report</a>
-
-
-    </div>
-    }
-
+<br />
+<div>
+    <h2><span class="mySpan">  Post List</span></h2>
 </div>
+<hr />
+<body id="grad">
 
-<div id="reportModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Modal Header</h4>
-            </div>
-            <div class="modal-body">
-                <input type="hidden" id="rpostId" />
-                <textarea id="reportReason" class="form-control"></textarea>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <a href="#" class="btn btn-warning" id="mreport">Report</a>
+    <div class="form-group" style="float: right">
+        <button class="btn" style="background-color:lightgoldenrodyellow; color: black" onclick="location.href = '@Url.Action("Create","Post")'" type="button"><i class="glyphicon glyphicon-plus-sign"></i> Create New Post</button>
+    </div>
+
+    <div class="row">
+
+        @foreach (var item in Model)
+        {
+            <section class="container">
+                <div class="col-md-12; post">
+                    <article>
+                        <div class="form-group">
+                            <div id="@item.pId">
+
+                                <header class="modal-title">
+                                    <div class="form-group" style="align-content:stretch">
+                                        <h3><i class="glyphicon glyphicon-pencil"></i> @item.postTitle</h3>
+                                    </div>
+                                </header>
+
+                                <p>@Html.DisplayFor(modelItem => item.postContent)</p>
+
+                                @if (item.mediaType == "image/jpeg" || item.mediaType == "image/jpg")
+                                {
+                                    <img align="middle" style="width: 100%; max-width: 100%" src="~/images/@item.mediaPath" @*width="250" height="250"*@ />
+                                }
+                                else if (item.mediaType == "video/mp4")
+                                {
+                                    <video width="500" height="500" style="width: 100%; max-width: 100%;" controls>
+                                        <source src="~/images/@item.mediaPath" type="@item.mediaType">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                }
+
+                                <p>Category: @Html.DisplayFor(modelItem => item.Category.categoryName)</p>
+                                <p>Posted On: @Html.DisplayFor(modelItem => item.createTime) </p>
+                                <p>Created By: @item.User.firstName @item.User.lastName</p>
+
+
+
+                                @if (ViewBag.userType == @item.creatorId)
+                                {
+                                    <a href="/Post/Delete/@item.pId" class="btn btn-danger"><i class=" glyphicon glyphicon-trash"></i> Delete</a>
+                                    <a href="/Post/Edit/@item.pId" class="btn btn-success"><i class=" glyphicon glyphicon-edit"></i> Edit</a>
+                                }
+
+                                <a href="/Post/Details/@item.pId" class="btn btn-info"><i class=" glyphicon glyphicon-eye-open"></i> Details</a>
+
+                                <a data="@item.pId" class="btn btnLike like" data-toggle="tooltip" data-placement="bottom" title="Like">
+                                    <span class="badge">@item.nLikes &nbsp;</span>
+                                    <i class=" glyphicon glyphicon-thumbs-up"></i>
+                                </a>
+                                <a data="@item.pId" class="btn btnUnLike dislike" data-toggle="tooltip" data-placement="bottom" title="Dislike">
+                                    <span class="badge">@item.nDislikes &nbsp;</span>
+                                    <i class=" glyphicon glyphicon-thumbs-up"></i>
+                                </a>
+                                <a data="@item.pId" class="btn btnComment comment" data-toggle="tooltip" data-placement="bottom" title="Leave Comment">
+                                    <i class=" glyphicon glyphicon-comment"></i>
+                                </a>
+                                <a data="@item.pId" class="btn btnReport report" data-toggle="modal; tooltip" data-placement="bottom" title="Report Post">
+                                    <i class=" glyphicon glyphicon-flag"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <hr />
+
+                    </article>
+                </div>
+            </section>
+        }
+    </div>
+
+    <!-- Modal for report about abused post-->
+    <div>
+        <div id="reportModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <div>
+                            <h2><span class="mySpan"> Report Post</span></h2>
+                        </div>
+                    </div>
+
+                    <div class="modal-body" id="grad">
+                        <br />
+                        <div class="form-group" align="center">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-question-sign"></i></span>
+                                <input type="hidden" id="rpostId" />
+                                <textarea rows="3" cols="7" id="reportReason" class="form-control" placeholder="Enter Reason (*)"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <div class="form-group" align="right">
+                            <div class="col-md-offset-2 col-md-10">
+                                <a href="#" class="btn btnReport" id="mreport"><i class="glyphicon glyphicon-flag"></i> Report</a>
+                                <button class="btn btn-info" type="button" data-dismiss="modal"><i class="glyphicon glyphicon-minus"></i> Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<div id="commentModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Comment</h4>
-            </div>
-            <div class="modal-body">
-                <input type="hidden" id="pcId" />
-                <textarea class="form-control" id="commentText"></textarea>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <a href="#" class="btn btn-warning" id="mComment">Comment</a>
+    <!-- Modal for comment on post-->
+
+    <div>
+        <div id="commentModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <div>
+                            <h2><span class="mySpan"> Post Comment</span></h2>
+                        </div>
+                    </div>
+
+                    <div class="modal-body" id="grad">
+                        <br />
+                        <div class="form-group" align="center">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-question-sign"></i></span>
+                                <input type="hidden" id="pcId" />
+                                <textarea rows="3" cols="7" id="commentText" class="form-control" placeholder="Enter Comment here (*)"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <div class="form-group" align="right">
+                            <div class="col-md-offset-2 col-md-10">
+                                <a href="#" class="btn btnReport" id="mComment"><i class="glyphicon glyphicon-comment"></i> Post Comment</a>
+                                <button class="btn btn-info" type="button" data-dismiss="modal"><i class="glyphicon glyphicon-minus"></i> Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 
-<script src="~/Scripts/jquery-3.3.1.min.js"></script>
-<script src="~/Scripts/bootstrap.min.js"></script>
-<script>
 
-    $(".comment").click(function () {
-        var id = $(this).attr("data");
-        $("#pcId").val(id);
-        $("#commentModal").modal("show");
-       
 
-    });
 
-    $("#mComment").click(function (e) {
-        e.preventDefault();
-        var comment = $("#commentText").val();
-        var postId = $("#pcId").val();
-        $.ajax({
-            type: 'POST',
-            data: { postId: postId, commentText: comment },
-            url: '/Comment/Comment',
-            success: function (response) {
-                $("#commentModal").modal("hide");
-                alert(response);
-                $("#commentText").val("");
-            },
-            error: function (a, b, c) {
-                alert(c + "");
-            }
 
+
+
+
+
+
+
+
+
+
+</body>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script>
+
+        $(".comment").click(function () {
+            var id = $(this).attr("data");
+            $("#pcId").val(id);
+            $("#commentModal").modal("show");
 
 
         });
-    });
 
-    
+        $("#mComment").click(function (e) {
+            e.preventDefault();
+            var comment = $("#commentText").val();
+            var postId = $("#pcId").val();
+            $.ajax({
+                type: 'POST',
+                data: { postId: postId, commentText: comment },
+                url: '/Comment/Comment',
+                success: function (response) {
+                    $("#commentModal").modal("hide");
+                    alert(response);
+                    $("#commentText").val("");
+                },
+                error: function (a, b, c) {
+                    alert(c + "");
+                }
 
 
-    $(".report").click(function () {
-        var id = $(this).attr("data");
-        $("#rpostId").val(id);
-        $("#reportModal").modal("show");
 
-    });
+            });
+        });
 
-    $("#mreport").click(function (e) {
-        e.preventDefault();
-        var postId = $("#rpostId").val();
-        var reason = $("#reportReason").val();
-   
-
-        $.ajax({
-            type: "POST",
-            data: { postId: postId, reason: reason },
-            url: '/Post/Report',
-            success: function (response) {
-                $("#reportModal").modal("hide");
-                $("#reportReason").val("");
-                alert(response);
-                window.location.href = "/Post/Index";
-            },
-            error: function (a, b, c) {
-                alert("Sorry could not report it!");
-            }
+        $(".report").click(function () {
+            var id = $(this).attr("data");
+            $("#rpostId").val(id);
+            $("#reportModal").modal("show");
 
         });
 
-    });
+        $("#mreport").click(function (e) {
+            e.preventDefault();
+            var postId = $("#rpostId").val();
+            var reason = $("#reportReason").val();
 
 
+            $.ajax({
+                type: "POST",
+                data: { postId: postId, reason: reason },
+                url: '/Post/Report',
+                success: function (response) {
+                    $("#reportModal").modal("hide");
+                    $("#reportReason").val("");
+                    alert(response);
+                    window.location.href = "/Post/Index";
+                },
+                error: function (a, b, c) {
+                    alert("Sorry could not report it!");
+                }
 
+            });
 
-
-    $(".like").click(function () {
-        var id = $(this).attr("data");
-        var vote = "like";
-        $.ajax({
-            type: 'POST',
-            data: {postId: id, vote: vote },
-            url: '/Post/Like',
-            success: function (response) {
-                alert(response);
-                window.location.href = "/Post/Index";
-            },
-            error: function (a, b, c) {
-                alert("could not like the post");
-            }
         });
 
-    });
+        $(".like").click(function () {
+            var id = $(this).attr("data");
+            var vote = "like";
+            $.ajax({
+                type: 'POST',
+                data: { postId: id, vote: vote },
+                url: '/Post/Like',
+                success: function (response) {
+                    alert(response);
+                    window.location.href = "/Post/Index";
+                },
+                error: function (a, b, c) {
+                    alert("could not like the post");
+                }
+            });
 
-    $(".dislike").click(function () {
-        var id = $(this).attr("data");
-        var vote = "dislike";
-        $.ajax({
-            type: 'POST',
-            data: { postId: id, vote: vote },
-            url: '/Post/Dislike',
-            success: function (response) {
-                alert(response);
-                window.location.href = "/Post/Index";
-            },
-            error: function (a, b, c) {
-                alert("could not dislike the post");
-            }
         });
 
-    });
-</script>
+        $(".dislike").click(function () {
+            var id = $(this).attr("data");
+            var vote = "dislike";
+            $.ajax({
+                type: 'POST',
+                data: { postId: id, vote: vote },
+                url: '/Post/Dislike',
+                success: function (response) {
+                    alert(response);
+                    window.location.href = "/Post/Index";
+                },
+                error: function (a, b, c) {
+                    alert("could not dislike the post");
+                }
+            });
 
-<style>
-    div.post {
-        display: inline-block;
-        width: 300px;
-        height: 400px;
-        background-color: palegreen;
-        border-radius: 5px;
-    }
-</style>
+        });
+    </script>
+}
+
+

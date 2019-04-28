@@ -1,33 +1,48 @@
 ﻿@model EBBS.Data.Comment
+<br />
+<br />
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    
+<div>
+    <h2><span class="mySpan"> Update My Comment</span></h2>
+</div>
+
+<hr />
+<body id="grad">
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
     <div class="form-horizontal">
-        <h4>Comment</h4>
-        <hr />
+
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.commentId)
 
         <div class="form-group">
             @Html.LabelFor(model => model.commentText, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.commentText, new { htmlAttributes = new { @class = "form-control" } })
+            <div class="input-group" align="left" row="30" col="10">
+                @Html.TextAreaFor(model => model.commentText, 10, 70, htmlAttributes: new { style = "width: 100%; max-width: 100%;", @placeholder = "Enter a comment (*)" })
                 @Html.ValidationMessageFor(model => model.commentText, "", new { @class = "text-danger" })
             </div>
         </div>
 
-
-
-        <div class="form-group">
+        
+        <div class="form-group" align="left">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <button class="btn btn-success" type="submit"> <i class="glyphicon glyphicon-edit"></i> Edit </button>
+                <button class="btn" style="background-color: lightgray" type="reset"> <i class="glyphicon glyphicon-refresh"></i> Reset </button>
+                <button class="btn btn-primary" onclick="location.href = '@Url.Action("MyComments","Comment")'" type="button"><i class="glyphicon glyphicon-minus"></i> Cancel</button>
             </div>
         </div>
     </div>
-}
+    }
+    </body>
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+    @section Scripts {
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/jqueryval")
+        @Scripts.Render("~/bundles/bootstrap")
+        <script src="~/Scripts/jquery.validate.min.js"></script>
+        <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+    }

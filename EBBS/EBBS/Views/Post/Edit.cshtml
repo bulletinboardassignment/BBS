@@ -20,34 +20,42 @@
 
             <input type="hidden" value="@Model.pId" id="pId" />
 
-                <div class="form-group">
+            <div class="form-group">
                 <span class="control-label col-md-2 text-left"><b>Upload Image or Video</b></span>
                 <input class="form-control" type="file" id="file" name="file" />
                 <br />
+
                 @if (Model.mediaType == "image/jpeg" || Model.mediaType == "image/jpg")
                 {
-                    <img align="middle" src="~/images/@Model.mediaPath" width="250" height="250" alt="not found" />
+                    <img align="middle" src="~/images/@Model.mediaPath" width="250" height="250" alt="not found" style="" />
                 }
                 else if (Model.mediaType == "video/mp4")
                 {
                     <div class="form-group">
-                        <video width="500" height="500" controls>
+                        <video width="500" height="500" style="width: 75%; max-width: 100%;" controls>
                             <source src="~/images/@Model.mediaPath" type="@Model.mediaType" class="form-control" alt="not found">
-                             Your browser does not support the video tag.
+                            Your browser does not support the video tag.
                         </video>
                     </div>
                 }
+
             </div>
 
             <div class="form-group" style="align-content:stretch">
                 <span class="control-label col-md-2 text-left"><b>Title:</b></span>
-                 <input align="left" type="text" id="postTitle" value="@Model.postTitle" name="postTitle" class="form-control" placeholder="Enter Title (*)" />
+                <input align="left" type="text" id="postTitle" value="@Model.postTitle" name="postTitle" class="form-control" placeholder="Enter Title (*)" />
             </div>
 
             <div class="form-group">
                 <span class="control-label col-md-2 text-left"><b>Description</b></span>
-                <textarea rows="8" cols="5" name="postContent" id="postContent" class="form-control" placeholder="Enter Description (*)">@Model.postContent</textarea>
+                <div class="input-group" align="left">
+                    <textarea rows="10" cols="100" style="width: 100%; max-width: 100%;" name="postContent" id="postContent" class="form-control" placeholder="Enter Description (*)">@Model.postContent</textarea>
+                </div>
             </div>
+
+
+
+
 
             <div class="form-group">
                 <span class="control-label col-md-2 text-left"><b>Board:</b></span>
@@ -58,7 +66,7 @@
 
             <div class="form-group" align="left">
                 <div class="col-md-offset-2 col-md-10">
-                    <a href="#" class="btn btn-default" onclick="UploadImage()"><i class="glyphicon glyphicon-edit"></i> Edit</a>
+                    <a href="#" class="btn btn-success" onclick="UploadImage()"><i class="glyphicon glyphicon-edit"></i> Edit</a>
                     <button class="btn" style="background-color: lightgray" type="reset"> <i class="glyphicon glyphicon-refresh"></i> Reset </button>
                     <button class="btn btn-primary" onclick="location.href = '@Url.Action("Index","Post")'" type="button"><i class="glyphicon glyphicon-minus"></i> Cancel</button>
 
