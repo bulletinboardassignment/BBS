@@ -7,11 +7,14 @@
 <hr />
 <body id="grad">
 
+    <div align="right"><a href="/Category/Index" class="btn btn-primary"><i class="fa fa-backward"></i> Back to List</a></div>
+  
+
     <div class="row">
 
         @foreach (var item in Model)
         {
-                
+
             <section class="container">
                 <div class="col-md-12; post">
                     <article>
@@ -41,10 +44,11 @@
                                 <p>Category: @Html.DisplayFor(modelItem => item.Category.categoryName)</p>
                                 <p>Posted On: @Html.DisplayFor(modelItem => item.createTime) </p>
                                 <p>Created By: @item.User.firstName @item.User.lastName</p>
+
+                                @*<a href="/Post/Delete/@item.pId" class="btn btn-danger"><i class=" glyphicon glyphicon-trash"></i> Delete</a>
+            <a href="/Post/Edit/@item.pId" class="btn btn-success"><i class=" glyphicon glyphicon-edit"></i> Edit</a>
+        <a href="/Post/Details/@item.pId" class="btn btn-info"><i class=" glyphicon glyphicon-eye-open"></i> Details</a>*@
                                 
-                                <a href="/Post/Delete/@item.pId" class="btn btn-danger"><i class=" glyphicon glyphicon-trash"></i> Delete</a>
-                                    <a href="/Post/Edit/@item.pId" class="btn btn-success"><i class=" glyphicon glyphicon-edit"></i> Edit</a>                                                   
-                                <a href="/Post/Details/@item.pId" class="btn btn-info"><i class=" glyphicon glyphicon-eye-open"></i> Details</a>
 
                             </div>
                         </div>
@@ -58,4 +62,4 @@
         }
 
     </div>
-    </body>
+</body>

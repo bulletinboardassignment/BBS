@@ -8,52 +8,108 @@
     <title>@ViewBag.Title - EBBS Application</title>
     <link rel="stylesheet" href="~/Content/Site.css" />
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" 
+          integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <!-- reference your copy Font Awesome here (from our CDN or by hosting yourself) -->
+    <link href="/your-path-to-fontawesome/css/fontawesome.css" rel="stylesheet">
+    <link href="/your-path-to-fontawesome/css/brands.css" rel="stylesheet">
+    <link href="/your-path-to-fontawesome/css/solid.css" rel="stylesheet">
+
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
 
 </head>
-<body>
-<div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <ul class="nav navbar-left">
-                @*<li><a href="/Account/Login"><img src="~/images/EBBSLogo.png" /></a></li>*@
-                <li><img src="~/images/EBBSLogo.png" /></li>
+<body style="width:100%;max-width:100%">
+    <div class="navbar navbar-inverse navbar-fixed-top" style="width:100%;max-width:100%">
+        <div class="container">
+            <div class="navbar-header">
+                <ul class="nav navbar-left">
+                   <li><img src="~/images/EBBSLogo.png" /></li>
+                </ul>
+            </div>
+
+            <ul class="nav navbar-nav">
+                <li>@Html.ActionLink("About", "About", "Home")</li>
+                <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+
+                @*<li class="nav-item active">
+                    <a class="nav-link;dropbtn" href="/Category/Index">
+                        <i class="fa fa-globe"></i>
+                        <span>Bullet Home</span>
+                     </a>
+                </li>*@
+
+                <li class="dropdown">
+                    <a class="nav-link"><i class="fa fa-globe"></i> <span>Bullet Home</span></a>
+                    <div class="dropdown-content">
+                        <a class="dropdown-item" href="/Category/index">Category Posts</a>
+                        <a class="dropdown-item" href="/Post/index">EBBS Posts</a>
+                    </div>
+                </li>
+
+
+                <li class="dropdown">
+                    <a class="nav-link"><i class="fas fa-user-circle"></i> <span>My Account</span></a>
+                    <div class="dropdown-content">
+                        <a class="dropdown-item" href="/My/Index">My Profile</a>
+                        <a class="dropdown-item" href="/Post/MyPosts">My Posts</a>
+                        <a class="dropdown-item" href="/Comment/MyComments">My Comments</a>
+                    </div>
+                </li>
+
+                <li class="dropdown">
+                    <a class="nav-link"><i class="fas fa-cog"></i> <span>Manage EBBS</span></a>
+                    <div class="dropdown-content">
+                        <a class="dropdown-item" href="/User/Index">EBBS Users</a>
+                        <a class="dropdown-item" href="/Log/Index">EBBS User Logs</a>
+                        <a class="dropdown-item" href="/Report/Index">EBBS Report Posts</a>
+                        <a class="dropdown-item" href="/SecurityQuestion/Index">EBBS Security Questions</a>
+                        <a class="dropdown-item" href="/Role/Index">EBBS User Roles</a>
+                    </div>
+                </li>
+
+                @*<li class="dropdown">
+            <button class="dropbtn"><i class="fas fa-fw fa-folder"></i>Manage EBBS</button>
+            <div class="dropdown-content">
+                <a class="dropdown-item" href="/User/Index">EBBS Users</a>
+                <a class="dropdown-item" href="/Post/index">EBBS Posts</a>
+                <a class="dropdown-item" href="/Log/Index">EBBS User Logs</a>
+                <a class="dropdown-item" href="/Report/Index">EBBS Report Posts</a>
+                <a class="dropdown-item" href="/SecurityQuestion/Index">EBBS Security Questions</a>
+                <a class="dropdown-item" href="/Role/Index">EBBS User Roles</a>
+            </div>
+        </li>*@
+
+
+
             </ul>
+
+            <ul>
+                <li class="nav navbar-right">
+                   <a href="/Account/LogMeOut"> <img src="~/images/Userlogout.png"></a>
+                </li>
+            </ul>
+
         </div>
-            
-        <ul class="nav navbar-nav">
-            <li>@Html.ActionLink("About", "About", "Home")</li>
-            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-        </ul>
-                
-        <ul>
-            <li class="nav navbar-right">
-                @*<a href="/Home/LogMeOut"> <img src="~/images/Userlogout.png"></a>*@
-                <a href="/Account/LogMeOut"> <img src="~/images/Userlogout.png"></a>
-            </li>
-        </ul>
-           
     </div>
-</div>
 
-<div class="container body-content">
-    @RenderBody()
-    <hr />
-    <!-- Footer -->
-    <div align="center">
-        <footer>
-            <p>&copy; @DateTime.Now.Year - EBBS Application</p>
-        </footer>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <!-- Footer -->
+        <div align="center">
+            <footer>
+                <p>&copy; @DateTime.Now.Year - EBBS Application</p>
+            </footer>
+        </div>
     </div>
-</div>
 
 
-@Scripts.Render("~/bundles/jquery")
-@Scripts.Render("~/bundles/bootstrap")
-@RenderSection("scripts", required: false)
-<script src="~/Scripts/jquery.validate.min.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 </body>
 </html>

@@ -50,8 +50,9 @@ namespace EBBS.Controllers
 
             ViewBag.userType = this.GetUserSession().userId;
 
-
             return View(posts);
+            
+                      
         }
     
 
