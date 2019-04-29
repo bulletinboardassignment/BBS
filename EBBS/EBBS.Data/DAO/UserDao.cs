@@ -15,11 +15,14 @@ namespace EBBS.Data.DAO
     public class UserDao : IUserDao
     {
         private EbbSEntities context;
+        private ICommentDAO commentDAO;
+        private IReportDAO reportDAO;
 
         public UserDao()
         {
             context = new EbbSEntities();
-
+            commentDAO = new CommentDAO();
+            reportDAO = new ReportDAO();
         }
 
         public IEnumerable<User> UserIEmum
@@ -46,9 +49,9 @@ namespace EBBS.Data.DAO
                 user.createTime = DateTime.Now;
                 user.updateTime = DateTime.Now;
                 user.lastLogin = DateTime.Now;
-                //user.questionId = addEditUser.questionId;
-                //user.answer = addEditUser.answer;
-                //user.userType = addEditUser.userType;
+                user.questionId = addEditUser.questionId;
+                user.answer = addEditUser.answer;
+                user.userType = addEditUser.userType;
                 this.context.User.Add(addEditUser);
                 int result = this.context.SaveChanges();
 
@@ -71,15 +74,15 @@ namespace EBBS.Data.DAO
                     dbEntry.userId = addEditUser.userId;
                     dbEntry.firstName = addEditUser.firstName;
                     dbEntry.lastName = addEditUser.lastName;
-                    //dbEntry.password = addEditUser.password;
-                    dbEntry.createTime = DateTime.Now;
+                    dbEntry.password = addEditUser.password;
+                    //dbEntry.createTime = DateTime.Now;
                     dbEntry.updateTime = DateTime.Now;
-                    dbEntry.lastLogin = DateTime.Now;
+                    //dbEntry.lastLogin = DateTime.Now;
                     dbEntry.questionId = addEditUser.questionId;
                     dbEntry.answer = addEditUser.answer;
                     dbEntry.userType = addEditUser.userType;
-                    //dbEntry.userImage = addEditUser.userImage;
-                    //dbEntry.imageSize = addEditUser.imageSize;
+                    dbEntry.userImage = addEditUser.userImage;
+                    dbEntry.imageSize = addEditUser.imageSize;
                     addEditUser.userId = dbEntry.userId;
                     if (context.SaveChanges() > 0)
                     {
@@ -166,18 +169,18 @@ namespace EBBS.Data.DAO
             return dbEntry;
         }
 
-        public User Delete(int? id)
-        {
-            User dbEntry = context.User.Find(id);
-            if (dbEntry != null)
-            {
-                context.User.Remove(dbEntry);
-                context.SaveChanges();
-            }
+        //public User Delete(int? id)
+        //{
+        //    User dbEntry = context.User.Find(id);
+        //    if (dbEntry != null)
+        //    {
+        //        context.User.Remove(dbEntry);
+        //        context.SaveChanges();
+        //    }
 
-            return dbEntry;
+        //    return dbEntry;
 
-        }
+        //}
 
         public bool UniqueEmail(string email)
         {
@@ -219,11 +222,11 @@ namespace EBBS.Data.DAO
             return context.User.Where(x => x.userId == userId).FirstOrDefault();
         }
 
-        public void DeleteUser(int userId)
-        {
-            context.User.Remove(this.GetUser(userId));
-            context.SaveChanges();
-        }
+        //public void DeleteUser(int userId)
+        //{
+        //    context.User.Remove(this.GetUser(userId));
+        //    context.SaveChanges();
+        //}
 
         public void EditUser(int oldUserId, User newUser)
         {
@@ -261,6 +264,108 @@ namespace EBBS.Data.DAO
             else {
                 return -1;
             }
+        }
+
+        public void DeleteUser(User deleteUser)
+        {
+            try
+            {
+                if (context.User == null)
+                {
+                    throw new ArgumentNullException("deleteUser");
+                }
+
+                User userById = UserById(deleteUser.userId);
+
+                User testUser = new User();
+                testUser.firstName = "admintest";
+                testUser.lastName = "admintest";
+                testUser.username = "admintest@ebbs.com";
+                testUser.userType = 2;
+
+                if (context.User.Where(x => x.username == "admintest@ebbs.com" && x.firstName == "admintest").FirstOrDefault() == null) {
+                    context.User.Add(testUser);
+                }
+
+
+                List<Like> myLikes = context.Like.Where(x => x.likedBy == deleteUser.userId).ToList();
+                foreach (var like in myLikes)
+                {
+                    context.Like.Remove(like);
+                    context.SaveChanges();
+                }
+
+                List<Reports> myReports = context.Reports.Where(x => x.reportedBy == deleteUser.userId).ToList();
+                foreach (var report in myReports) {
+                    reportDAO.AllowReportedPost(report.postId);
+                    context.SaveChanges();
+                }
+
+
+                List<Comment> myComments =  context.Comment.Where(x => x.commentedBy == deleteUser.userId).ToList();
+                foreach (var comment in myComments) {
+                    context.Comment.Remove(comment);
+                    context.SaveChanges();
+                }
+
+                List<Post> myPosts = context.Post.Where(x => x.creatorId == deleteUser.userId).ToList();
+                foreach (var post in myPosts) {
+                    context.Post.Remove(post);
+                    context.SaveChanges();
+                }
+
+                List<Logs> myLogs = context.Logs.Where(x => x.userId == deleteUser.userId).ToList();
+                foreach (var log in myLogs) {
+                    context.Logs.Remove(log);
+                    context.SaveChanges();
+                }
+
+
+
+                List<Category> myCategories = context.Category.Where(x => x.creatorId == deleteUser.userId).ToList();
+                foreach (var category in myCategories) {
+                    category.creatorId = testUser.userId;
+                    context.SaveChanges();
+                }
+                
+                                                          
+               context.User.Remove(userById);
+
+               context.SaveChanges();
+            }
+
+            catch (DbEntityValidationException dbEx)
+            {
+                string errorMessage = "";
+
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        errorMessage += Environment.NewLine + string.Format("Property: {0} Error: {1}",
+                                            validationError.PropertyName, validationError.ErrorMessage);
+                    }
+                }
+                throw new Exception(errorMessage, dbEx);
+            }
+        }
+
+        public User UserById(int id)
+        {
+            User user_id = context.User.SingleOrDefault(x => x.userId == id);
+            return user_id;
+        }
+
+        public int NoAllUsers()
+        {
+            return context.User.ToList().Count;
+        }
+
+        public int UsersInLastMonth()
+        {
+            string month = DateTime.Now.Month.ToString();
+            string year = DateTime.Now.Year.ToString();
+            return context.User.Where(x => x.createTime.Value.Month.ToString().Equals(month) && x.createTime.Value.Year.ToString().Equals(year)).Count();
         }
     }
 

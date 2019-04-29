@@ -24,10 +24,10 @@ namespace EBBS.Service.Service
            return _userDao.Save(user);
         }
         
-        public User Delete(int? id)
-        {
-            return _userDao.Delete(id);
-        }
+        //public User Delete(int? id)
+        //{
+        //    return _userDao.Delete(id);
+        //}
 
    
         public User Details(int? id)
@@ -87,10 +87,10 @@ namespace EBBS.Service.Service
             return _userDao.GetUser(userId);
         }
 
-        public void DeleteUser(int userId)
-        {
-            _userDao.Delete(userId);
-        }
+        //public void DeleteUser(int userId)
+        //{
+        //    _userDao.Delete(userId);
+        //}
 
         public void EditUser(int oldUserId, User newUser)
         {
@@ -110,6 +110,26 @@ namespace EBBS.Service.Service
         public int AreResetCredentialsTrue(string username, int sqId, string answer)
         {
             return _userDao.AreResetCredentialsTrue(username, sqId, answer);
+        }
+
+        public User UserById(int id)
+        {
+            return _userDao.UserById(id);
+        }
+
+        public void DeleteUser(User deleteUser)
+        {
+            _userDao.DeleteUser(deleteUser);
+        }
+
+        public int NoAllUsers()
+        {
+            return _userDao.NoAllUsers();
+        }
+
+        public int UsersInLastMonth()
+        {
+            return _userDao.UsersInLastMonth();
         }
     }
 }

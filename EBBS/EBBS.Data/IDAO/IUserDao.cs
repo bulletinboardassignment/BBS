@@ -12,10 +12,13 @@ namespace EBBS.Data.IDAO
         User Details(int? Id);
         IEnumerable<User> UserIEmum { get; }
         IQueryable<User> UserList { get; }
-        User Delete(int? Id);
+        //User Delete(int? Id);
 
         bool UniqueEmail(string email);
 
+        void DeleteUser(User deleteUser);
+
+        User UserById(int id);
 
         //===============================
 
@@ -29,10 +32,12 @@ namespace EBBS.Data.IDAO
         List<User> GetAllUsersExceptMe(int currentUserId);
 
         User GetUser(int userId);
-        void DeleteUser(int userId);
+        //void DeleteUser(int userId);
         void EditUser(int oldUserId, User newUser);
         string GetUserPassword(int userId);
         void ChangeUserPassword(int userId, string newPassword);
         int AreResetCredentialsTrue(string username, int sqId, string answer);
+        int NoAllUsers();
+        int UsersInLastMonth();
     }
 }

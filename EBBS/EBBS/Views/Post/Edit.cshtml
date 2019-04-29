@@ -22,7 +22,7 @@
 
             <div class="form-group">
                 <span class="control-label col-md-2 text-left"><b>Upload Image or Video</b></span>
-                <input class="form-control" type="file" id="file" name="file" />
+                <input class="form-control" type="file" id="file" name="file" accept="image/jpg, image/jpeg, video/mp4" />
                 <br />
 
                 @if (Model.mediaType == "image/jpeg" || Model.mediaType == "image/jpg")

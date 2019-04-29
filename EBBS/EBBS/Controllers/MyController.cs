@@ -19,6 +19,7 @@ namespace EBBS.Controllers
         public MyController() {
             userService = new UserService();
             securityQuestionService = new SecurityQuestionService();
+            ViewBag.show = "true";
         }
 
 
@@ -78,7 +79,7 @@ namespace EBBS.Controllers
             newPassword = userService.Encrypt(newPassword);
             if (password.Equals(userService.GetUserPassword(this.GetUserSession().userId))) {
                 userService.ChangeUserPassword(this.GetUserSession().userId, newPassword);
-                result = "You have been successfully changed the password!";
+                result = "You have successfully changed the password!";
                 //return Json(new { Url = "Login/Account" });
             }
             else {

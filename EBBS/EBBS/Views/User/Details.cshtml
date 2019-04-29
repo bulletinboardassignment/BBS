@@ -1,101 +1,116 @@
 ﻿@model EBBS.Data.User
 
+@{
+    ViewBag.Title = "Details";
+}
+
+<br />
+
 <div>
-    <h4>User</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.firstName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.firstName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.lastName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.lastName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.username)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.username)
-        </dd>
-
-
-        <dt>
-            @Html.DisplayNameFor(model => model.createTime)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.createTime)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.updateTime)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.updateTime)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.lastLogin)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.lastLogin)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.answer)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.answer)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.userImage)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.userImage)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.imageSize)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.imageSize)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Role.roleName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Role.roleName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SecurityQuestion.question)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SecurityQuestion.question)
-        </dd>
-
-    </dl>
+    <h2><span class="mySpan"> User Details</span></h2>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.userId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+<hr />
+<body id="grad">
+  
+        <div>
+            <div class="form-horizontal">
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+             
+                <div class="form-group">
+                    @Html.LabelFor(model => model.userImage, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10" align="left">
+                        <img class="circular--square" src="~/images/@Model.userImage" alt="No profile image found" width="175" height="175" />
+                     </div>
+                </div>
+
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.userId, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.userId, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.firstName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.firstName, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.lastName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.lastName, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.username, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.username, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.SecurityQuestion.question, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.SecurityQuestion.question, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.answer, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.answer, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Role.roleName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Role.roleName, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.createTime, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.createTime, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.updateTime, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.updateTime, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.lastLogin, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.lastLogin, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+
+                    </div>
+                </div>
+
+                <div class="form-group" align="left">
+                    <div class="col-md-offset-2 col-md-10">
+                        <button class="btn btn-success" onclick="location.href = '@Url.Action("Edit", new { id = Model.userId })'" type="button"><i class="glyphicon glyphicon-edit"></i> Change User Role</button>
+                        <button class="btn btn-primary" onclick="location.href = '@Url.Action("Index","User")'" type="button"><i class="glyphicon glyphicon-backward"></i> Back to List</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+</body>
+

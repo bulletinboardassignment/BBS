@@ -28,25 +28,27 @@
 
                                 @if (item.mediaType == "image/jpeg" || item.mediaType == "image/jpg")
                                 {
-                                    <img align="middle" src="~/images/@item.mediaPath" width="250" height="250" />
+                                    @*<img align="middle" src="~/images/@item.mediaPath" width="250" height="250" />*@
+                                    <img align="middle" style="width: 100%; max-width: 100%" height: auto; src="~/images/@item.mediaPath" />
                                 }
                                 else if (item.mediaType == "video/mp4")
                                 {
-                                    <video width="500" height="500" controls>
-                                        <source src="~/images/@item.mediaPath" type="@item.mediaType">
-                                        Your browser does not support the video tag.
-                                    </video>
-                                }
+                                    @*<video width="500" height="500" controls>*@
+                                        <video width="500" height="500" style="width: 100%; max-width: 100%;" controls>
+                                            <source src="~/images/@item.mediaPath" type="@item.mediaType">
+                                            Your browser does not support the video tag.
+                                        </video>
+                                        }
 
-                                <p>Category: @Html.DisplayFor(modelItem => item.Category.categoryName)</p>
-                                <p>Posted On: @Html.DisplayFor(modelItem => item.createTime) </p>
-                                <p>Created By: @item.User.firstName @item.User.lastName</p>
+                                        <p>Category: @Html.DisplayFor(modelItem => item.Category.categoryName)</p>
+                                        <p>Posted On: @Html.DisplayFor(modelItem => item.createTime) </p>
+                                        <p>Created By: @item.User.firstName @item.User.lastName</p>
 
-                                <a href="/Post/Delete/@item.pId" class="btn btn-danger"><i class=" glyphicon glyphicon-trash"></i> Delete</a>
-                                <a href="/Post/Edit/@item.pId" class="btn btn-success"><i class=" glyphicon glyphicon-edit"></i> Edit</a>
-                                <a href="/Post/Details/@item.pId" class="btn btn-info"><i class=" glyphicon glyphicon-eye-open"></i> Details</a>
+                                        <a href="/Post/Delete/@item.pId" class="btn btn-danger"><i class=" glyphicon glyphicon-trash"></i> Delete</a>
+                                        <a href="/Post/Edit/@item.pId" class="btn btn-success"><i class=" glyphicon glyphicon-edit"></i> Edit</a>
+                                        <a href="/Post/Details/@item.pId" class="btn btn-info"><i class=" glyphicon glyphicon-eye-open"></i> Details</a>
 
-                            </div>
+</div>
                         </div>
                         <br />
                         <br />

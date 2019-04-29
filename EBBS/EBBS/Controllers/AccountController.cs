@@ -64,6 +64,8 @@ namespace EBBS.Controllers
         {
             HttpCookie cookie = new HttpCookie("User");
 
+            ViewBag.show = "false";
+
             if (ModelState.IsValid)
             {
 
@@ -139,9 +141,14 @@ namespace EBBS.Controllers
         }
 
 
+
+
+
+
         //// GET: Account
         public ActionResult LogMeOut()
         {
+            Session["lUser"] = null;
             FormsAuthentication.SignOut();
             return RedirectToAction("Login", "Account");
         }
@@ -179,11 +186,13 @@ namespace EBBS.Controllers
                 obj.lastName = data.lastname;
                 obj.questionId = data.questionId;
                 obj.answer = data.answer;
+                obj.userImage = "img_avatar.jpg"; //set the image intially
+               
 
                 bool uniqueUsername = _userService.UniqueEmail(data.username.TrimEnd());
                 if (uniqueUsername == true)
                 {
-                    ModelState.AddModelError(string.Empty, "Username is Exist, Please Enter a new username .");
+                    ModelState.AddModelError(string.Empty, "Username is Exist, Please Enter a new username.");
                     return View(data);
                 }
                 obj.username = data.username.TrimEnd();

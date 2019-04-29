@@ -12,10 +12,12 @@ namespace EBBS.Service.IService
         User Details(int? Id);
         IEnumerable<User> UserIEmum { get; }
         IQueryable<User> UserList { get; }
-        User Delete(int? Id);
+        //User Delete(int? Id);
+
+        void DeleteUser(User deleteUser);
 
         bool UniqueEmail(string email);
-
+        User UserById(int id);
 
         //===============================
 
@@ -29,9 +31,11 @@ namespace EBBS.Service.IService
         string Decrypt(string cipherText);
         string GetUserPassword(int userId);
         User GetUser(int userId);
-        void DeleteUser(int userId);
+        //void DeleteUser(int userId);
         void ChangeUserPassword(int userId, string newPassword);
         void EditUser(int oldUserId, User newUser);
         int AreResetCredentialsTrue(string username, int sqId, string answer);
+        int NoAllUsers();
+        int UsersInLastMonth();
     }
 }

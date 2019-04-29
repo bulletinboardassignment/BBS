@@ -17,16 +17,18 @@ namespace EBBS.Controllers
     public class CategoryController : Controller
     {
         private ICategoryService _categoryService;
+        
 
         public CategoryController()
         {
             _categoryService = new CategoryService();
+           
         }
 
         //// GET: Category
         public ActionResult Index(int page = 1, int pageSize = 5)
         {
-
+            //ViewBag.show = "true";
             User user = GetUserSession();
             string userType = user.Role.roleName;
 

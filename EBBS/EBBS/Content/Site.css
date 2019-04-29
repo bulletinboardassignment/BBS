@@ -261,3 +261,8 @@ div.post {
 .dropdown:hover.dropbtn {
     background-color: red;
 }
+
+/*circular image with css*/
+.circular--square {
+    border-radius: 50%;
+}

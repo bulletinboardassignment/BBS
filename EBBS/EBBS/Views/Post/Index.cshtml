@@ -36,7 +36,7 @@
 
                                 @if (item.mediaType == "image/jpeg" || item.mediaType == "image/jpg")
                                 {
-                                    <img align="middle" style="width: 100%; max-width: 100%" src="~/images/@item.mediaPath" @*width="250" height="250"*@ />
+                                    <img align="middle" style="width: 100%; max-width: 100%" height: auto;  src="~/images/@item.mediaPath"  />
                                 }
                                 else if (item.mediaType == "video/mp4")
                                 {

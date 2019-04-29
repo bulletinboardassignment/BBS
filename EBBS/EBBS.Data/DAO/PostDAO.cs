@@ -129,5 +129,10 @@ namespace EBBS.Data.DAO
 
             context.SaveChanges();
         }
+
+        public int AllPostsInThisMonthAndYear(string month, string year)
+        {
+            return context.Post.Where(x => x.createTime.Value.Month.ToString().Equals(month) && x.createTime.Value.Year.ToString().Equals(year)).Count();
+        }
     }
 }

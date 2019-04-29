@@ -1,88 +1,155 @@
-﻿@model IEnumerable<EBBS.Data.User>
+﻿@using PagedList
+@using PagedList.Mvc
+@model IPagedList<EBBS.Data.User>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.firstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.lastName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.username)
-        </th> 
-        <th>
-            @Html.DisplayNameFor(model => model.createTime)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.updateTime)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.lastLogin)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.answer)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.userImage)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.imageSize)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Role.roleName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SecurityQuestion.question)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.firstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.lastName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.username)
-        </td> 
-        <td>
-            @Html.DisplayFor(modelItem => item.createTime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.updateTime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.lastLogin)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.answer)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.userImage)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.imageSize)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Role.roleName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SecurityQuestion.question)
-        </td>
-        <td>
-            <a class="btn btn-info" href="/User/Details/@item.userId">Details</a>
-            
-            @Html.ActionLink("Details", "Details", new { id=item.userId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.userId })
-        </td>
-    </tr>
+@{
+    ViewBag.Title = "Index";
 }
 
-</table>
+<head>
+    <style>
+        td.test {
+            white-space: nowrap;
+            width: 200px;
+            overflow: hidden;
+            border: 1px solid #000000;
+        }
+
+        #userImage{
+            background: url("~/images/UserImage.png");
+        }
+
+            td.test:hover {
+                overflow: visible;
+            }
+    </style>
+</head>
+
+<br />
+<br />
+
+<div>
+    <h2><span class="mySpan"> EBBS Users</span></h2>
+</div>
+
+<hr />
+
+<body id="grad">
+
+
+    @if (Model.Count() != 0)
+    {
+
+        <div>
+            <h4 style="color:green">@Html.Raw(TempData["message"])</h4>
+            <h4 style="color:green">@Html.Raw(TempData["editMessage"])</h4>
+            <h4 style="color:green">@Html.Raw(TempData["deleteMessage"])</h4>
+        </div>
+
+        <div class="input-group" style="float: left">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+            <input class="form-control" style="background-color:khaki; color: black" type="text" id="search" placeholder="Search User" />
+        </div>
+
+        <br />
+
+        <table class="table table-bordered table-hover table-responsive" style="table-layout: fixed">
+            <tr class="bg-info" style="background-color: lightgrey">
+                <th>
+                    @Html.DisplayNameFor(model => model.First().userImage)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().userId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().firstName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().lastName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().username)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().Role.roleName)
+                </th>
+
+                @*<th>
+                    @Html.DisplayNameFor(model => model.First().createTime)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.First().lastLogin)
+                </th>*@
+
+
+
+                <th colspan="5">Operations</th>
+            </tr>
+
+            
+
+
+            @foreach (var item in Model)
+            {
+                <tr class="searchRecord">
+                    <td class="test" style="text-overflow:ellipsis;">
+                        <img class="circular--square" src="~/images/@item.userImage" onerror="this.src='~/images/Kunal.jpg'" width="50" height="50" id="userImage"  />
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.userId)
+                    </td>
+                    <td class="test" style="text-overflow:ellipsis;">
+                        @Html.DisplayFor(modelItem => item.firstName)
+                    </td>
+                    <td class="test" style="text-overflow:ellipsis;">
+                        @Html.DisplayFor(modelItem => item.lastName)
+                    </td>
+                    <td class="test" style="text-overflow:ellipsis;">
+                        @Html.DisplayFor(modelItem => item.username)
+                    </td>
+                    <td class="test" style="text-overflow:ellipsis;">
+                        @Html.DisplayFor(modelItem => item.Role.roleName)
+                    </td>
+
+                    @*<td class="test" style="text-overflow:ellipsis;">
+                        @Html.DisplayFor(modelItem => item.createTime)
+                    </td>
+                    <td class="test" style="text-overflow:ellipsis;">
+                        @Html.DisplayFor(modelItem => item.lastLogin)
+                    </td>*@
+
+                    <td colspan="5">
+                        <button class="btn" style="background-color:darksalmon" onclick="location.href = '@Url.Action("", new { id=item.userId })'" type="button"><i class="glyphicon glyphicon-queen"></i> Promote</button>
+                        <button class="btn btn-success" onclick="location.href = '@Url.Action("Edit", new { id=item.userId })'" type="button"><i class="glyphicon glyphicon-edit"></i> Edit</button> |
+                        <button class="btn btn-info" onclick="location.href = '@Url.Action("Details", new { id=item.userId })'" type="button"><i class="glyphicon glyphicon-eye-open"></i> Details</button> |
+                        <button class="btn btn-danger" onclick="location.href = '@Url.Action("Delete", "User",new { id=item.userId })'" type="button"><i class="glyphicon glyphicon-remove-sign"></i> Delete</button>
+
+                    </td>
+                </tr>
+            }
+
+        </table>
+        <br />
+
+        @Html.PagedListPager(Model, Page => Url.Action("Index", new { Page }))
+
+    }
+    else
+    {
+        <h4 style="color: orange"> -- No Users Found --</h4>
+    }
+
+
+
+</body>
+
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+            <script src="~/Scripts/jquery.validate.min.js"></script>
+            <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+            <script src="~/Scripts/myscripts.js"></script>
+
+
+        }

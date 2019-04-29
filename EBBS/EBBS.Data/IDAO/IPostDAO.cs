@@ -21,5 +21,7 @@ namespace EBBS.Data.IDAO
         int? GetNumberOfLikes(int pId);
         int? GetNumberOfDislikes(int pId);
         void DeleteCommentsForPost(int id);
+        int AllPostsInThisMonthAndYear(string month, string year);
+
     }
 }

@@ -12,7 +12,7 @@
         <div class="form-group">
             <span class="control-label col-md-2 text-left"><b>Profile Image:</b></span>
             <img align="left" src="~/images/@ViewBag.user.userImage" alt="not found" />
-            <input type="file" id="userImage" name="userImage" />
+            <input type="file" id="userImage" name="userImage" accept="image/jpg, image/jpeg, video/mp4" />
         </div>
 
         <div class="form-group">
@@ -32,7 +32,7 @@
             <select id="questionId" name="qId" class="form-control">
                 @foreach (var question in (List<EBBS.Data.SecurityQuestion>)ViewBag.securityQuestions)
                 {
-                    <option value="@question.qId">@question.question</option>
+                    <option value="@question.qId" @if (question.qId == ViewBag.user.questionId) {<text>selected</text>}>@question.question</option>
                 }
             </select>
 

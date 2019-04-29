@@ -22,6 +22,11 @@ namespace EBBS.Service.Service
             postDao.Add(post);
         }
 
+        public int AllPostsInThisMonthAndYear(string month, string year)
+        {
+            return postDao.AllPostsInThisMonthAndYear(month,year);
+        }
+
         public void Delete(int postId)
         {
             postDao.Delete(postId);
