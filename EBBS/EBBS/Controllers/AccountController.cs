@@ -23,7 +23,7 @@ namespace EBBS.Controllers
 {
     //[Authorize]
 
-    
+
     public class AccountController : Controller
     {
         private readonly IUserService _userService;
@@ -42,7 +42,7 @@ namespace EBBS.Controllers
 
 
         //GET: /Account/Login
-       [AllowAnonymous]
+        [AllowAnonymous]
         public ActionResult Login()
         {
             // Get cookie from the current request.
@@ -65,7 +65,7 @@ namespace EBBS.Controllers
         public ActionResult Login(LoginViewModel model, string returnUrl = "")
 
         {
-                                 
+
             HttpCookie cookie = new HttpCookie("User");
 
             //ViewBag.show = "false";
@@ -95,7 +95,7 @@ namespace EBBS.Controllers
 
                 }
 
-                
+
                 if (user != null)
 
                 {
@@ -125,7 +125,7 @@ namespace EBBS.Controllers
 
                     //if the logged in user type is admin, the user will be redirected to the all post lists
                     if (user.userType == 1) //Admin
-                    {   
+                    {
                         TempData["Message"] = "<script>alert('You have successfully loggedin!!!')</script>";
                         return RedirectToAction("Index", "Post"); //Admin dash
                     }
@@ -180,7 +180,7 @@ namespace EBBS.Controllers
             //transfer temporary security questions lists from the controller to the view
             ViewBag.QuestionList = new SelectList(_securityQuestionService.SqIeNum, "qId", "question");
             return View();
-           
+
         }
 
 
@@ -190,7 +190,7 @@ namespace EBBS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Register(RegisterViewModel data)
         {
-             
+
             //if fail, the dropdown list will not be set to null.
             //transfer temporary security questions lists from the controller to the view
             ViewBag.QuestionList = new SelectList(_securityQuestionService.SqIeNum, "qId", "question");
@@ -206,8 +206,8 @@ namespace EBBS.Controllers
                 obj.questionId = data.questionId;
                 obj.answer = data.answer;
                 obj.userImage = "img_avatar.jpg"; //set the default image intially
-                
-               
+
+
                 bool uniqueUsername = _userService.UniqueEmail(data.username.TrimEnd());
 
                 // Verify the entered username is already exists in the database or not. If username exists , the validation message will display otherwise user information will store successfully.
@@ -230,7 +230,7 @@ namespace EBBS.Controllers
                 if (result == true)
                 {
                     User user = _userService.UserList.FirstOrDefault(a => a.username.Equals(data.username.TrimEnd()));
-                   
+
                     if (user != null)
                     { //Store the user cookies in form authentication ticket to detect the user session
                         JavaScriptSerializer js = new JavaScriptSerializer();
@@ -246,7 +246,7 @@ namespace EBBS.Controllers
 
             }
             //if something goes wrong, re-dispaly the registration view
-           return View(data);
+            return View(data);
         }
 
 

@@ -11,10 +11,11 @@ namespace EBBS.Data.DAO
     public class PostDAO : IPostDAO
     {
         EbbSEntities context;
-        private ICommentDAO commentDao;
+        private ICommentDAO commentDao; 
+        
         public PostDAO() {
             context = new EbbSEntities();
-            commentDao = new CommentDAO();
+            commentDao = new CommentDAO(); 
         }
 
         public void Add(Post post)
@@ -25,6 +26,24 @@ namespace EBBS.Data.DAO
 
         public void Delete(int postId)
         {
+            List<Comment> comments = commentDao.GetAllCommentsForPost(postId);
+            foreach (var comment in comments) {
+                commentDao.DeleteComment(comment.commentId);
+            }
+
+            List<Like> likes = context.Like.Where(x => x.postId == postId).ToList();
+            foreach (var like in likes) {
+                context.Like.Remove(like);
+                context.SaveChanges();
+            }
+
+            List<Reports> reports = context.Reports.Where(x => x.postId == postId).ToList();
+            foreach (var report in reports) {
+                context.Reports.Remove(report);
+                context.SaveChanges();
+            }
+
+
             context.Post.Remove(GetPost(postId));
             context.SaveChanges();
         }
@@ -133,6 +152,11 @@ namespace EBBS.Data.DAO
         public int AllPostsInThisMonthAndYear(string month, string year)
         {
             return context.Post.Where(x => x.createTime.Value.Month.ToString().Equals(month) && x.createTime.Value.Year.ToString().Equals(year)).Count();
+        }
+
+        public int? GetNumberOfComments(int pId)
+        {
+            return context.Comment.Where(x => x.postId == pId).Count();
         }
     }
 }

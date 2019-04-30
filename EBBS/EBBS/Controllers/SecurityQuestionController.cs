@@ -130,8 +130,15 @@ namespace EBBS.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             SecurityQuestion data = _securityQuestionService.GetSecurityQuestionById(id);
-            _securityQuestionService.DeleteSecurityQuestion(data);
-            TempData["deleteMessage"] = "Success ! You have deleted the record.";
+
+            if (_securityQuestionService.AnybodyGotThisSecurityQuestion(id))
+            {
+                TempData["deleteMessage"] = "Sorry ! You cannot delete this security question.";
+            }
+            else {
+                _securityQuestionService.DeleteSecurityQuestion(data);
+                TempData["deleteMessage"] = "Success ! You have deleted the record.";
+            }            
             return RedirectToAction("Index");
         }
 

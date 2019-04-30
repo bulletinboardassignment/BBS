@@ -51,6 +51,10 @@ namespace EBBS.Service.Service
         {
             _roleDao.DeleteRole(deleteRole);
         }
-        
+
+        public bool AnybodyGotThisUserType(int roleId)
+        {
+            return _roleDao.AnybodyGotThisUserType(roleId);
+        }
     }
 }

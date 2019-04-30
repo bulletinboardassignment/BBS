@@ -15,10 +15,12 @@ namespace EBBS.Data.DAO
     public class SecurityQuestionDao : ISecurityQuestionDao
     {
         private EbbSEntities context;
+        private IUserDao userDao;
 
         public SecurityQuestionDao()
         {
             context = new EbbSEntities();
+            userDao = new UserDao();
         }
 
         //public IList<SecurityQuestion> GetAllSecurityQuestions()
@@ -102,6 +104,16 @@ namespace EBBS.Data.DAO
 
                 throw new Exception(errorMessage, dbEx);
             }
+        }
+
+        public bool AnybodyGotThisSecurityQuestion(int sqId) {
+            List<User> users = context.User.ToList();
+            foreach (var user in users) {
+                if (user.questionId == sqId) {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public void DeleteSecurityQuestion(SecurityQuestion deleteSecurityQuestion)

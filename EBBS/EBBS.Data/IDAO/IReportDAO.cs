@@ -17,5 +17,7 @@ namespace EBBS.Data.IDAO
         List<Reports> GetAllReportedPosts();
         void AllowReportedPost(int id);
         void DeleteReportedPost(int id);
+
+        int GetNumberOfReportedPosts();
     }
 }

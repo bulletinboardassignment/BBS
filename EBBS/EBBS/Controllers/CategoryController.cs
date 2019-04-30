@@ -160,11 +160,20 @@ namespace EBBS.Controllers
         public ActionResult DeleteConfirm(int id)
         { //Find the category id of selected category from database to delete
             Category findCategory = _categoryService.GetCategoryById(id);
-            _categoryService.DeleteCategory(findCategory);
-            //Show success message when deletion is succesfful
-            TempData["deleteMessage"] = "Success ! You have deleted a record";
-            //User redirects to the Category Index page after successfull category deletion
-            return RedirectToAction("Index", "Category");
+            //check whether the category has posts
+            if (_categoryService.AnybodyGotThisCategory(id))
+            {
+                TempData["deleteMessage"] = "Sorry ! You cannot delete this category since it's having post(s).";
+            }
+            else
+            {
+                _categoryService.DeleteCategory(findCategory);
+                //Show success message when deletion is succesfful
+                TempData["deleteMessage"] = "Success ! You have deleted a record";
+                //User redirects to the Category Index page after successfull category deletion }
+            }
+
+                return RedirectToAction("Index", "Category");
         }
 
         public ActionResult Details(int id)

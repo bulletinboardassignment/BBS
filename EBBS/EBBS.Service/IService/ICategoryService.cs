@@ -27,5 +27,7 @@ namespace EBBS.Service.IService
         IQueryable<Category> SpecificRecordList { get; }
 
         //void AddEditCategory(Category addEditCategory);
+
+        bool AnybodyGotThisCategory(int categoryId);
     }
 }

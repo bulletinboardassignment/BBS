@@ -131,5 +131,10 @@ namespace EBBS.Service.Service
         {
             return _userDao.UsersInLastMonth();
         }
+
+        public void PromoteUser(int userId, int userType)
+        {
+            _userDao.PromoteUser(userId, userType);
+        }
     }
 }

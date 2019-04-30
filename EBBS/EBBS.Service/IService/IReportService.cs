@@ -17,6 +17,7 @@ namespace EBBS.Service.IService
         List<Reports> GetAllReportedPosts();
         void AllowReportedPost(int id);
         void DeleteReportedPost(int id);
+        int GetNumberOfReportedPosts();
     }
 
 }

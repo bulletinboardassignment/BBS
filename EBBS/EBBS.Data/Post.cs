@@ -44,6 +44,8 @@ namespace EBBS.Data
         public Nullable<int> nLikes { get; set; }
         public Nullable<int> nDislikes { get; set; }
 
+        public Nullable<int> nComments { get; set; }
+
         public virtual Category Category { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comment { get; set; }

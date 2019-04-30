@@ -47,7 +47,20 @@ namespace EBBS.Data.DAO
                 _context.SaveChanges();
             }
         }
+        public bool AnybodyGotThisCategory(int categoryId)
+        {
+            List<Post> posts = _context.Post.ToList();
+            foreach (var post in posts)
+            {
+                if (post.categoryId == categoryId)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
 
+        
         public void DeleteCategory(Category deleteCategory)
         {
             try

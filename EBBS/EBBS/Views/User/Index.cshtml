@@ -60,14 +60,14 @@
                 <th colspan="4">Operations</th>
             </tr>
 
-            
+
 
 
             @foreach (var item in Model)
             {
                 <tr class="searchRecord">
                     <td class="test" style="text-overflow:ellipsis;">
-                        <img class="circular--square" src="~/images/@item.userImage" onerror="this.src='~/images/Kunal.jpg'" width="50" height="50" id="userImage"  />
+                        <img class="circular--square" src="~/images/@item.userImage" onerror="this.src='~/images/Kunal.jpg'" width="50" height="50" id="userImage" />
                     </td>
 
                     <td>
@@ -88,8 +88,7 @@
 
 
                     <td colspan="4">
-                        <button class="btn" style="background-color:darksalmon" onclick="location.href = '@Url.Action("", new { id=item.userId })'" type="button"><i class="glyphicon glyphicon-queen"></i> Promote</button>|
-                        
+                        <button class="btn promote" id="@item.userId" style="background-color:salmon" type="button"><i class="glyphicon glyphicon-queen"></i> Promote</button>|
                         <button class="btn btn-info" onclick="location.href = '@Url.Action("Details", new { id=item.userId })'" type="button"><i class="glyphicon glyphicon-eye-open"></i> Details</button> |
                         <button class="btn btn-danger" onclick="location.href = '@Url.Action("Delete", "User",new { id=item.userId })'" type="button"><i class="glyphicon glyphicon-remove-sign"></i> Delete</button>
 
@@ -109,14 +108,90 @@
     }
 
 
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Modal Header</h4>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" value="" id="userId" />
+                    <select id="userType" name="rId" class="form-control">
+                        <option>Select New Role (*)</option>
+                        @foreach (var role in (List<EBBS.Data.Role>)ViewBag.roles)
+                        {
+                            
+                            <option value="@role.rId">@role.roleName</option>
+                        }
+                    </select>
+                                       
+
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn" id="promote" style="background-color:salmon" type="button"><i class="glyphicon glyphicon-queen"></i> Promote</a>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
 
 </body>
 
-        @section Scripts {
-            @Scripts.Render("~/bundles/jqueryval")
-            <script src="~/Scripts/jquery.validate.min.js"></script>
-            <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-            <script src="~/Scripts/myscripts.js"></script>
 
 
-        }
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/myscripts.js"></script>
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+        $(".promote").click(function () {
+            var userId = $(this).attr("id");
+            $("#myModal").modal("show");
+
+            $("input#userId").val(userId);
+             
+
+        });
+
+
+        $("a#promote").click(function (e) {
+            e.preventDefault();
+
+            var userId = $("input#userId").val();
+            var userType = $("#userType").val();
+
+            $.ajax({
+                type: 'POST',
+                data: { userId: userId, userType: userType },
+                url: '/User/Promote',
+                dataType: 'json',
+                success: function (response) {
+                    alert(response);
+                    window.location.href = "/User/Index";
+
+                },
+                error: function (a, b, c) {
+                
+
+                }
+
+
+            });
+
+        });
+
+    </script>
+
+}

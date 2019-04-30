@@ -57,5 +57,9 @@ namespace EBBS.Service.Service
         {
             return reportDAO.GetReport(reportId);
         }
+
+        public int GetNumberOfReportedPosts() {
+            return reportDAO.GetNumberOfReportedPosts();
+        }
     }
 }

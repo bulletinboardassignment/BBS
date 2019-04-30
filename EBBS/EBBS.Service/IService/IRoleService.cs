@@ -24,5 +24,7 @@ namespace EBBS.Service.IService
 
         IEnumerable<Role> RoleIeNum { get; }
 
+        bool AnybodyGotThisUserType(int roleId);
+
     }
 }

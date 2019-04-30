@@ -24,5 +24,7 @@ namespace EBBS.Data.IDAO
 
         //void Save(Role role);
 
+        bool AnybodyGotThisUserType(int roleId);
+
     }
 }

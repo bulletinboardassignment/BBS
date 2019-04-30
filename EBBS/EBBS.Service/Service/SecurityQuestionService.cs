@@ -54,5 +54,10 @@ namespace EBBS.Service.Service
             return _questionDao.GetMySQs();
         }
 
+        public bool AnybodyGotThisSecurityQuestion(int sqId)
+        {
+            return _questionDao.AnybodyGotThisSecurityQuestion(sqId);
+        }
+ 
     }
 }

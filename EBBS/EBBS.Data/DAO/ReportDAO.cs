@@ -10,8 +10,12 @@ namespace EBBS.Data.DAO
     public class ReportDAO : IReportDAO
     {
         EbbSEntities context;
+        private IPostDAO postDAO;
+
+
         public ReportDAO() {
             context = new EbbSEntities();
+            postDAO = new PostDAO();
         }
 
         public void Add(Reports report)
@@ -65,9 +69,14 @@ namespace EBBS.Data.DAO
             context.Reports.Remove(report);
 
             Post post = context.Post.Where(x => x.pId == id).FirstOrDefault();
-            context.Post.Remove(post);
 
-            context.SaveChanges();
+            postDAO.Delete(post.pId);
+             
+        }
+
+        public int GetNumberOfReportedPosts()
+        {
+            return context.Reports.Count();
         }
     }
 }

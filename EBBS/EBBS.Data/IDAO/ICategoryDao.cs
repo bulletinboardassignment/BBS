@@ -28,6 +28,7 @@ namespace EBBS.Data.IDAO
         IQueryable<Category> SpecificRecordList { get; }
 
         //void AddEditCategory(Category addEditCategory);
+        bool AnybodyGotThisCategory(int categoryId);
 
     }
 }

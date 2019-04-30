@@ -39,5 +39,6 @@ namespace EBBS.Data.IDAO
         int AreResetCredentialsTrue(string username, int sqId, string answer);
         int NoAllUsers();
         int UsersInLastMonth();
+        void PromoteUser(int userId, int userType);
     }
 }

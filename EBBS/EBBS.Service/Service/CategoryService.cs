@@ -64,6 +64,11 @@ namespace EBBS.Service.Service
             _categoryDao.UpdateCategory(editRole);
         }
 
+        public bool AnybodyGotThisCategory(int categoryId)
+        {
+            return _categoryDao.AnybodyGotThisCategory(categoryId);
+        }
+
         //public void AddEditCategory(Category addEditCategory)
         //{
         //    _categoryDao.AddEditCategory(addEditCategory);

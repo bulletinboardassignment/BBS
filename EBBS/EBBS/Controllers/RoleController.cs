@@ -107,10 +107,19 @@ namespace EBBS.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Role role = _roleService.RoleById(id);//Find the role id of selected role from database to delete
-            _roleService.DeleteRole(role);//delete the role
-            //Show success message when deletion is succesfful
-            TempData["deleteMessage"] = "Success ! You have deleted a record";
-            //User redirects to the role Index page after successfull role deletion
+
+            if (_roleService.AnybodyGotThisUserType(id))
+            {
+                TempData["deleteMessage"] = "Sorry ! You cannot delete this role.";
+            }
+            else
+            {
+                _roleService.DeleteRole(role);//delete the role
+                                              //Show success message when deletion is succesfful
+                TempData["deleteMessage"] = "Success ! You have deleted a record";
+                //User redirects to the role Index page after successfull role deletion
+            }
+                       
             return RedirectToAction("Index");
         }
 

@@ -18,12 +18,31 @@ namespace EBBS.Controllers
         private IUserService userService;
         private readonly IRoleService roleService;
         private readonly ISecurityQuestionService securityQuestionService;
+        private EbbSEntities context;
 
         public UserController() {
             userService = new UserService();
             roleService = new RoleService();
             securityQuestionService = new SecurityQuestionService();
+            context = new EbbSEntities();
+        }
 
+        [HttpPost]
+        public JsonResult Promote(int userId, int userType) {
+            string result = "";
+
+            try
+            {
+                userService.PromoteUser(userId, userType);
+                result = "You successfully promoted this user!";
+            }
+            catch (Exception e) {
+                result = e.ToString();
+            }
+
+
+
+            return Json(result);
         }
 
 
@@ -34,6 +53,10 @@ namespace EBBS.Controllers
             //return View(users);
 
             var userList = userService.GetAllUsersExceptMe(this.GetUserSession().userId).OrderBy(p => p.userId).OrderByDescending(p => p.createTime).ToPagedList(page ?? 1, 5);
+
+            List<Role> roles = roleService.GetAllRoles().ToList();
+            ViewBag.roles = roles;
+
             return View(userList);
 
         }

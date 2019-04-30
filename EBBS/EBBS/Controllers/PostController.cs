@@ -46,6 +46,7 @@ namespace EBBS.Controllers
             {
                 post.nLikes = postService.GetNumberOfLikes(post.pId);
                 post.nDislikes = postService.GetNumberOfDislikes(post.pId);
+                post.nComments = postService.GetNumberOfComments(post.pId);
             }
 
             ViewBag.userType = this.GetUserSession().userId;
@@ -178,7 +179,7 @@ namespace EBBS.Controllers
             try
             {
                 postService.Add(savePost);
-                result = "Data saved successfully!";
+                result = "Post Created successfully!";
             }
             catch (Exception e) {
                 result = e.ToString();
@@ -235,8 +236,8 @@ namespace EBBS.Controllers
                 newPost.postContent = post.postContent;
 
                 postService.Edit(id, newPost);
-                string result = "ok success";
-                return Json(result, JsonRequestBehavior.AllowGet);
+            string result = "ok success";
+            return Json(result, JsonRequestBehavior.AllowGet);
 
             }
 

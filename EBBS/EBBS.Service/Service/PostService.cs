@@ -62,6 +62,11 @@ namespace EBBS.Service.Service
             return postDao.GetAllPostsInCategory(id);
         }
 
+        public int? GetNumberOfComments(int pId)
+        {
+            return postDao.GetNumberOfComments(pId);
+        }
+
         public int? GetNumberOfDislikes(int pId)
         {
             return postDao.GetNumberOfDislikes(pId);

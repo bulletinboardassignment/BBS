@@ -7,7 +7,7 @@ using EBBS.Data;
 
 namespace EBBS.Service.IService
 {
-   public interface ISecurityQuestionService
+    public interface ISecurityQuestionService
     {
         List<SecurityQuestion> GetMySQs();
 
@@ -22,5 +22,7 @@ namespace EBBS.Service.IService
         bool UniqueSecurityQuestion(string secQuestion);
 
         IEnumerable<SecurityQuestion> SqIeNum { get; }
+
+        bool AnybodyGotThisSecurityQuestion(int sqId);
     }
 }

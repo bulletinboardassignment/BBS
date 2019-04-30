@@ -33,6 +33,7 @@ namespace EBBS.Service.IService
         User GetUser(int userId);
         //void DeleteUser(int userId);
         void ChangeUserPassword(int userId, string newPassword);
+        void PromoteUser(int userId, int userType);
         void EditUser(int oldUserId, User newUser);
         int AreResetCredentialsTrue(string username, int sqId, string answer);
         int NoAllUsers();

@@ -5,6 +5,10 @@
     ViewBag.Title = "Index";
 }
 
+@*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>*@
+
 <br />
 <div>
     <h2><span class="mySpan"> All Posts</span></h2>
@@ -15,6 +19,10 @@
     <div class="text-left">
         <h4 style="color:green">@Html.Raw(TempData["message"])</h4>
     </div>
+    
+    @*<h2>Filterable Table</h2>
+    <p>Type something in the input field to search the table for first names, last names or emails:</p>
+    <input class="form-control" id="myInput" type="text" placeholder="Search..">*@
 
     <div class="form-group" style="float: right">
         <button class="btn" style="background-color:lightgoldenrodyellow; color: black" onclick="location.href = '@Url.Action("Create","Post")'" type="button"><i class="glyphicon glyphicon-plus-sign"></i> Create New Post</button>
@@ -73,6 +81,7 @@
                                     <i class=" glyphicon glyphicon-thumbs-up"></i>
                                 </a>
                                 <a data="@item.pId" class="btn btnComment comment" data-toggle="tooltip" data-placement="bottom" title="Leave Comment">
+                                    <span class="badge">@item.nComments &nbsp;</span>
                                     <i class=" glyphicon glyphicon-comment"></i>
                                 </a>
                                 <a data="@item.pId" class="btn btnReport report" data-toggle="modal; tooltip" data-placement="bottom" title="Report Post">
@@ -202,22 +211,26 @@
             e.preventDefault();
             var comment = $("#commentText").val();
             var postId = $("#pcId").val();
-            $.ajax({
-                type: 'POST',
-                data: { postId: postId, commentText: comment },
-                url: '/Comment/Comment',
-                success: function (response) {
-                    $("#commentModal").modal("hide");
-                    alert(response);
-                    $("#commentText").val("");
-                },
-                error: function (a, b, c) {
-                    alert(c + "");
-                }
+            if (comment.length == 0) {
+                alert("Comment is required.");
+            } else {
+                $.ajax({
+                    type: 'POST',
+                    data: { postId: postId, commentText: comment },
+                    url: '/Comment/Comment',
+                    success: function (response) {
+                        $("#commentModal").modal("hide");
+                        alert(response);
+                        $("#commentText").val("");
+                        window.location.href = "/Post/Index"
+                    },
+                    error: function (a, b, c) {
+                        alert(c + "");
+                    }
+                });
 
 
-
-            });
+            }
         });
 
         $(".report").click(function () {
@@ -232,22 +245,28 @@
             var postId = $("#rpostId").val();
             var reason = $("#reportReason").val();
 
+            if (reason.length == 0) {
+                alert("Please provide a reason for reporting this post.");
+            } else {
+                $.ajax({
+                    type: "POST",
+                    data: { postId: postId, reason: reason },
+                    url: '/Post/Report',
+                    success: function (response) {
+                        $("#reportModal").modal("hide");
+                        $("#reportReason").val("");
+                        alert(response);
+                        window.location.href = "/Post/Index";
+                    },
+                    error: function (a, b, c) {
+                        alert("Sorry could not report it!");
+                    }
 
-            $.ajax({
-                type: "POST",
-                data: { postId: postId, reason: reason },
-                url: '/Post/Report',
-                success: function (response) {
-                    $("#reportModal").modal("hide");
-                    $("#reportReason").val("");
-                    alert(response);
-                    window.location.href = "/Post/Index";
-                },
-                error: function (a, b, c) {
-                    alert("Sorry could not report it!");
-                }
+                });
 
-            });
+
+            }
+            
 
         });
 
@@ -286,6 +305,19 @@
             });
 
         });
+
+
+            //$(document).ready(function(){
+            //    $("#myInput").on("keyup", function () {
+            //        var value = $(this).val().toLowerCase();
+            //        $("#myTable tr").filter(function () {
+            //            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            //        });
+            //    });
+            //});
+   
+
+
     </script>
 }
 

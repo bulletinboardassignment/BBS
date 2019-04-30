@@ -106,7 +106,18 @@ namespace EBBS.Data.DAO
             }
         }
 
-
+        public bool AnybodyGotThisUserType(int roleId)
+        {
+            List<User> users = context.User.ToList();
+            foreach (var user in users)
+            {
+                if (user.userType == roleId)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
         public void DeleteRole(Role deleteRole)
         {
             try

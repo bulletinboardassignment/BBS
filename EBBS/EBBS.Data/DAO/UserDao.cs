@@ -273,17 +273,21 @@ namespace EBBS.Data.DAO
                 if (context.User == null)
                 {
                     throw new ArgumentNullException("deleteUser");
-                }
-
+                } 
                 User userById = UserById(deleteUser.userId);
 
                 User testUser = new User();
                 testUser.firstName = "admintest";
                 testUser.lastName = "admintest";
                 testUser.username = "admintest@ebbs.com";
+                testUser.password = "somepassword";
+                testUser.questionId = 1;
+
+                testUser.answer = "admintest";
                 testUser.userType = 2;
 
-                if (context.User.Where(x => x.username == "admintest@ebbs.com" && x.firstName == "admintest").FirstOrDefault() == null) {
+                if (context.User.Where(x => x.username == "admintest@ebbs.com" && x.firstName == "admintest").FirstOrDefault() == null)
+                {
                     context.User.Add(testUser);
                 }
 
@@ -296,26 +300,30 @@ namespace EBBS.Data.DAO
                 }
 
                 List<Reports> myReports = context.Reports.Where(x => x.reportedBy == deleteUser.userId).ToList();
-                foreach (var report in myReports) {
+                foreach (var report in myReports)
+                {
                     reportDAO.AllowReportedPost(report.postId);
                     context.SaveChanges();
                 }
 
 
-                List<Comment> myComments =  context.Comment.Where(x => x.commentedBy == deleteUser.userId).ToList();
-                foreach (var comment in myComments) {
+                List<Comment> myComments = context.Comment.Where(x => x.commentedBy == deleteUser.userId).ToList();
+                foreach (var comment in myComments)
+                {
                     context.Comment.Remove(comment);
                     context.SaveChanges();
                 }
 
                 List<Post> myPosts = context.Post.Where(x => x.creatorId == deleteUser.userId).ToList();
-                foreach (var post in myPosts) {
+                foreach (var post in myPosts)
+                {
                     context.Post.Remove(post);
                     context.SaveChanges();
                 }
 
                 List<Logs> myLogs = context.Logs.Where(x => x.userId == deleteUser.userId).ToList();
-                foreach (var log in myLogs) {
+                foreach (var log in myLogs)
+                {
                     context.Logs.Remove(log);
                     context.SaveChanges();
                 }
@@ -323,15 +331,16 @@ namespace EBBS.Data.DAO
 
 
                 List<Category> myCategories = context.Category.Where(x => x.creatorId == deleteUser.userId).ToList();
-                foreach (var category in myCategories) {
+                foreach (var category in myCategories)
+                {
                     category.creatorId = testUser.userId;
                     context.SaveChanges();
                 }
-                
-                                                          
-               context.User.Remove(userById);
+               
 
-               context.SaveChanges();
+                context.User.Remove(deleteUser);
+
+                context.SaveChanges();
             }
 
             catch (DbEntityValidationException dbEx)
@@ -350,6 +359,40 @@ namespace EBBS.Data.DAO
             }
         }
 
+
+        //public void DeleteUser(User deleteUser)
+        //{
+        //    try
+        //    {
+        //        if (context.User == null)
+        //        {
+        //            throw new ArgumentNullException("deleteUser");
+        //        }
+
+        //        User userById = UserById(deleteUser.userId);
+
+        //        context.User.Remove(userById);
+
+        //        context.SaveChanges();
+        //    }
+
+        //    catch (DbEntityValidationException dbEx)
+        //    {
+        //        string errorMessage = "";
+
+        //        foreach (var validationErrors in dbEx.EntityValidationErrors)
+        //        {
+        //            foreach (var validationError in validationErrors.ValidationErrors)
+        //            {
+        //                errorMessage += Environment.NewLine + string.Format("Property: {0} Error: {1}",
+        //                                    validationError.PropertyName, validationError.ErrorMessage);
+        //            }
+        //        }
+        //        throw new Exception(errorMessage, dbEx);
+        //    }
+        //}
+
+
         public User UserById(int id)
         {
             User user_id = context.User.SingleOrDefault(x => x.userId == id);
@@ -366,6 +409,13 @@ namespace EBBS.Data.DAO
             string month = DateTime.Now.Month.ToString();
             string year = DateTime.Now.Year.ToString();
             return context.User.Where(x => x.createTime.Value.Month.ToString().Equals(month) && x.createTime.Value.Year.ToString().Equals(year)).Count();
+        }
+
+        public void PromoteUser(int userId, int userType)
+        {
+            User user = this.GetUser(userId);
+            user.userType = userType;
+            context.SaveChanges();
         }
     }
 
