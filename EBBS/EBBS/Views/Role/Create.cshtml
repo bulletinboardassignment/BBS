@@ -1,31 +1,27 @@
 ﻿@using System.Web.Mvc.Html
 @using System.Web.UI.WebControls
 @model EBBS.Data.Role
-
-<br/>
 <br />
-
+<br />
 <div>
     <h2><span class="mySpan">  Create a New User Role</span></h2>
 </div>
-
 <hr />
-
 <body id="grad">
     @using (Html.BeginForm("Create", "Role", FormMethod.Post))
     {
         @Html.AntiForgeryToken()
-        
+
 
         <div class="form-horizontal">
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <p class="text-left" style="color: red">@Html.Raw(TempData["addUniqueMessage"])</p>
             <br />
             <div class="form-group">
-                
-                @Html.LabelFor(model => model.roleName, htmlAttributes: new {@class = "control-label col-md-2"})
+
+                @Html.LabelFor(model => model.roleName, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    
+
                     @Html.EditorFor(model => model.roleName, new { htmlAttributes = new { @class = "form-control", @PlaceHolder = "Enter a Role (*)" } })
                     @Html.ValidationMessageFor(model => model.roleName, "", new { @class = "text-danger ; text-left " })
                 </div>
@@ -33,7 +29,7 @@
             <div class="form-group" align="left">
                 <div class="col-md-offset-2 col-md-10">
                     <button class="btn" style="background-color:lightgoldenrodyellow; color: black" type="submit"> <i class="glyphicon glyphicon-plus-sign"></i> Create </button>
-                    <button class="btn" style="background-color: lightgray" type="reset"> <i class="glyphicon glyphicon-refresh"></i> Reset </button>
+                    <button class="btn" style="background-color: lightgray" type="reset" onclick="refreshPage()"> <i class="glyphicon glyphicon-refresh"></i> Reset </button>
                     <button class="btn btn-primary" onclick="location.href = '@Url.Action("Index","Role")'" type="button"><i class="glyphicon glyphicon-minus"></i> Cancel</button>
                 </div>
             </div>
@@ -41,11 +37,17 @@
 
     }
 </body>
-    @section Scripts {
-        @Scripts.Render("~/bundles/jquery")
-        @Scripts.Render("~/bundles/jqueryval")
-        @Scripts.Render("~/bundles/bootstrap")
-        <script src="~/Scripts/jquery.validate.min.js"></script>
-        <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-        <script src="~/Scripts/myscripts.js"></script>
-    }
+@section Scripts {
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/myscripts.js"></script>
+    @*script for refrsh the page when click on reset button*@
+    <script>
+        function refreshPage() {
+            window.location.reload();
+        }
+    </script>
+}

@@ -43,7 +43,7 @@
                 <div class="form-group" align="left">
                     <div class="col-md-offset-2 col-md-10">
                         <button class="btn" style="background-color:lightgoldenrodyellow; color: black" type="submit" onclick="UploadImage()"><i class="glyphicon glyphicon-plus-sign"></i> Publish</button>
-                        <button class="btn" style="background-color: lightgray" type="reset"> <i class="glyphicon glyphicon-refresh"></i> Reset </button>
+                        <button class="btn" style="background-color: lightgray" type="reset" onclick="refreshPage()"> <i class="glyphicon glyphicon-refresh"></i> Reset </button>
                         <button class="btn btn-primary" onclick="location.href = '@Url.Action("Index","Post")'" type="button"><i class="glyphicon glyphicon-minus"></i> Cancel</button>
 
                     </div>
@@ -58,7 +58,7 @@
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/bootstrap")
 
-    <script>
+<script>
         var UploadImage = function () {
             var file = $("#file").get(0).files;
             var data = new FormData;
@@ -85,6 +85,13 @@
                 }
             });
         }
+
+         @*script for refrsh the page when click on reset button*@
+
+        function refreshPage() {
+            window.location.reload();
+        }
+
     </script>
 }
 

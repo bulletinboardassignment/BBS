@@ -4,22 +4,6 @@
 @using PagedList.Mvc;
 @using PagedList;
 
-<head>
-    <style> 
-td.test {
-  white-space: nowrap; 
-  width: 200px; 
-  overflow: hidden; 
-  border: 1px solid #000000;
-}
-
-td.test:hover {
-  overflow: visible;
-}
-</style>
-</head>
-
-
 <br/>
 <br />
 
@@ -30,69 +14,65 @@ td.test:hover {
 <hr />
 
 <body id="grad">
-
-<div class="form-group" style="float: right">
-    <button class="btn" style="background-color:lightgoldenrodyellow; color: black" onclick="location.href = '@Url.Action("Create","Role")'" type="button"><i class="glyphicon glyphicon-plus-sign"></i> Create New Role</button>
-</div>
-
-@if (Model.Roles.Count() != 0)
-{
-    <div class="text-left">
-        <h4 style="color:green">@Html.Raw(TempData["message"])</h4>
-        <h4 style="color:green">@Html.Raw(TempData["editMessage"])</h4>
-        <h4 style="color:green">@Html.Raw(TempData["deleteMessage"])</h4>
+    @*Button for add a new record*@
+    <div class="form-group" style="float: right">
+        <button class="btn" style="background-color:lightgoldenrodyellow; color: black" onclick="location.href = '@Url.Action("Create","Role")'" type="button"><i class="glyphicon glyphicon-plus-sign"></i> Create New Role</button>
     </div>
+    @*if there are records exists in the database, list down the records*@
+    @if (Model.Roles.Count() != 0)
+    {
+        //Sow the success messages
+        <div class="text-left">
+            <h4 style="color:green">@Html.Raw(TempData["message"])</h4>
+            <h4 style="color:green">@Html.Raw(TempData["editMessage"])</h4>
+            <h4 style="color:green">@Html.Raw(TempData["deleteMessage"])</h4>
+        </div>
 
-    <div class="input-group" style="float: left">
-        <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-        <input class="form-control" style="background-color:khaki; color: black" type="text" id="search" placeholder="Search Role" />
-    </div>
+        //Search box for record
+        <div class="input-group" style="float: left">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+            <input class="form-control" style="background-color:khaki; color: black" type="text" id="search" placeholder="Search Role" />
+        </div>
 
-    <br />
-    <table class="table table-bordered table-hover table-responsive" style="table-layout: fixed">
-        <tr class="bg-info" style="background-color: lightgrey">
-            <th class="text-center">
-                @Html.DisplayNameFor(model => model.rId)
-            </th>
-            <th class="text-center">
-                @Html.DisplayNameFor(model => model.Roles)
-            </th>
+        <br />
 
-            <th class="text-center">Operations</th>
-        </tr>
-
-        @foreach (var item in Model.Roles)
-        {
-            <tr class="searchRecord">
-                <td>
-                    @Html.DisplayFor(modelItem => item.rId)
-
-                </td>
-                <td class="test" style="text-overflow:ellipsis;">
-                    @Html.DisplayFor(modelItem => item.roleName)
-
-                </td>
-                <td>
-
-                    <button class="btn btn-success" onclick="location.href = '@Url.Action("Edit", new { id=item.rId })'" type="button"><i class="glyphicon glyphicon-edit"></i> Edit</button> |
-                    <button class="btn btn-danger" onclick="location.href = '@Url.Action("Delete", "Role",new { id=item.rId })'" type="button"><i class="glyphicon glyphicon-trash"></i> Delete</button>
-
-                </td>
+        //List down all the records in a table
+        <table class="table table-bordered table-hover table-responsive" style="table-layout: fixed">
+            <tr class="bg-info" style="background-color: lightgrey">
+                <th class="text-center">
+                    @Html.DisplayNameFor(model => model.rId)
+                </th>
+                <th class="text-center">
+                    @Html.DisplayNameFor(model => model.Roles)
+                </th>
+                <th class="text-center">Operations</th>
             </tr>
-        }
+            @foreach (var item in Model.Roles)
+            {
+                <tr class="searchRecord">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.rId)
+                    </td>
+                    <td class="test" style="text-overflow:ellipsis;">
+                        @Html.DisplayFor(modelItem => item.roleName)
+                    </td>
+                    <td>
+                        <button class="btn btn-success" onclick="location.href = '@Url.Action("Edit", new { id=item.rId })'" type="button"><i class="glyphicon glyphicon-edit"></i> Edit</button> |
+                        <button class="btn btn-danger" onclick="location.href = '@Url.Action("Delete", "Role",new { id=item.rId })'" type="button"><i class="glyphicon glyphicon-trash"></i> Delete</button>
+                    </td>
+                </tr>
+            }
+        </table>
 
-    </table>
+        //Pagelist bar for the page
+        @Html.PagedListPager(Model.Roles, Page => Url.Action("Index", "Role", new { Page, pageSize = Model.Roles.PageSize }))
 
-    @Html.PagedListPager(Model.Roles, Page => Url.Action("Index", "Role", new { Page, pageSize = Model.Roles.PageSize }))
-
-
-
-}
-else
-{
-    <h4 style="color: orange"> -- No Roles Found --</h4>
-}
-
+    }
+    @*if there is no records exists in the database, show the No results Found message*@
+    else
+    {
+        <h4 style="color: white"> -- No Roles Found --</h4>
+    }
 </body>
 
 @section Scripts {

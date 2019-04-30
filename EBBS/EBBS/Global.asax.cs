@@ -20,11 +20,12 @@ namespace EBBS
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
 
+        //configuration set for showing the 404 error page
         protected void Application_Error (object sender, EventArgs e)
         {
-            Exception ex = Server.GetLastError();
-            Server.ClearError();
-            Response.Redirect("/Error/ErrorMessage");
+            Exception ex = Server.GetLastError();//get last server error and assign to the exception variable
+            Server.ClearError();//clears the last exception that was thrown.
+            Response.Redirect("/Error/ErrorMessage");//If exception occured, 404 error page shows
         }
     }
 }

@@ -15,9 +15,11 @@ namespace EBBS.Data.DAO
         }
 
         public void Add(Comment comment)
-        {
-            context.Comment.Add(comment);
-            context.SaveChanges();
+        {            
+              context.Comment.Add(comment);
+              context.SaveChanges();
+          
+           
         }
 
         public void DeleteComment(int commentId)

@@ -19,22 +19,25 @@ namespace EBBS.Controllers
     {
 
         private readonly IRoleService _roleService;
-
-        //public object Mapper { get; set; }
-
+        
         public RoleController()
         {
             _roleService = new RoleService();
         }
         
         // GET: Role
-        //[Authorize(Roles = "Admin")]
+      
         public ActionResult Index(int page =1, int pageSize=5)
         {
-
+            User user = GetUserSession();
+            string userType = user.Role.roleName;
+            ViewBag.userType = userType;
+            //Show list of roles and list in descending order of the role id
             var roleList = _roleService.GetAllRoles().OrderBy(p=>p.rId).OrderByDescending(p=>p.rId);
+            //mapping with the RoleViewModel to show the pagination on the view page
             var roleViewList = AutoMapper.Mapper.Map<IEnumerable<Role>, IEnumerable<RoleViewModel>>(roleList);
             var model = new RoleVm();
+            //Configure to show only  5 categories per page
             model.Roles = roleViewList.ToPagedList(page,pageSize);
             return View(model);
          }
@@ -42,7 +45,7 @@ namespace EBBS.Controllers
        
 
         // GET: Role/Create
-        //[Authorize(Roles = "Admin")]
+       
         public ActionResult Create()
         {
             return View();
@@ -50,23 +53,29 @@ namespace EBBS.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //[Authorize(Roles = "Admin")]
+      
         public ActionResult Create(RoleViewModel data)
 
         {
+            User user = GetUserSession(); //store to logged in user session into the user object
+           
             Role obj = new Role();
+            //if the enterd role details valid, allows to save the data in database
             if (ModelState.IsValid)
             {
                 bool role = _roleService.UniqueRole(data.roleName.TrimEnd());
+                //check whether the entered role is exisits in the database
                 if (role == true)
                 {
-
                     TempData["addUniqueMessage"] = "Record is Exist, Please Enter a New One";
                     return RedirectToAction("Create", "Role");
                 }
                 obj.roleName = data.roleName.TrimEnd();
-                _roleService.InsertRole(obj);
+                //save the entred role details
+                _roleService.InsertRole(obj);//add the data
+                //Show success message when entered details are correct
                 TempData["message"] = "Success ! You have created a new record";
+                //User redirects to the role Index page after successfull role creation
                 return RedirectToAction("Index", "Role");
 
             }
@@ -83,10 +92,11 @@ namespace EBBS.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            //Find the role id of selected role from database to delete
             Role role = _roleService.RoleById(id);
             if (role == null)
             {
-                return HttpNotFound();
+                return HttpNotFound();//if category is null show the http not found error
             }
             return View(role);
         }
@@ -96,9 +106,11 @@ namespace EBBS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Role role = _roleService.RoleById(id);
-            _roleService.DeleteRole(role);
+            Role role = _roleService.RoleById(id);//Find the role id of selected role from database to delete
+            _roleService.DeleteRole(role);//delete the role
+            //Show success message when deletion is succesfful
             TempData["deleteMessage"] = "Success ! You have deleted a record";
+            //User redirects to the role Index page after successfull role deletion
             return RedirectToAction("Index");
         }
 
@@ -110,7 +122,7 @@ namespace EBBS.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Role dataEdit = _roleService.RoleById(id);
+            Role dataEdit = _roleService.RoleById(id);//Find the role id of selected role from database to edit
 
             if (dataEdit == null)
             {
@@ -127,23 +139,23 @@ namespace EBBS.Controllers
             if (ModelState.IsValid)
             {
                 bool uniquesRole = _roleService.UniqueRole(editData.roleName.TrimEnd());
+                //check whether the entered role is exisits in the database
                 if (uniquesRole == true)
                 {
-
                     TempData["uniqueMessage"] = "Record is Exist, Please modify with a new user role";
                     return RedirectToAction("Edit", "Role");
                 }
 
-                _roleService.UpdateRole(editData);
-                TempData["editMessage"] = "Success ! You have modified the record";
-                return RedirectToAction("Index", "Role");
+                _roleService.UpdateRole(editData);//modify the data
+                TempData["editMessage"] = "Success ! You have modified the record"; //Show success message when deletion is succesfful
+                return RedirectToAction("Index", "Role");//User redirects to the role Index page after successfull role deletion
 
             }
 
             return View(editData);
         }
 
-
+        //configuration for store the user session
         private User GetUserSession()
         {
             if (Session["lUser"] != null)

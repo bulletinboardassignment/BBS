@@ -6,24 +6,6 @@
     ViewBag.Title = "Index";
 }
 
-<head>
-    <style>
-        td.test {
-            white-space: nowrap;
-            width: 200px;
-            overflow: hidden;
-            border: 1px solid #000000;
-        }
-
-        #userImage{
-            background: url("~/images/UserImage.png");
-        }
-
-            td.test:hover {
-                overflow: visible;
-            }
-    </style>
-</head>
 
 <br />
 <br />
@@ -74,17 +56,8 @@
                     @Html.DisplayNameFor(model => model.First().Role.roleName)
                 </th>
 
-                @*<th>
-                    @Html.DisplayNameFor(model => model.First().createTime)
-                </th>
 
-                <th>
-                    @Html.DisplayNameFor(model => model.First().lastLogin)
-                </th>*@
-
-
-
-                <th colspan="5">Operations</th>
+                <th colspan="4">Operations</th>
             </tr>
 
             
@@ -113,16 +86,10 @@
                         @Html.DisplayFor(modelItem => item.Role.roleName)
                     </td>
 
-                    @*<td class="test" style="text-overflow:ellipsis;">
-                        @Html.DisplayFor(modelItem => item.createTime)
-                    </td>
-                    <td class="test" style="text-overflow:ellipsis;">
-                        @Html.DisplayFor(modelItem => item.lastLogin)
-                    </td>*@
 
-                    <td colspan="5">
-                        <button class="btn" style="background-color:darksalmon" onclick="location.href = '@Url.Action("", new { id=item.userId })'" type="button"><i class="glyphicon glyphicon-queen"></i> Promote</button>
-                        <button class="btn btn-success" onclick="location.href = '@Url.Action("Edit", new { id=item.userId })'" type="button"><i class="glyphicon glyphicon-edit"></i> Edit</button> |
+                    <td colspan="4">
+                        <button class="btn" style="background-color:darksalmon" onclick="location.href = '@Url.Action("", new { id=item.userId })'" type="button"><i class="glyphicon glyphicon-queen"></i> Promote</button>|
+                        
                         <button class="btn btn-info" onclick="location.href = '@Url.Action("Details", new { id=item.userId })'" type="button"><i class="glyphicon glyphicon-eye-open"></i> Details</button> |
                         <button class="btn btn-danger" onclick="location.href = '@Url.Action("Delete", "User",new { id=item.userId })'" type="button"><i class="glyphicon glyphicon-remove-sign"></i> Delete</button>
 

@@ -7,22 +7,6 @@
 @{
     ViewBag.Title = "";
 }
-
-<head>
-    <style> 
-td.test {
-  white-space: nowrap; 
-  width: 200px; 
-  overflow: hidden; 
-  border: 1px solid #000000;
-}
-
-td.test:hover {
-  overflow: visible;
-}
-</style>
-</head>
-
 <br/>
 <br />
 
@@ -35,20 +19,21 @@ td.test:hover {
 
 
 <body id="grad">
-
+    @*Button for add a new record*@
     <div class="form-group" style="float: right">
         <button class="btn" style="background-color:lightgoldenrodyellow; color: black" onclick="location.href = '@Url.Action("Create","SecurityQuestion")'" type="button"><i class="glyphicon glyphicon-plus-sign"></i> Create New Security Question</button>
     </div>
-
+    @*if there are records exists in the database, list down the records*@
     @if (Model.Question.Count() != 0)
     {
-
+        //Sow the success messages
         <div class="text-left">
             <h4 style="color:green">@Html.Raw(TempData["message"])</h4>
             <h4 style="color:green">@Html.Raw(TempData["editMessage"])</h4>
             <h4 style="color:green">@Html.Raw(TempData["deleteMessage"])</h4>
         </div>
 
+        //Search box for record
         <div class="input-group" style="float: left">
             <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
             <input class="form-control" style="background-color:khaki; color: black" type="text" id="search" placeholder="Search Security Question" />
@@ -56,7 +41,8 @@ td.test:hover {
 
         <br />
 
-        <table class="table table-bordered table-hover table-responsive" style="table-layout: fixed" >
+        //List down all the records in a table
+        <table class="table table-bordered table-hover table-responsive" style="table-layout: fixed">
             <tr class="bg-info" style="background-color: lightgrey">
                 <th class="text-center">
                     @Html.DisplayNameFor(model => model.qId)
@@ -83,13 +69,15 @@ td.test:hover {
             }
         </table>
         <br />
+        //Pagelist bar for the page
         @Html.PagedListPager(Model.Question, Page => Url.Action("Index", "SecurityQuestion", new { Page, pageSize = Model.Question.PageSize }))
     }
+    @*if there is no records exists in the database, show the No results Found message*@
     else
     {
         <h4 style="color: orange"> -- No Security Questions Found --</h4>
     }
-    
+
 </body>
 
 @section Scripts {

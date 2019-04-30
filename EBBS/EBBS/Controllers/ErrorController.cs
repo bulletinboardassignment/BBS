@@ -9,6 +9,8 @@ namespace EBBS.Controllers
     public class ErrorController : Controller
     {
         // GET: Error
+
+            //Controller for retrive the 404 error page
         public ActionResult ErrorMessage()
         {
             return View();

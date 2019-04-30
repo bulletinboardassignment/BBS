@@ -266,3 +266,20 @@ div.post {
 .circular--square {
     border-radius: 50%;
 }
+
+/*circular image with css*/
+td.test {
+    white-space: nowrap;
+    width: 200px;
+    overflow: hidden;
+    border: 1px solid #000000;
+}
+
+td.test:hover {
+        overflow: visible;
+    }
+
+/*#userImage {
+    background: url("~/images/UserImage.png");
+}*/
+

@@ -28,13 +28,13 @@
 
                                 @if (item.mediaType == "image/jpeg" || item.mediaType == "image/jpg")
                                 {
-                                    @*<img align="middle" src="~/images/@item.mediaPath" width="250" height="250" />*@
-                                    <img align="middle" style="width: 100%; max-width: 100%" height: auto; src="~/images/@item.mediaPath" />
+                                    <img align="middle" src="~/images/@item.mediaPath" width="250" height="250" />
+                                    
                                 }
                                 else if (item.mediaType == "video/mp4")
                                 {
-                                    @*<video width="500" height="500" controls>*@
-                                        <video width="500" height="500" style="width: 100%; max-width: 100%;" controls>
+                                    <video width="500" height="500" controls>
+                                        
                                             <source src="~/images/@item.mediaPath" type="@item.mediaType">
                                             Your browser does not support the video tag.
                                         </video>

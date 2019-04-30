@@ -9,37 +9,17 @@ namespace EBBS.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
-        {
-            return View();
-        }
-
+       //Controller for About page
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
-            
+                      
             return View();
         }
-
+        //Controller for Contact Page
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+               return View();
         }
-
-        //public ActionResult LogMeOut()
-        //{
-
-        //    //Session.Clear();
-        //    //return RedirectToAction("Login","Account");
-
-        //    FormsAuthentication.SignOut();
-        //    return RedirectToAction("Login", "Account");
-        //}
-
-
-
 
     }
 }

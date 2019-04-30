@@ -1,9 +1,7 @@
 ﻿@model EBBS.Data.Role
-
 @{
     ViewBag.Title = "Edit";
 }
-
 <br />
 <br />
 <div>
@@ -11,52 +9,43 @@
 </div>
 <hr />
 <body id="grad">
-
-@using (Html.BeginForm("Edit", "Role", FormMethod.Post))
-{
-    @Html.AntiForgeryToken()
-
-
-<div class="form-horizontal">
-    @Html.AntiForgeryToken()
-    
-    
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @Html.HiddenFor(model => model.rId)
-
-        <p class="text-left" style="color: red">@Html.Raw(TempData["uniqueMessage"])</p>
+    @using (Html.BeginForm("Edit", "Role", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
 
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.rId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.rId, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+        <div class="form-horizontal">
+            @Html.AntiForgeryToken()
 
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.rId)
+            <p class="text-left" style="color: red">@Html.Raw(TempData["uniqueMessage"])</p>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.rId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.rId, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.roleName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.roleName, new { htmlAttributes = new { @class = "form-control", @PlaceHolder = "Enter User Role (*)" } })
+                    @Html.ValidationMessageFor(model => model.roleName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group" align="left">
+                <div class="col-md-offset-2 col-md-10">
+                    <button class="btn btn-success" type="submit"> <i class="glyphicon glyphicon-edit"></i> Edit </button>
+                    <button class="btn" style="background-color: lightgray" type="reset" onclick="refreshPage()"> <i class="glyphicon glyphicon-refresh"></i> Reset </button>
+                    <button class="btn btn-primary" onclick="location.href = '@Url.Action("Index","Role")'" type="button"><i class="glyphicon glyphicon-minus"></i> Cancel</button>
+                </div>
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.roleName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.roleName, new { htmlAttributes = new { @class = "form-control",@PlaceHolder = "Enter User Role (*)" } })
-                @Html.ValidationMessageFor(model => model.roleName, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group" align="left">
-            <div class="col-md-offset-2 col-md-10">
-
-                <button class="btn btn-success" type="submit"> <i class="glyphicon glyphicon-edit"></i> Edit </button>
-                <button class="btn" style="background-color: lightgray" type="reset"> <i class="glyphicon glyphicon-refresh"></i> Reset </button>
-                <button class="btn btn-primary" onclick="location.href = '@Url.Action("Index","Role")'" type="button"><i class="glyphicon glyphicon-minus"></i> Cancel</button>
-            </div>
-        </div>
-  </div>
-}
-
+    }
 
 </body>
-
 @section Scripts {
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryval")
@@ -64,4 +53,10 @@
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
     <script src="~/Scripts/myscripts.js"></script>
+    @*script for refrsh the page when click on reset button*@
+    <script>
+        function refreshPage() {
+            window.location.reload();
+        }
+    </script>
 }

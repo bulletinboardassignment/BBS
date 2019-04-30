@@ -19,7 +19,7 @@ namespace EBBS.Controllers
         public MyController() {
             userService = new UserService();
             securityQuestionService = new SecurityQuestionService();
-            ViewBag.show = "true";
+            //ViewBag.show = "true";
         }
 
 
@@ -59,7 +59,7 @@ namespace EBBS.Controllers
                 }
 
             userService.EditUser(this.GetUserSession().userId, user);
-            result = "Edit done successfully!";          
+            result = "You have successfully changed the post!";          
             return Json(result);
         }
 
@@ -83,7 +83,7 @@ namespace EBBS.Controllers
                 //return Json(new { Url = "Login/Account" });
             }
             else {
-                result = "Password could not be changed! Try again later!";
+                result = "Sorry, Password could not be changed! Try again later!";
             }
 
 
@@ -144,7 +144,7 @@ namespace EBBS.Controllers
             try
             {
                userService.ChangeUserPassword(id, userService.Encrypt(password));
-               result = "Your password has been reset successfully !";
+               result = "Your password has reset successfully !";
             }
             catch (Exception e) {
                 result = "Sorry, unable to reset your password !"+e.ToString();

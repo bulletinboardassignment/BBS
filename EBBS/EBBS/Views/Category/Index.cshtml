@@ -2,6 +2,8 @@
 @using EBBS.Models
 @using PagedList.Mvc;
 @using PagedList;
+
+
 @{
     ViewBag.Title = "Index";
 }
@@ -50,10 +52,9 @@ td.test:hover {
 @if (Model.Category.Count() != 0)
 {
     <div class="text-left">
-        <h4 style="color:green">@Html.Raw(TempData["message"])</h4>
+        @*<h4 style="color:green">@Html.Raw(TempData["message"])</h4>*@
         <h4 style="color:green">@Html.Raw(TempData["editMessage"])</h4>
         <h4 style="color:green">@Html.Raw(TempData["deleteMessage"])</h4>
-
     </div>
 
     <div class="input-group" style="float: left">

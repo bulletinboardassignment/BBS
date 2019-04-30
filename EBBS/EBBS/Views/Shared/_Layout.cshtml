@@ -5,11 +5,13 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Application Title -->
     <title>@ViewBag.Title - EBBS Application</title>
+    <!-- reference to custome css file here -->
     <link rel="stylesheet" href="~/Content/Site.css" />
+    <!-- reference to css file here -->
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" 
-          integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <!-- reference your copy Font Awesome here (from our CDN or by hosting yourself) -->
     <link href="/your-path-to-fontawesome/css/fontawesome.css" rel="stylesheet">
     <link href="/your-path-to-fontawesome/css/brands.css" rel="stylesheet">
@@ -25,17 +27,17 @@
         <div class="container">
             <div class="navbar-header">
                 <ul class="nav navbar-left">
-                    <li><img src="~/images/EBBSLogo.png" /></li>
+                    <li><a href="/Account/Account"><img src="~/images/EBBSLogo.png" /></a></li>
                 </ul>
             </div>
 
+            <!-- Main Links display in Navigation -->
             <ul class="nav navbar-nav">
-
+                <!-- Links display in Navigation by default-->
                 <li>@Html.ActionLink("About", "About", "Home")</li>
                 <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
 
-
-
+                <!-- Main Links display in Navigation once user logged into the system -->
                 @if (Session["lUser"] != null)
                 {
 
@@ -49,12 +51,9 @@
                         </div>
                     </li>
 
-
-
                     <li class="dropdown">
                         <a class="nav-link"><i class="fas fa-user-circle"></i> <span>My Account</span></a>
                         <div class="dropdown-content">
-                            @*<a class="dropdown-item" href="/My/Index">My Profile</a>*@
                             <a class="dropdown-item" href="/Post/MyPosts">My Posts</a>
                             <a class="dropdown-item" href="/Comment/MyComments">My Comments</a>
                         </div>
@@ -62,7 +61,7 @@
 
 
                     if (((EBBS.Data.User)Session["lUser"]).userType < 3)
-                    {
+                    {<!-- Manage EBBS Links only display in Navigation for Admin -->
                         <li class="dropdown">
                             <a class="nav-link"><i class="fas fa-cog"></i> <span>Manage EBBS</span></a>
                             <div class="dropdown-content">
@@ -100,7 +99,6 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    @*<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>*@
                     <h2 style="text-align:center"><span class="mySpan">  Log Me Out</span></h2>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
@@ -117,7 +115,8 @@
 
 
     <div class="container body-content">
-       
+        <div class="text-left"> <h4 style="color:green">@Html.Raw(TempData["registrationConfirmation"])</h4> </div>
+        <!-- Render the view inside this div  -->
         @RenderBody()
         <hr />
         <!-- Footer -->
@@ -132,6 +131,7 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    <!-- Scripts for field validations -->
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 </body>

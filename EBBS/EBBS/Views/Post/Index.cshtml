@@ -7,10 +7,14 @@
 
 <br />
 <div>
-    <h2><span class="mySpan">  Post List</span></h2>
+    <h2><span class="mySpan"> All Posts</span></h2>
 </div>
 <hr />
 <body id="grad">
+
+    <div class="text-left">
+        <h4 style="color:green">@Html.Raw(TempData["message"])</h4>
+    </div>
 
     <div class="form-group" style="float: right">
         <button class="btn" style="background-color:lightgoldenrodyellow; color: black" onclick="location.href = '@Url.Action("Create","Post")'" type="button"><i class="glyphicon glyphicon-plus-sign"></i> Create New Post</button>
@@ -36,7 +40,7 @@
 
                                 @if (item.mediaType == "image/jpeg" || item.mediaType == "image/jpg")
                                 {
-                                    <img align="middle" style="width: 100%; max-width: 100%" height: auto;  src="~/images/@item.mediaPath"  />
+                                    <img align="middle" style="width: 100%; max-width: 100%" height: auto; src="~/images/@item.mediaPath" />
                                 }
                                 else if (item.mediaType == "video/mp4")
                                 {

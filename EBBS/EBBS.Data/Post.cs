@@ -11,7 +11,9 @@ namespace EBBS.Data
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
     public partial class Post
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,9 +22,15 @@ namespace EBBS.Data
             this.Comment = new HashSet<Comment>();
             this.Reports = new HashSet<Reports>();
         }
-    
+        [Key]
+        [Display(Name = "Post ID")]
         public int pId { get; set; }
+        [Required(ErrorMessage = "Post Title Required")]
+        [Index(IsUnique = true)]
+        [Display(Name = "Post Title")]
         public string postTitle { get; set; }
+        [Required(ErrorMessage = "Post Content Required")]
+        [Display(Name = "Post Content")]
         public string postContent { get; set; }
         public string mediaPath { get; set; }
         public Nullable<int> creatorId { get; set; }

@@ -1,14 +1,10 @@
 ﻿@model EBBS.Data.SecurityQuestion
-
-<br/>
 <br />
-
+<br />
 <div>
     <h2><span class="mySpan">  Create a New Security Question</span></h2>
 </div>
-
 <hr />
-
 <body id="grad">
     @using (Html.BeginForm("Create", "SecurityQuestion", FormMethod.Post))
     {
@@ -30,7 +26,7 @@
             <div class="form-group" align="left">
                 <div class="col-md-offset-2 col-md-10">
                     <button class="btn" style="background-color:lightgoldenrodyellow; color: black" type="submit"> <i class="glyphicon glyphicon-plus-sign"></i> Create </button>
-                    <button class="btn" style="background-color: lightgray" type="reset"> <i class="glyphicon glyphicon-refresh"></i> Reset </button>
+                    <button class="btn" style="background-color: lightgray" type="reset" onclick="refreshPage()"> <i class="glyphicon glyphicon-refresh"></i> Reset </button>
                     <button class="btn btn-primary" onclick="location.href = '@Url.Action("Index","SecurityQuestion")'" type="button"><i class="glyphicon glyphicon-minus"></i> Cancel</button>
 
                 </div>
@@ -39,14 +35,18 @@
 
     }
 </body>
-
 @section Scripts {
-
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/bootstrap")
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
     <script src="~/Scripts/myscripts.js"></script>
-
+    
+    @*script for refrsh the page when click on reset button*@
+    <script>
+        function refreshPage() {
+            window.location.reload();
+        }
+    </script>
 }

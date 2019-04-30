@@ -13,36 +13,42 @@
     {
         @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
+        <div class="form-horizontal">
 
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.commentId)
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.commentId)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.commentText, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="input-group" align="left" row="30" col="10">
-                @Html.TextAreaFor(model => model.commentText, 10, 70, htmlAttributes: new { style = "width: 100%; max-width: 100%;", @placeholder = "Enter a comment (*)" })
-                @Html.ValidationMessageFor(model => model.commentText, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.commentText, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="input-group" align="left" row="30" col="10">
+                    @Html.TextAreaFor(model => model.commentText, 10, 70, htmlAttributes: new { style = "width: 100%; max-width: 100%;", @placeholder = "Enter a comment (*)" })
+                    @Html.ValidationMessageFor(model => model.commentText, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="form-group" align="left">
+                <div class="col-md-offset-2 col-md-10">
+                    <button class="btn btn-success" type="submit"> <i class="glyphicon glyphicon-edit"></i> Edit </button>
+                    <button class="btn" style="background-color: lightgray" type="reset" onclick="refreshPage()"> <i class="glyphicon glyphicon-refresh"></i> Reset </button>
+                    <button class="btn btn-primary" onclick="location.href = '@Url.Action("MyComments","Comment")'" type="button"><i class="glyphicon glyphicon-minus"></i> Cancel</button>
+                </div>
             </div>
         </div>
-
-        
-        <div class="form-group" align="left">
-            <div class="col-md-offset-2 col-md-10">
-                <button class="btn btn-success" type="submit"> <i class="glyphicon glyphicon-edit"></i> Edit </button>
-                <button class="btn" style="background-color: lightgray" type="reset"> <i class="glyphicon glyphicon-refresh"></i> Reset </button>
-                <button class="btn btn-primary" onclick="location.href = '@Url.Action("MyComments","Comment")'" type="button"><i class="glyphicon glyphicon-minus"></i> Cancel</button>
-            </div>
-        </div>
-    </div>
     }
-    </body>
+</body>
 
-    @section Scripts {
-        @Scripts.Render("~/bundles/jquery")
-        @Scripts.Render("~/bundles/jqueryval")
-        @Scripts.Render("~/bundles/bootstrap")
-        <script src="~/Scripts/jquery.validate.min.js"></script>
-        <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-
-    }
+@section Scripts {
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    
+    @*script for refrsh the page when click on reset button*@
+    <script>
+        function refreshPage() {
+            window.location.reload();
+        }
+    </script>
+}
