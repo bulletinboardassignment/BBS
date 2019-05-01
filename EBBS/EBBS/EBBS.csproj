@@ -481,6 +481,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="images\1.jpg" />
+    <Content Include="images\EBBS LOGO.PNG" />
     <Content Include="images\EBBSLogo.png" />
     <Content Include="images\2.mp4" />
     <Content Include="images\img_avatar.jpg" />
@@ -511,7 +512,6 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\myscripts.js" />
-    <Content Include="Views\index.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -564,6 +564,14 @@
     <Content Include="Views\User\Delete.cshtml" />
     <Content Include="Views\Statistics\Index.cshtml" />
     <Content Include="Views\Statistics\UsersStats.cshtml" />
+    <Content Include="Views\Post\EditMyPost.cshtml" />
+    <Content Include="Views\Post\DeleteMyPost.cshtml" />
+    <Content Include="Views\Post\ViewMyPostDetails.cshtml" />
+    <Content Include="Views\Comment\DeleteMyComment.cshtml" />
+    <Content Include="Views\Comment\EditMyComment.cshtml" />
+    <Content Include="Views\Post\MyDetails.cshtml" />
+    <Content Include="Views\Comment\DeletePostComment.cshtml" />
+    <Content Include="Views\Comment\EditPostComment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EBBS.Data\EBBS.Data.csproj">

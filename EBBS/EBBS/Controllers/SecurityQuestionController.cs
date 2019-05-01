@@ -26,7 +26,7 @@ namespace EBBS.Controllers
         // GET: SecurityQuestion
         public ActionResult Index(int page = 1, int pageSize = 5)
         {
-            User user = GetUserSession();
+            User user = GetUserSession();//set the user session
             var sqList = _securityQuestionService.GetMySQs().OrderBy(p=>p.qId).OrderByDescending(p=>p.qId);//"Security Questions"sorted descending by the "question Id" 
             var sqViewList = AutoMapper.Mapper.Map<IEnumerable<SecurityQuestion>, IEnumerable<SecurityQuestionViewModel>>(sqList);
             var model = new SecurityQuestionVm();
@@ -51,13 +51,14 @@ namespace EBBS.Controllers
             if (ModelState.IsValid)
             {
                 bool uniqueQuestion = _securityQuestionService.UniqueSecurityQuestion(data.question.TrimEnd());
-
+                //verify the entered security question is exisists or not
                 if (uniqueQuestion == true)
                 {
-
+                    //if security question is exists, the validation message will display on the view
                     TempData["addUniqueMessage"] = "Record is Exist, Please Enter a new security question";
                     return RedirectToAction("Create", "SecurityQuestion");
                 }
+                //if security question is not exists, creates new security question 
                 obj.question = data.question.TrimEnd();
                 _securityQuestionService.InsertSecurityQuestion(obj);
                 TempData["message"] = "Success ! You have created a new record";
@@ -76,6 +77,7 @@ namespace EBBS.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            //get the selected security question id
             SecurityQuestion dataEdit = _securityQuestionService.GetSecurityQuestionById(id);
 
             if (dataEdit == null)
@@ -93,12 +95,15 @@ namespace EBBS.Controllers
             if (ModelState.IsValid)
             {
                 bool uniquesQuestion = _securityQuestionService.UniqueSecurityQuestion(editData.question.TrimEnd());
+                //if security question is exists, the validation message will display on the view
+
                 if (uniquesQuestion == true)
                 {
 
                     TempData["uniqueMessage"] = "Record is Exist, Please modify with a new security question";
                     return RedirectToAction("Edit", "SecurityQuestion");
                 }
+                //if security question is not exists, update the security question 
 
                 _securityQuestionService.UpdateSecurityQuestion(editData);
                 TempData["editMessage"] = "Success ! You have modified the record";
@@ -116,6 +121,7 @@ namespace EBBS.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            //get the selected security question id
             SecurityQuestion data = _securityQuestionService.GetSecurityQuestionById(id);
             if (data == null)
             {
@@ -130,19 +136,22 @@ namespace EBBS.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             SecurityQuestion data = _securityQuestionService.GetSecurityQuestionById(id);
+            //if security question is use for user, the validation message will display on the view
 
             if (_securityQuestionService.AnybodyGotThisSecurityQuestion(id))
             {
                 TempData["deleteMessage"] = "Sorry ! You cannot delete this security question.";
             }
             else {
+                //if security question is not use for user, delete the security question 
+
                 _securityQuestionService.DeleteSecurityQuestion(data);
                 TempData["deleteMessage"] = "Success ! You have deleted the record.";
             }            
             return RedirectToAction("Index");
         }
 
-
+        //grab the current user data
         private User GetUserSession()
         {
             if (Session["lUser"] != null)

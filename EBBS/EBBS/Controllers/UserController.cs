@@ -28,6 +28,8 @@ namespace EBBS.Controllers
         }
 
         [HttpPost]
+        //Promote the user from one role to a higher
+        //The same method is used to demote the user as well
         public JsonResult Promote(int userId, int userType) {
             string result = "";
 
@@ -108,6 +110,7 @@ namespace EBBS.Controllers
             }
             var model = userService.Details(id);
             var x = (from d in roleService.RoleIeNum select d).ToList();
+            //Roles for dropdown list in the view
             ViewBag.RoleList = new SelectList(roleService.RoleIeNum, "rId", "rolename");
 
 
@@ -123,6 +126,7 @@ namespace EBBS.Controllers
         public ActionResult Edit(User data)
         {
             var x = (from d in roleService.RoleIeNum select d).ToList();
+            //Roles for dropdown list in the view
             ViewBag.RoleList = new SelectList(roleService.RoleIeNum, "rId", "rolename");
 
             if (ModelState.IsValid)
@@ -165,7 +169,7 @@ namespace EBBS.Controllers
             return RedirectToAction("Index");
         }
 
-        
+        //Grab the current user session
         private User GetUserSession()
         {
             if (Session["lUser"] != null)

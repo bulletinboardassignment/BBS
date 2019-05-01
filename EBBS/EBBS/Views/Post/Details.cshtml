@@ -15,7 +15,7 @@
         <form id="newPost" method="post" enctype="multipart/form-data">
             <div class="form-group" align="right">
              
-                    <button class="btn btn-success" onclick="location.href = '@Url.Action("Edit", new { id = Model.pId })'" type="button"><i class="glyphicon glyphicon-edit"></i> Edit</button> 
+                    
                     <button class="btn btn-primary" onclick="location.href = '@Url.Action("Index","Post")'" type="button"><i class="glyphicon glyphicon-backward"></i> Back to List</button>
              
             </div>
@@ -87,8 +87,8 @@
                                     <div class="form-group" align="center">
                                         <div class="col-md-offset-2 col-md-10">
                                             <h6 style="align-content:center">
-                                                <a style="color:green" href="/Comment/Edit/@comment.commentId"><i class="glyphicon glyphicon-edit"></i> <b> Edit</b> </a> <span>|</span>
-                                                <a style="color:red" href="/Comment/Delete/@comment.commentId"><i class="glyphicon glyphicon-trash"></i> <b> Delete</b></a>
+                                                <a style="color:green" href="/Comment/EditPostComment/@comment.commentId"><i class="glyphicon glyphicon-edit"></i> <b> Edit</b> </a> <span>|</span>
+                                                <a style="color:red" href="/Comment/DeletePostComment/@comment.commentId"><i class="glyphicon glyphicon-trash"></i> <b> Delete</b></a>
                                             </h6>
                                         </div>
                                     </div>

@@ -47,9 +47,15 @@
                                 <p>Posted On: @Html.DisplayFor(modelItem => item.createTime) </p>
                                 <p>Created By: @item.User.firstName @item.User.lastName</p>
 
-                                <a href="/Post/Delete/@item.pId" class="btn btn-danger"><i class=" glyphicon glyphicon-trash"></i> Delete</a>
-                                <a href="/Post/Edit/@item.pId" class="btn btn-success"><i class=" glyphicon glyphicon-edit"></i> Edit</a>
-                                <a href="/Post/Details/@item.pId" class="btn btn-info"><i class=" glyphicon glyphicon-eye-open"></i> Details</a>
+                                <a href="/Post/DeleteMyPost/@item.pId" class="btn btn-danger"><i class=" glyphicon glyphicon-trash"></i> Delete</a>
+                                <a href="/Post/EditMyPost/@item.pId" class="btn btn-success"><i class=" glyphicon glyphicon-edit"></i> Edit</a>
+                                <a href="/Post/MyDetails/@item.pId" class="btn btn-info"><i class=" glyphicon glyphicon-eye-open"></i> Details</a>
+
+                                <a data="@item.pId" class="btn btnComment comment" data-toggle="tooltip" data-placement="bottom" title="Leave Comment">
+                                    <span class="badge">@item.nComments &nbsp;</span>
+                                    <i class=" glyphicon glyphicon-comment"></i>
+                                </a>
+
 
                             </div>
                         </div>
@@ -64,4 +70,90 @@
     </div>
 
     <div>Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount  @Html.PagedListPager(Model, Page => Url.Action("MyPosts", new { Page }))</div>
+
+
+
+    <!-- Modal for comment on post-->
+
+    <div>
+        <div id="commentModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <div>
+                            <h2><span class="mySpan"> Post Comment</span></h2>
+                        </div>
+                    </div>
+
+                    <div class="modal-body" id="grad">
+                        <br />
+                        <div class="form-group" align="center">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-question-sign"></i></span>
+                                <input type="hidden" id="pcId" />
+                                <textarea rows="3" cols="7" id="commentText" class="form-control" placeholder="Enter Comment here (*)"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <div class="form-group" align="right">
+                            <div class="col-md-offset-2 col-md-10">
+                                <a href="#" class="btn btnReport" id="mComment"><i class="glyphicon glyphicon-comment"></i> Post Comment</a>
+                                <button class="btn btn-info" type="button" data-dismiss="modal"><i class="glyphicon glyphicon-minus"></i> Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script>
+
+        $(".comment").click(function () {
+            var id = $(this).attr("data");
+            $("#pcId").val(id);
+            $("#commentModal").modal("show");
+
+
+        });
+
+        $("#mComment").click(function (e) {
+            e.preventDefault();
+            var comment = $("#commentText").val();
+            var postId = $("#pcId").val();
+            if (comment.length == 0) {
+                alert("Comment is required.");
+            } else {
+                $.ajax({
+                    type: 'POST',
+                    data: { postId: postId, commentText: comment },
+                    url: '/Comment/Comment',
+                    success: function (response) {
+                        $("#commentModal").modal("hide");
+                        alert(response);
+                        $("#commentText").val("");
+                        window.location.href = "/Post/MyPosts"
+                    },
+                    error: function (a, b, c) {
+                        alert(c + "");
+                    }
+                });
+
+
+            }
+    });
+        </script>
+}

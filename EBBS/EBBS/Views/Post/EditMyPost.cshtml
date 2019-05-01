@@ -1,0 +1,129 @@
+﻿@model EBBS.Data.Post
+
+@{
+    ViewBag.Title = "EditMyPost";
+}
+
+<br />
+<br />
+
+<div>
+    <h2><span class="mySpan"> Update My Post</span></h2>
+</div>
+
+<hr />
+
+<body id="grad">
+
+    <div class="form-horizontal">
+        <form id="newPost" method="post" enctype="multipart/form-data">
+
+            <input type="hidden" value="@Model.pId" id="pId" />
+
+            <div class="form-group">
+                <span class="control-label col-md-2 text-left"><b>Upload Image or Video</b></span>
+                <input class="form-control" type="file" id="file" name="file" accept="image/jpg, image/jpeg, video/mp4" />
+                <br />
+
+                @if (Model.mediaType == "image/jpeg" || Model.mediaType == "image/jpg")
+                {
+                    <img align="middle" src="~/images/@Model.mediaPath" width="250" height="250" alt="not found" style="" />
+
+                }
+                else if (Model.mediaType == "video/mp4")
+                {
+                    <div class="form-group">
+                        <video width="500" height="500" style="width: 75%; max-width: 100%;" controls>
+
+                            <source src="~/images/@Model.mediaPath" type="@Model.mediaType" class="form-control" alt="not found">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                }
+
+            </div>
+
+            <div class="form-group" style="align-content:stretch">
+                <span class="control-label col-md-2 text-left"><b>Title:</b></span>
+                <input align="left" type="text" id="postTitle" value="@Model.postTitle" name="postTitle" class="form-control" placeholder="Enter Title (*)" />
+            </div>
+
+            <div class="form-group">
+                <span class="control-label col-md-2 text-left"><b>Description</b></span>
+                <div class="input-group" align="left">
+                    <textarea rows="10" cols="100" style="width: 100%; max-width: 100%;" name="postContent" id="postContent" class="form-control" placeholder="Enter Description (*)">@Model.postContent</textarea>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <span class="control-label col-md-2 text-left"><b>Board:</b></span>
+                @Html.DropDownList("categoryId", (IEnumerable<SelectListItem>)ViewBag.categories, "Select Board (*)", new { @class = "form-control" })
+            </div>
+
+
+            <div class="form-group" align="left">
+                <div class="col-md-offset-2 col-md-10">
+                    <a href="#" class="btn btn-success" onclick="UploadImage()"><i class="glyphicon glyphicon-edit"></i> Edit</a>
+                    <button class="btn" style="background-color: gray" type="reset" onclick="refreshPage()"> <i class="glyphicon glyphicon-refresh"></i> Reset </button>
+                    <button class="btn btn-primary" onclick="location.href = '@Url.Action("MyPosts","Post")'" type="button"><i class="glyphicon glyphicon-minus"></i> Cancel</button>
+
+                </div>
+            </div>
+        </form>
+
+    </div>
+</body>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    <script>
+    var UploadImage = function () {
+        var file = $("#file").get(0).files;
+        var data = new FormData;
+
+        var postTitle = $("#postTitle").val();
+        var postContent = $("#postContent").val();
+        var categoryId = $("#categoryId").val();
+
+        data.append("pId", $("#pId").val());
+        data.append("postTitle", postTitle);
+        data.append("postContent", postContent);
+        data.append("postImage", file[0]);
+        data.append("categoryId", categoryId);
+
+        if (postTitle.length == 0 || postContent.length == 0) {
+            alert("Title and Description are required");
+        } else if (!categoryId) {
+            alert("Board is required!");
+        } else {
+            $.ajax({
+            type: 'POST',
+                url: "/Post/EditMyPost/@Model.pId",
+            data: data,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                alert("Post edited successfully!");
+                window.location.href = "/Post/MyPosts";
+            },
+            error: function () {
+
+
+            }
+        });
+        }      
+
+        }
+
+        @* script for refrsh the page when click on reset button *@
+        function refreshPage() {
+            window.location.reload();
+        }
+
+    </script>
+}
+

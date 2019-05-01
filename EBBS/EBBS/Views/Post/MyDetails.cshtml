@@ -1,0 +1,110 @@
+﻿@model EBBS.Data.Post
+
+@{
+    ViewBag.Title = "Details";
+}
+<br />
+<div>
+    <h2><span class="mySpan">  Post Details</span></h2>
+</div>
+<hr />
+<body id="grad">
+
+    <div class="form-horizontal">
+
+        <form id="newPost" method="post" enctype="multipart/form-data">
+            <div class="form-group" align="right">
+             
+                    
+                    <button class="btn btn-primary" onclick="location.href = '@Url.Action("MyPosts","Post")'" type="button"><i class="glyphicon glyphicon-backward"></i> Back to List</button>
+             
+            </div>
+            <input type="hidden" value="@Model.pId" id="pId" disabled />
+
+            <section class="container">
+                <div class="col-md-12">
+                    <div class="commentSection ; paragraph">
+                        <article>
+                            <header class="modal-title">
+                                <div class="form-group" style="align-content:stretch">
+                                    <h3><i class="glyphicon glyphicon-pencil"></i> @Model.postTitle</h3>
+                                </div>
+                            </header>
+
+                            <p>@Html.DisplayFor(modelItem => Model.postContent)</p>
+
+                            @if (Model.mediaType == "image/jpeg")
+                            {
+                                <img align="middle" style="width:100%; max-width:100%" src="~/images/@Model.mediaPath" width="250" height="250" />
+                            }
+                            else if (Model.mediaType == "video/mp4")
+                            {
+                                <div class="form-group">
+                                    <video width="500" height="500" style="width: 75%; max-width: 100%;" controls>
+                                        <source src="~/images/@Model.mediaPath" type="@Model.mediaType" class="form-control" alt="not found">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                </div>
+                            }
+                            <p>
+                                Category: @Model.Category.categoryName
+                            </p>
+                            <br />
+                            <footer>
+                                <div style="text-align:center">
+                                    <p class="fa fa-user" aria-hidden="true"> Posted by :@Model.User.firstName @Model.User.lastName</p>
+                                    | <p style="text-align:left" class="fa fa-calendar" aria-hidden="true"> Posted on @Model.createTime</p>
+
+                                </div>
+                            </footer>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+            <section class="container">
+                <div class="col-md-12 ; paragraph">
+                    <article class="post-preview">
+                        <header class="modal-title">
+                            <h3 style="text-align:left"><i class="fa fa-comment"></i> Comments</h3>
+                        </header>
+                          
+                            @foreach (var comment in (List<EBBS.Data.Comment>)ViewBag.comments)
+                            {
+                        <div class="commentSection">
+                            <div class="form-group">
+
+                                <div style="text-align:center">
+
+                                    <h6 class="fa fa-user" aria-hidden="true"> Commented by :@comment.User.firstName @comment.User.lastName</h6>
+                                    | <h6 style="text-align:left" class="fa fa-calendar" aria-hidden="true"> Commented on @comment.createTime</h6>
+                                </div>
+                            </div>
+                            <p style="text-align:center">@Html.Raw(@comment.commentText)</p>
+                            <div class="form-group" align="left">
+                                @if (@comment.commentedBy == (int)ViewBag.currentUser)
+                                {
+                                    <div class="form-group" align="center">
+                                        <div class="col-md-offset-2 col-md-10">
+                                            <h6 style="align-content:center">
+                                                <a style="color:green" href="/Comment/EditMyComment/@comment.commentId"><i class="glyphicon glyphicon-edit"></i> <b> Edit</b> </a> <span>|</span>
+                                                <a style="color:red" href="/Comment/DeleteMyComment/@comment.commentId"><i class="glyphicon glyphicon-trash"></i> <b> Delete</b></a>
+                                            </h6>
+                                        </div>
+                                    </div>
+
+
+                                }
+                            </div>
+                                </div>
+                              <br />
+                             
+                            }
+                    </article>
+                </div>
+                <hr />
+
+            </section>
+</form>
+</div>
+</body>

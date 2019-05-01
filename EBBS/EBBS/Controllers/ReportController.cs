@@ -15,15 +15,17 @@ namespace EBBS.Controllers
         public ReportController() {
             reportService = new ReportService();
         }
-
+        //In case admin lets a post stay and not be deleted.
+        //Asynchronous method to handle this task
         [HttpPost]
         public JsonResult Stay(int id) {
-
+            //set the isReported attribute back to false
             reportService.AllowReportedPost(id);
 
             string result = "You allowed the post to stay!";
             return Json(result);
         }
+        //This method is used in case an admin decides to delete a reported post
 
         [HttpPost]
         public JsonResult DeletePost(int id) {
@@ -35,7 +37,7 @@ namespace EBBS.Controllers
         }
 
 
-
+        //Grab the reported posts and paginate them
         // GET: Report
         public ActionResult Index(int? page)
         {
@@ -45,6 +47,7 @@ namespace EBBS.Controllers
             return View(result.ToPagedList(pageNumber, pageSize));
         }
 
+        //Details of a reported post
         // GET: Report/Details/5
         public ActionResult Details(int id)
         {

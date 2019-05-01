@@ -27,7 +27,7 @@
         <div class="container">
             <div class="navbar-header">
                 <ul class="nav navbar-left">
-                    <li><a href="/Account/Login"><img src="~/images/EBBSLogo.png" /></a></li>
+                    <li><a href="/Account/Login"><img src="~/images/EBBSLOGO.png" style="width:50%" height="47"/></a></li>
                 </ul>
             </div>
 
@@ -35,7 +35,7 @@
             <ul class="nav navbar-nav">
                 <!-- Links display in Navigation by default-->
                 <li>@Html.ActionLink("About", "About", "Home")</li>
-                <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                <li>@Html.ActionLink("Contact Us", "Contact", "Home")</li>
 
                 <!-- Main Links display in Navigation once user logged into the system -->
                 @if (Session["lUser"] != null)
@@ -46,7 +46,7 @@
                         <div class="dropdown-content">
                             <a class="dropdown-item" href="/Statistics/index">EBBS Post Statistics</a>
                             <a class="dropdown-item" href="/Statistics/UsersStats">EBBS User Statistics</a>
-                            <a class="dropdown-item" href="/Category/index">Category Wise Posts</a>
+                            <a class="dropdown-item" href="/Category/index">Board Wise Posts</a>
                             <a class="dropdown-item" href="/Post/index">All Posts</a>
                         </div>
                     </li>

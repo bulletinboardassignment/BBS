@@ -122,7 +122,7 @@ namespace EBBS.Controllers
 
                     //Session Management
                     Session["lUser"] = user;
-                    TempData["Message"] = "<script>alert('You have successfully loggedin!!!')</script>";
+                    TempData["LoginMessage"] = "<script>alert('You have successfully loggedin!!!')</script>";
                     return RedirectToAction("Index", "Post"); //the user will be redirected to the all post lists
 
                 }

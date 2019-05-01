@@ -88,7 +88,7 @@
 
 
                     <td colspan="4">
-                        <button class="btn promote" id="@item.userId" style="background-color:salmon" type="button"><i class="glyphicon glyphicon-queen"></i> Promote</button>|
+                        <button class="btn promote" id="@item.userId" style="background-color:orange" type="button"><i class="glyphicon glyphicon-queen"></i> Promote</button>|
                         <button class="btn btn-info" onclick="location.href = '@Url.Action("Details", new { id=item.userId })'" type="button"><i class="glyphicon glyphicon-eye-open"></i> Details</button> |
                         <button class="btn btn-danger" onclick="location.href = '@Url.Action("Delete", "User",new { id=item.userId })'" type="button"><i class="glyphicon glyphicon-remove-sign"></i> Delete</button>
 
@@ -123,7 +123,7 @@
                         <option>Select Role (*)</option>
                         @foreach (var role in (List<EBBS.Data.Role>)ViewBag.roles)
                         {
-                            
+                            <option value="" selected disabled hidden>Select Role (*)</option>
                             <option value="@role.rId">@role.roleName</option>
 
                         }
@@ -132,7 +132,7 @@
 
                 </div>
                 <div class="modal-footer">
-                    <a href="#" class="btn" id="promote" style="background-color:salmon" type="button"><i class="glyphicon glyphicon-queen"></i> Promote</a>
+                    <a href="#" class="btn" id="promote" style="background-color:orange" type="button"><i class="glyphicon glyphicon-queen"></i> Promote</a>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>

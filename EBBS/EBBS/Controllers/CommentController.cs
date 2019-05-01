@@ -30,8 +30,8 @@ namespace EBBS.Controllers
             int pageNumber = (page ?? 1); //Per page
             return View(comments.ToPagedList(pageNumber, pageSize));
         }
-       
 
+        //Get all comments for one specific post
         public ActionResult Get(int postId) {
             Post post = postService.GetPost(postId);
             ViewBag.post = post;
@@ -40,6 +40,8 @@ namespace EBBS.Controllers
         }
 
         [HttpPost]
+        //A JSonResult controller to store a new comment
+        //and pass a successful json response to the view asynchronously
         public JsonResult Comment(Models.CommentViewModel commentViewModel) {
             Comment comment = new Comment();
             comment.commentText = commentViewModel.commentText;
@@ -56,21 +58,10 @@ namespace EBBS.Controllers
         }
 
 
-        // GET: Comment
-        public ActionResult Index()
-        {
-            return View();
-        }
-
-        // GET: Comment/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-  
 
         // GET: Comment/Edit/5
+        //Get the comment and pass it to the view
+        //Edit the comment of selected post in My Comment page
         public ActionResult Edit(int id)
         {
                return View(commentService.GetComment(id));
@@ -85,7 +76,8 @@ namespace EBBS.Controllers
                 // TODO: Add update logic here
 
                 commentService.EditComment(id, comment);
-
+                //If somebody is coming from post edit page, redirect him back to 
+                //MyComments page
                 if (Session["pid"] == null)
                 {
                     return RedirectToAction("MyComments", "Comment");
@@ -94,7 +86,8 @@ namespace EBBS.Controllers
                 {
 
                     int postId = int.Parse(Session["pid"].ToString());
-                    return RedirectToAction("Details/"+postId, "Post");
+                    //return RedirectToAction("Details/"+postId, "Post");
+                    return RedirectToAction("MyComments/" + postId, "Comment");
 
                 }
 
@@ -106,12 +99,13 @@ namespace EBBS.Controllers
             }
         }
 
-     
+
 
         // GET: Comment/Delete/5
+        //Delete the comment of selected post in My Comment page
         public ActionResult Delete(int id)
         {
-
+            //Grab the comment and go to delete confirmation page
             return View(commentService.GetComment(id));
         }
 
@@ -129,6 +123,157 @@ namespace EBBS.Controllers
                 }
                 else
                 {
+                    //if the pid session is set, go to the details of the post with id pid
+
+                    int postId = int.Parse(Session["pid"].ToString());
+                    return RedirectToAction("MyComments/" + postId, "Comment");
+                }
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+
+
+        // GET: Comment/EditMyComment/5
+        //Edit the comment of selected post in MyPost page
+        public ActionResult EditMyComment(int id)
+        {
+            return View(commentService.GetComment(id));
+        }
+
+        // POST: Comment/EditMyComment/5
+        [HttpPost]
+        public ActionResult EditMyComment(int id, Comment comment)
+        {
+            try
+            {
+                // TODO: Add update logic here
+
+                commentService.EditComment(id, comment);
+
+                if (Session["pid"] == null)
+
+                {
+                    return RedirectToAction("MyDetails", "Post");
+                }
+                else
+                {
+
+                    int postId = int.Parse(Session["pid"].ToString());
+                    return RedirectToAction("MyDetails/" + postId, "Post");
+
+                }
+                
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+
+        // GET: Comment/DeleteMyComment/5
+        //Delete the comment of selected post in MyPost page
+        public ActionResult DeleteMyComment(int id)
+        {
+
+            return View(commentService.GetComment(id));
+        }
+
+        // POST: Comment/DeleteMyComment/5
+        [HttpPost]
+        public ActionResult DeleteMyComment(int id, FormCollection collection)
+        {
+            try
+            {
+                // TODO: Add delete logic here
+                commentService.DeleteComment(id);
+                if (Session["pid"] == null)
+
+                {
+                    return RedirectToAction("MyDetails", "Post");
+                }
+                else
+                {
+
+                    int postId = int.Parse(Session["pid"].ToString());
+                    //return RedirectToAction("Details/" + postId, "Post");
+                    return RedirectToAction("MyDetails/" + postId, "Post");
+
+                }
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+
+        // GET: Comment/EditMyComment/5
+        //Edit the comment of selected post in All Post page
+        public ActionResult EditPostComment(int id)
+        {
+            return View(commentService.GetComment(id));
+        }
+
+        // POST: Comment/EditMyComment/5
+
+        [HttpPost]
+        public ActionResult EditPostComment(int id, Comment comment)
+        {
+            try
+            {
+                // TODO: Add update logic here
+
+                commentService.EditComment(id, comment);
+
+                if (Session["pid"] == null)
+
+                {
+                    return RedirectToAction("Details", "Post");
+                }
+                else
+                {
+
+                    int postId = int.Parse(Session["pid"].ToString());
+                    return RedirectToAction("Details/" + postId, "Post");
+
+                }
+
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+
+        // GET: Comment/DeleteMyComment/5
+        //Delete the comment of selected post in All Post page
+        public ActionResult DeletePostComment(int id)
+        {
+
+            return View(commentService.GetComment(id));
+        }
+
+        // POST: Comment/DeleteMyComment/5
+        [HttpPost]
+        public ActionResult DeletePostComment(int id, FormCollection collection)
+        {
+            try
+            {
+                // TODO: Add delete logic here
+                commentService.DeleteComment(id);
+                if (Session["pid"] == null)
+
+                {
+                    return RedirectToAction("Details", "Post");
+                }
+                else
+                {
 
                     int postId = int.Parse(Session["pid"].ToString());
                     return RedirectToAction("Details/" + postId, "Post");
@@ -141,6 +286,8 @@ namespace EBBS.Controllers
             }
         }
 
+
+        //get the user session
         private User GetUserSession()
         {
             if (Session["lUser"] != null)
@@ -153,5 +300,6 @@ namespace EBBS.Controllers
                 return null;
             }
         }
+
     }
 }
