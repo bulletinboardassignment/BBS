@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 
 namespace EBBS.Controllers
 { 
@@ -36,12 +37,11 @@ namespace EBBS.Controllers
                 return null;
             }
         }
-       
-        // GET: Post
-        public ActionResult Index()
-        {
-            //return View(postService.GetAllPosts());
-            IList<Post> posts = postService.GetAllPosts();
+
+            public ActionResult Index(int? page)
+            {
+            var posts = postService.GetAllPosts().OrderByDescending(p => p.createTime);
+
             foreach (var post in posts)
             {
                 post.nLikes = postService.GetNumberOfLikes(post.pId);
@@ -50,12 +50,11 @@ namespace EBBS.Controllers
             }
 
             ViewBag.userType = this.GetUserSession().userId;
-
-            return View(posts);
-            
-                      
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+            return View(posts.ToPagedList(pageNumber, pageSize));
         }
-    
+
 
         // GET: Post/Details/5
         public ActionResult Details(int id)
@@ -262,16 +261,18 @@ namespace EBBS.Controllers
             return Json(result);
         }
 
-
-        public ActionResult MyPosts() {
+        public ActionResult MyPosts(int? page)
+        {
 
             int userId = GetUserSession().userId;
-            List<Post> postsByUser = postService.GetAllPostsByUser(userId);
-
-
-            return View(postsByUser);
+            var postsByUser = postService.GetAllPostsByUser(userId).OrderByDescending(p => p.createTime); ;
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+            return View(postsByUser.ToPagedList(pageNumber, pageSize));
         }
-         
+
+        
+
         public ActionResult CategoryPosts(int id) {
 
             List<Post> postsInCategory = postService.GetAllPostsInCategory(id);

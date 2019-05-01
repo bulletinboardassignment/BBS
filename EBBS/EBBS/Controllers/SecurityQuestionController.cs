@@ -27,10 +27,10 @@ namespace EBBS.Controllers
         public ActionResult Index(int page = 1, int pageSize = 5)
         {
             User user = GetUserSession();
-            var sqList = _securityQuestionService.GetMySQs().OrderBy(p=>p.qId).OrderByDescending(p=>p.qId);
+            var sqList = _securityQuestionService.GetMySQs().OrderBy(p=>p.qId).OrderByDescending(p=>p.qId);//"Security Questions"sorted descending by the "question Id" 
             var sqViewList = AutoMapper.Mapper.Map<IEnumerable<SecurityQuestion>, IEnumerable<SecurityQuestionViewModel>>(sqList);
             var model = new SecurityQuestionVm();
-            model.Question = sqViewList.ToPagedList(page, pageSize);
+            model.Question = sqViewList.ToPagedList(page, pageSize);// five "Security Questions" records display per page
             return View(model);
         }
 

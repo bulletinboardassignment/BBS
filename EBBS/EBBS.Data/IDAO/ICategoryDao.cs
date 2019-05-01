@@ -19,15 +19,13 @@ namespace EBBS.Data.IDAO
         void DeleteCategory(Category deleteCategory);
 
         bool UniqueCategory(string category);
-
-        
+                
         IEnumerable<Category> LastCategory { get; }
         
         void IncreaseFreqOne(int id);
         void DecreaseFreqOne(int id);
         IQueryable<Category> SpecificRecordList { get; }
 
-        //void AddEditCategory(Category addEditCategory);
         bool AnybodyGotThisCategory(int categoryId);
 
     }

@@ -21,15 +21,11 @@ namespace EBBS.Service.Service
 
         public bool Save(User user)
         {
-           return _userDao.Save(user);
+            return _userDao.Save(user);
         }
-        
-        //public User Delete(int? id)
-        //{
-        //    return _userDao.Delete(id);
-        //}
 
-   
+        
+
         public User Details(int? id)
         {
             return _userDao.Details(id);
@@ -37,10 +33,10 @@ namespace EBBS.Service.Service
 
         public IEnumerable<User> UserIEmum
         {
-            get {return _userDao.UserIEmum; }
-            
+            get { return _userDao.UserIEmum; }
+
         }
-    
+
         public IQueryable<User> UserList
         {
             get { return _userDao.UserList; }
@@ -52,11 +48,7 @@ namespace EBBS.Service.Service
            return _userDao.Authenticate(username, password);
         }
 
-        public bool Logout()
-        {
-            return _userDao.Logout();
-        }
-
+    
         public string Encrypt(string clearText)
         {
             return _userDao.Encrypt(clearText);
@@ -86,11 +78,6 @@ namespace EBBS.Service.Service
         {
             return _userDao.GetUser(userId);
         }
-
-        //public void DeleteUser(int userId)
-        //{
-        //    _userDao.Delete(userId);
-        //}
 
         public void EditUser(int oldUserId, User newUser)
         {

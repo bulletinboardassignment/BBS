@@ -115,19 +115,20 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Modal Header</h4>
+                    <h2><span class="mySpan"> Promote User</span></h2>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" id="grad">
                     <input type="hidden" value="" id="userId" />
                     <select id="userType" name="rId" class="form-control">
-                        <option>Select New Role (*)</option>
+                        <option>Select Role (*)</option>
                         @foreach (var role in (List<EBBS.Data.Role>)ViewBag.roles)
                         {
                             
                             <option value="@role.rId">@role.roleName</option>
+
                         }
                     </select>
-                                       
+
 
                 </div>
                 <div class="modal-footer">
@@ -139,6 +140,7 @@
         </div>
     </div>
 
+   
 
 
 </body>
@@ -155,13 +157,15 @@
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
 
+
+
     <script type="text/javascript">
         $(".promote").click(function () {
             var userId = $(this).attr("id");
             $("#myModal").modal("show");
 
             $("input#userId").val(userId);
-             
+
 
         });
 
@@ -183,7 +187,7 @@
 
                 },
                 error: function (a, b, c) {
-                
+
 
                 }
 

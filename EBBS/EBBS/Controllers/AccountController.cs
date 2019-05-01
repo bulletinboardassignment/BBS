@@ -122,25 +122,9 @@ namespace EBBS.Controllers
 
                     //Session Management
                     Session["lUser"] = user;
+                    TempData["Message"] = "<script>alert('You have successfully loggedin!!!')</script>";
+                    return RedirectToAction("Index", "Post"); //the user will be redirected to the all post lists
 
-                    //if the logged in user type is admin, the user will be redirected to the all post lists
-                    if (user.userType == 1) //Admin
-                    {
-                        TempData["Message"] = "<script>alert('You have successfully loggedin!!!')</script>";
-                        return RedirectToAction("Index", "Post"); //Admin dash
-                    }
-                    //if the logged in user type is noremal user, the user will be redirected to the all post lists
-                    else if (user.userType == 2) //User
-                    {
-                        TempData["Message"] = "<script>alert('You have successfully loggedin!!!')</script>";
-                        return RedirectToAction("Index", "Post"); //User Dash
-                    }
-                    //if the logged in user type is other user types, the user will be redirected to the all post lists
-                    else
-                    {
-                        TempData["Message"] = "<script>alert('You have successfully loggedin!!!')</script>";
-                        return RedirectToAction("Index", "Post"); //Other User types HomePage
-                    }
                 }
 
                 //if the username and password correct, validation message will be showed 

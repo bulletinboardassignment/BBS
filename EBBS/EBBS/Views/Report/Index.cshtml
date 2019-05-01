@@ -1,4 +1,8 @@
-﻿@model IEnumerable<EBBS.Data.Reports>
+﻿@*@model IEnumerable<EBBS.Data.Reports>*@
+@model PagedList.IPagedList<EBBS.Data.Reports>
+@using EBBS.Data
+@using PagedList.Mvc;
+
 
 <br />
 <br />
@@ -8,47 +12,47 @@
 <hr />
 <body id="grad">
 
- <table class="table table-bordered table-hover table-responsive" style="table-layout: fixed">
-            <tr class="bg-info" style="background-color: lightgrey">
-                <th class="text-center">
-                    @Html.DisplayNameFor(model => model.rId)
-                </th>
-                <th class="text-center">
-                    @Html.DisplayNameFor(model => model.postId)
-                </th>
-                <th class="text-center">
-                    @Html.DisplayNameFor(model => model.reason)
-                </th>
-                <th class="text-center">
-                    @Html.DisplayNameFor(model => model.reportedBy)
-                </th>
-                <th colspan="2" class="text-center">Operations</th>
+    <table class="table table-bordered table-hover table-responsive" style="table-layout: fixed">
+        <tr class="bg-info" style="background-color: lightgrey">
+            <th class="text-center">
+                Report Id
+            </th>
+            <th class="text-center">
+                Post Title
+            </th>
+            <th class="text-center">
+                Reason
+            </th>
+            <th class="text-center">
+                Reported By
+            </th>
+            <th colspan="2" class="text-center">Operations</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.rId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Post.postTitle)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.reason)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.username)
+                </td>
+                <td colspan="2">
+                    <a data="@item.postId" class="btn btn-success allow"><i class="glyphicon glyphicon-ok"></i> Allow </a> |
+                    <a data="@item.postId" class="btn btn-danger delete"><i class="glyphicon glyphicon-remove"></i> Remove </a>
+                </td>
             </tr>
+        }
 
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.rId)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Post.postTitle)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.reason)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.User.username)
-                    </td>
-                    <td colspan="2">
-                        <a data="@item.postId" class="btn btn-success allow"><i class="glyphicon glyphicon-ok"></i> Allow </a> |
-                        <a data="@item.postId" class="btn btn-danger delete"><i class="glyphicon glyphicon-remove"></i> Remove </a>
-                    </td>
-                </tr>
-            }
-
-        </table>
-
+    </table>
+    <div>Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount  @Html.PagedListPager(Model, Page => Url.Action("Index", new { Page }))</div>
 </body>
 
 

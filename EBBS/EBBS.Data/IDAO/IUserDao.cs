@@ -12,7 +12,6 @@ namespace EBBS.Data.IDAO
         User Details(int? Id);
         IEnumerable<User> UserIEmum { get; }
         IQueryable<User> UserList { get; }
-        //User Delete(int? Id);
 
         bool UniqueEmail(string email);
 
@@ -20,19 +19,16 @@ namespace EBBS.Data.IDAO
 
         User UserById(int id);
 
-        //===============================
-
-
         bool ValidateUser(string username, string password);
 
         User Authenticate(string username, string password);
-        bool Logout();
+        
         string Encrypt(string clearText);
         string Decrypt(string cipherText);
         List<User> GetAllUsersExceptMe(int currentUserId);
 
         User GetUser(int userId);
-        //void DeleteUser(int userId);
+        
         void EditUser(int oldUserId, User newUser);
         string GetUserPassword(int userId);
         void ChangeUserPassword(int userId, string newPassword);

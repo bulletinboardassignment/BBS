@@ -7,24 +7,6 @@
 @{
     ViewBag.Title = "Index";
 }
-@*<script src="~/Scripts/jquery-3.3.1.min.js"></script>
-<script src="~/Scripts/bootstrap.min.js"></script>*@
-
-<head>
-<style> 
-td.test {
-  white-space: nowrap; 
-  width: 200px; 
-  overflow: hidden; 
-  border: 1px solid #000000;
-}
-
-td.test:hover {
-  overflow: visible;
-}
-</style>
-</head>
-
 
 <br/>
 <br />
@@ -52,7 +34,6 @@ td.test:hover {
 @if (Model.Category.Count() != 0)
 {
     <div class="text-left">
-        @*<h4 style="color:green">@Html.Raw(TempData["message"])</h4>*@
         <h4 style="color:green">@Html.Raw(TempData["editMessage"])</h4>
         <h4 style="color:green">@Html.Raw(TempData["deleteMessage"])</h4>
     </div>

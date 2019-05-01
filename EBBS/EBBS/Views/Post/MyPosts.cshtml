@@ -1,4 +1,7 @@
-﻿@model IEnumerable<EBBS.Data.Post>
+﻿@*@model IEnumerable<EBBS.Data.Post>*@
+@model PagedList.IPagedList<EBBS.Data.Post>
+@using EBBS.Data
+@using PagedList.Mvc;
 
 <br />
 <div>
@@ -28,27 +31,27 @@
 
                                 @if (item.mediaType == "image/jpeg" || item.mediaType == "image/jpg")
                                 {
-                                    <img align="middle" src="~/images/@item.mediaPath" width="250" height="250" />
-                                    
+                                    <img align="middle" style="width:100%; max-width:100%" src="~/images/@item.mediaPath" width="250" height="250" />
+
                                 }
                                 else if (item.mediaType == "video/mp4")
                                 {
-                                    <video width="500" height="500" controls>
-                                        
-                                            <source src="~/images/@item.mediaPath" type="@item.mediaType">
-                                            Your browser does not support the video tag.
-                                        </video>
-                                        }
+                                    <video width="500" height="500" style="width: 75%; max-width: 100%;" controls>
 
-                                        <p>Category: @Html.DisplayFor(modelItem => item.Category.categoryName)</p>
-                                        <p>Posted On: @Html.DisplayFor(modelItem => item.createTime) </p>
-                                        <p>Created By: @item.User.firstName @item.User.lastName</p>
+                                        <source src="~/images/@item.mediaPath" type="@item.mediaType">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                }
 
-                                        <a href="/Post/Delete/@item.pId" class="btn btn-danger"><i class=" glyphicon glyphicon-trash"></i> Delete</a>
-                                        <a href="/Post/Edit/@item.pId" class="btn btn-success"><i class=" glyphicon glyphicon-edit"></i> Edit</a>
-                                        <a href="/Post/Details/@item.pId" class="btn btn-info"><i class=" glyphicon glyphicon-eye-open"></i> Details</a>
+                                <p>Board: @Html.DisplayFor(modelItem => item.Category.categoryName)</p>
+                                <p>Posted On: @Html.DisplayFor(modelItem => item.createTime) </p>
+                                <p>Created By: @item.User.firstName @item.User.lastName</p>
 
-</div>
+                                <a href="/Post/Delete/@item.pId" class="btn btn-danger"><i class=" glyphicon glyphicon-trash"></i> Delete</a>
+                                <a href="/Post/Edit/@item.pId" class="btn btn-success"><i class=" glyphicon glyphicon-edit"></i> Edit</a>
+                                <a href="/Post/Details/@item.pId" class="btn btn-info"><i class=" glyphicon glyphicon-eye-open"></i> Details</a>
+
+                            </div>
                         </div>
                         <br />
                         <br />
@@ -58,6 +61,7 @@
                 </div>
             </section>
         }
-
     </div>
+
+    <div>Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount  @Html.PagedListPager(Model, Page => Url.Action("MyPosts", new { Page }))</div>
 </body>

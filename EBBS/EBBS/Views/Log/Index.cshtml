@@ -1,5 +1,10 @@
-﻿@using EBBS.Data
-@model IEnumerable<EBBS.Data.Logs>
+﻿@*@model IEnumerable<EBBS.Data.Logs>*@
+
+@model PagedList.IPagedList<EBBS.Data.Logs>
+@using EBBS.Data
+@using PagedList.Mvc;
+
+
 <br />
 <br />
 <div>
@@ -7,28 +12,75 @@
 </div>
 <hr />
 <body id="grad">
-<table class="table table-bordered table-hover table-responsive" style="table-layout: fixed">
-    <tr class="bg-info" style="background-color: lightgrey">
-        <th class="text-center">
-            @Html.DisplayNameFor(model => model.loggedTime)
-        </th>
-        <th class="text-center">
-            @Html.DisplayNameFor(model => model.User.username)
-        </th>
-    </tr>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.loggedTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.username)
-            </td>
+    <div>
 
-        </tr>
-    }
+        <div class="input-group" style="float: left">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+            <input class="form-control" style="background-color:khaki; color: black" type="text" id="myInput" onkeyup="myFunction()" placeholder="Search User" />
+        </div>
 
-</table>
+
+        <table id="myTable" class="table table-bordered table-hover table-responsive" style="table-layout: fixed">
+            <tr class="bg-info" style="background-color: lightgrey">
+                <th class="text-center">
+                    <h6>LoggedIn Time</h6>
+                </th>
+                <th class="text-center">
+                    <h6>Username</h6>
+
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr id="tr">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.User.username)
+                    </td>
+                    <td id="td">
+
+                        @Html.DisplayFor(modelItem => item.loggedTime)
+                    </td>
+
+                </tr>
+            }
+
+        </table>
+        <div>Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount  @Html.PagedListPager(Model, Page => Url.Action("Index", new { Page }))</div>
+    </div>
 </body>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/myscripts.js"></script>
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script>
+           function myFunction() {
+            // Declare variables 
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTable");
+            tr = table.getElementsByTagName("tr");
+
+            // Loop through all table rows, and hide those who don't match the search query
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+
+    </script>
+}
+

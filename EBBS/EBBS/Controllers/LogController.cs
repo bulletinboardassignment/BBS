@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 
 namespace EBBS.Controllers
 {
@@ -13,22 +14,27 @@ namespace EBBS.Controllers
     {
         private ILogService logService;
         private IUserService userService;
+        private EbbSEntities db;
 
         public LogController() {
             logService = new LogService();
             userService = new UserService();
+            db = new EbbSEntities();
         }
 
 
-        // GET: Log
-        public ActionResult Index()
+        // GET: Log/Index
+        public ActionResult Index(int? page)
         {
-            return View(logService.GetAllLogs());
-        }
+            
+            var result = logService.GetAllLogs().OrderByDescending(p => p.loggedTime);
 
-        public ActionResult Welcome() {
-            return View(userService.GetUser(this.GetUserSession().userId));
+            int pageSize = 20;
+            int pageNumber = (page ?? 1);
+            return View(result.ToPagedList(pageNumber, pageSize));
+
         }
+        
 
         private User GetUserSession()
         {

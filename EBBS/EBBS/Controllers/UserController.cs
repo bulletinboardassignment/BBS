@@ -48,15 +48,13 @@ namespace EBBS.Controllers
 
         // GET: User
         public ActionResult Index(int? page)
-        {
-            //List<User> users = userService.GetAllUsersExceptMe(this.GetUserSession().userId).OrderByDescending(p => p.createTime).ToPagedList(page ?? 1, 5); ;
-            //return View(users);
-
-            var userList = userService.GetAllUsersExceptMe(this.GetUserSession().userId).OrderBy(p => p.userId).OrderByDescending(p => p.createTime).ToPagedList(page ?? 1, 5);
-
-            List<Role> roles = roleService.GetAllRoles().ToList();
+        { 
+            //"Users"sorted descending by the "createdTime" and 5 User records display per page
+            var userList = userService.GetAllUsersExceptMe(
+                this.GetUserSession().userId).OrderBy(p => p.userId).OrderByDescending(p => p.createTime).ToPagedList(page ?? 1, 5);
+           
+            List<Role> roles = roleService.GetAllRoles().ToList(); // get all the roles to show in the dropdown
             ViewBag.roles = roles;
-
             return View(userList);
 
         }
@@ -109,7 +107,6 @@ namespace EBBS.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             var model = userService.Details(id);
-            //model.IENUMRoleDetails = roleService.RoleIeNum;
             var x = (from d in roleService.RoleIeNum select d).ToList();
             ViewBag.RoleList = new SelectList(roleService.RoleIeNum, "rId", "rolename");
 
@@ -125,8 +122,6 @@ namespace EBBS.Controllers
         [HttpPost]
         public ActionResult Edit(User data)
         {
-            //var model = userService.Details(data.userId);
-            //model.IENUMRoleDetails = roleService.RoleIeNum;
             var x = (from d in roleService.RoleIeNum select d).ToList();
             ViewBag.RoleList = new SelectList(roleService.RoleIeNum, "rId", "rolename");
 
@@ -147,36 +142,6 @@ namespace EBBS.Controllers
             }
             return View();
         }
-
-        //// GET: User/Delete/5
-        //[Authorize(Roles = "Admin")]
-        //public ActionResult Delete(int id)
-        //{
-        //    if (id == 0)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadGateway);
-        //    }
-        //    User user = userService.Details(id);
-        //    if (user == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(user);
-        //}
-
-        //// POST: User/Delete/5
-        ////[Authorize(Roles = "Admin")]
-        //[HttpPost, ActionName("Delete")]
-        //public ActionResult DeleteConfirm(int id)
-        //{
-
-        //    User user = userService.Delete(id);
-        //    if (user != null)
-        //    {
-        //        TempData["message"] = string.Format("{0} has been deleted successfully", user.firstName + " " + user.lastName);
-        //    }
-        //    return RedirectToAction("Index", "User");
-        //}
 
 
         // GET: /Movies/Delete/5
@@ -200,14 +165,7 @@ namespace EBBS.Controllers
             return RedirectToAction("Index");
         }
 
-
-
-
-
-
-
-
-
+        
         private User GetUserSession()
         {
             if (Session["lUser"] != null)

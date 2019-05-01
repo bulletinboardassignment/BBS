@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 
 namespace EBBS.Controllers
 {
@@ -21,13 +22,15 @@ namespace EBBS.Controllers
             postService = new PostService();
         }
 
-
-        public ActionResult MyComments() {
+        public ActionResult MyComments(int? page)
+        {
             int userId = GetUserSession().userId;
-            List<Comment> comments = commentService.GetAllCommentsByUser(userId);
-            return View(comments);
+            var comments = commentService.GetAllCommentsByUser(userId).OrderByDescending(p => p.createTime); //the "Comments", sorted descending by the "createdTime" 
+            int pageSize = 3; //3 Comments per page display
+            int pageNumber = (page ?? 1); //Per page
+            return View(comments.ToPagedList(pageNumber, pageSize));
         }
-
+       
 
         public ActionResult Get(int postId) {
             Post post = postService.GetPost(postId);

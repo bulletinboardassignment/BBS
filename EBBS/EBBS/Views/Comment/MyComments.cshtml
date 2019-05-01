@@ -1,4 +1,7 @@
-﻿@model IEnumerable<EBBS.Data.Comment>
+﻿@*@model IEnumerable<EBBS.Data.Comment>*@
+@model PagedList.IPagedList<EBBS.Data.Comment>
+@using EBBS.Data
+@using PagedList.Mvc;
 <br />
 <br />
 
@@ -12,7 +15,7 @@
 
     @foreach (var comment in Model)
     {
-         <div class="commentSection">
+        <div class="commentSection">
             <div class="form-group">
                 <div style="text-align:center">
                     <header class="modal-title">
@@ -20,13 +23,13 @@
                             <h3><i class="glyphicon glyphicon-pencil"></i> @comment.Post.postTitle</h3>
                         </div>
                     </header>
-                     <h5 style="text-align:center">@Html.Raw(@comment.commentText)</h5>
+                    <h5 style="text-align:center">@Html.Raw(@comment.commentText)</h5>
                     <h6 class="fa fa-user" aria-hidden="true"> Commented by :@comment.User.firstName @comment.User.lastName</h6>
                     | <h6 style="text-align:left" class="fa fa-calendar" aria-hidden="true"> Commented on @comment.createTime</h6>
                 </div>
             </div>
-            
-            
+
+
             <div class="form-group" align="left">
                 <div class="form-group" align="right">
                     <div class="col-md-offset-2 col-md-10">
@@ -36,12 +39,10 @@
                         </h6>
                     </div>
                 </div>
-             </div>
+            </div>
         </div>
         <br />
-
-
-
-
     }
+
+    <div>Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount  @Html.PagedListPager(Model, Page => Url.Action("MyComments", new { Page }))</div>
 </body>

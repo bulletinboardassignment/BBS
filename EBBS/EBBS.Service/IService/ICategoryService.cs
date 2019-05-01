@@ -26,8 +26,6 @@ namespace EBBS.Service.IService
         void DecreaseFreqOne(int id);
         IQueryable<Category> SpecificRecordList { get; }
 
-        //void AddEditCategory(Category addEditCategory);
-
         bool AnybodyGotThisCategory(int categoryId);
     }
 }

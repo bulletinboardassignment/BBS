@@ -28,11 +28,13 @@
                 @if (Model.mediaType == "image/jpeg" || Model.mediaType == "image/jpg")
                 {
                     <img align="middle" src="~/images/@Model.mediaPath" width="250" height="250" alt="not found" style="" />
+
                 }
                 else if (Model.mediaType == "video/mp4")
                 {
                     <div class="form-group">
                         <video width="500" height="500" style="width: 75%; max-width: 100%;" controls>
+
                             <source src="~/images/@Model.mediaPath" type="@Model.mediaType" class="form-control" alt="not found">
                             Your browser does not support the video tag.
                         </video>
@@ -54,14 +56,10 @@
             </div>
 
 
-
-
-
             <div class="form-group">
                 <span class="control-label col-md-2 text-left"><b>Board:</b></span>
                 @Html.DropDownList("categoryId", (IEnumerable<SelectListItem>)ViewBag.categories, "Select Board (*)", new { @class = "form-control" })
             </div>
-
 
 
             <div class="form-group" align="left">
@@ -117,12 +115,7 @@
 
             }
         });
-
-
-
-        }
-
-        
+        }      
 
         }
 

@@ -1,13 +1,13 @@
 ﻿@using System.Web.UI.WebControls
-@model IEnumerable<EBBS.Data.Post>
+@*@model IEnumerable<EBBS.Data.Post>*@
+
+@model PagedList.IPagedList<EBBS.Data.Post>
+@using EBBS.Data
+@using PagedList.Mvc;
 
 @{
     ViewBag.Title = "Index";
 }
-
-@*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>*@
 
 <br />
 <div>
@@ -15,14 +15,6 @@
 </div>
 <hr />
 <body id="grad">
-
-    <div class="text-left">
-        <h4 style="color:green">@Html.Raw(TempData["message"])</h4>
-    </div>
-    
-    @*<h2>Filterable Table</h2>
-    <p>Type something in the input field to search the table for first names, last names or emails:</p>
-    <input class="form-control" id="myInput" type="text" placeholder="Search..">*@
 
     <div class="form-group" style="float: right">
         <button class="btn" style="background-color:lightgoldenrodyellow; color: black" onclick="location.href = '@Url.Action("Create","Post")'" type="button"><i class="glyphicon glyphicon-plus-sign"></i> Create New Post</button>
@@ -58,7 +50,7 @@
                                     </video>
                                 }
 
-                                <p>Category: @Html.DisplayFor(modelItem => item.Category.categoryName)</p>
+                                <p>Board: @Html.DisplayFor(modelItem => item.Category.categoryName)</p>
                                 <p>Posted On: @Html.DisplayFor(modelItem => item.createTime) </p>
                                 <p>Created By: @item.User.firstName @item.User.lastName</p>
 
@@ -98,6 +90,7 @@
             </section>
         }
     </div>
+    <div>Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount  @Html.PagedListPager(Model, Page => Url.Action("Index", new { Page }))</div>
 
     <!-- Modal for report about abused post-->
     <div>
@@ -266,7 +259,7 @@
 
 
             }
-            
+
 
         });
 
@@ -307,15 +300,15 @@
         });
 
 
-            //$(document).ready(function(){
-            //    $("#myInput").on("keyup", function () {
-            //        var value = $(this).val().toLowerCase();
-            //        $("#myTable tr").filter(function () {
-            //            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-            //        });
-            //    });
-            //});
-   
+                //$(document).ready(function(){
+                //    $("#myInput").on("keyup", function () {
+                //        var value = $(this).val().toLowerCase();
+                //        $("#myTable tr").filter(function () {
+                //            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                //        });
+                //    });
+                //});
+
 
 
     </script>

@@ -64,7 +64,6 @@
         var updateUser = function() {
             var firstname = $("#firstname").val();
             var lastname = $("#lastname").val();
-            //var username = $("#username").val();
             var qId = $("#questionId").val();
             var answer = $("#answer").val();
             var userImage = $("#userImage").get(0).files;
@@ -72,7 +71,6 @@
             var data = new FormData;
             data.append("firstname", firstname);
             data.append("lastname", lastname);
-            //data.append("username", username);
             data.append("qId", qId);
             data.append("answer", answer);
             data.append("userImage", userImage[0]);

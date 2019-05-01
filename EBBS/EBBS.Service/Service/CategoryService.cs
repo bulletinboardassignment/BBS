@@ -69,9 +69,5 @@ namespace EBBS.Service.Service
             return _categoryDao.AnybodyGotThisCategory(categoryId);
         }
 
-        //public void AddEditCategory(Category addEditCategory)
-        //{
-        //    _categoryDao.AddEditCategory(addEditCategory);
-        //}
     }
 }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 
 namespace EBBS.Controllers
 {
@@ -36,9 +37,12 @@ namespace EBBS.Controllers
 
 
         // GET: Report
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-            return View(reportService.GetAllReportedPosts());
+            var result = reportService.GetAllReportedPosts().OrderByDescending(p => p.rId);
+            int pageSize = 2;
+            int pageNumber = (page ?? 1);
+            return View(result.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Report/Details/5

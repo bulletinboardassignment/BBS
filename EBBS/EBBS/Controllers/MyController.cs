@@ -19,15 +19,14 @@ namespace EBBS.Controllers
         public MyController() {
             userService = new UserService();
             securityQuestionService = new SecurityQuestionService();
-            //ViewBag.show = "true";
         }
 
-
+        // GET: My/MyProfile
         public ActionResult MyProfile() {
             
             return View(userService.GetUser(this.GetUserSession().userId));
         }
-
+        // GET: My/MyEdit
         public ActionResult MyEdit(int id) {
 
             List<SecurityQuestion> securityQuestions = securityQuestionService.GetMySQs();
@@ -36,7 +35,7 @@ namespace EBBS.Controllers
 
             return View(new Models.UserUpdateModel());
         }
-
+        // POST: My/MyEdit
         [HttpPost]
         public JsonResult MyEdit(Models.UserUpdateModel userUpdateModel) {
             string result = "";
@@ -45,7 +44,6 @@ namespace EBBS.Controllers
                 user.lastName = userUpdateModel.lastname;
                 user.questionId = userUpdateModel.qId;
                 user.answer = userUpdateModel.answer;
-                //user.username = userUpdateModel.username;
                 var image = userUpdateModel.userImage;
                 if (image != null)
                 {
@@ -59,17 +57,19 @@ namespace EBBS.Controllers
                 }
 
             userService.EditUser(this.GetUserSession().userId, user);
-            result = "You have successfully changed the post!";          
+            result = "You have successfully modified the profile!";          
             return Json(result);
         }
 
-        
-        // GET: My
+
+        // GET: My/Index
 
         public ActionResult Index()
         {
             return View(userService.GetUser(this.GetUserSession().userId));
         }
+
+        // POST: My/ChangeMyPassword
 
         [HttpPost]
         public JsonResult ChangeMyPassword(string password, string newPassword) {
@@ -80,21 +80,17 @@ namespace EBBS.Controllers
             if (password.Equals(userService.GetUserPassword(this.GetUserSession().userId))) {
                 userService.ChangeUserPassword(this.GetUserSession().userId, newPassword);
                 result = "You have successfully changed the password!";
-                //return Json(new { Url = "Login/Account" });
             }
             else {
                 result = "Sorry, Password could not be changed! Try again later!";
             }
-
-
-
-            return Json(result);
+             return Json(result);
         }
 
 
 
 
-
+        // GET: My/ForgotPassword
         public ActionResult ForgotPassword()
         {
 
@@ -104,8 +100,8 @@ namespace EBBS.Controllers
             return View();
         }
 
-      
 
+        // POST: My/ForgotPassword
         [HttpPost]
         public JsonResult ForgotPassword(string username, int sqId, string answer)
         {
@@ -130,13 +126,13 @@ namespace EBBS.Controllers
            
         }
 
-
+        // GET: My/ResetPassword
         public ActionResult ResetPassword(string userId) {
             
             return View();
         }
 
-
+        // POST: My/ResetPassword
         [HttpPost]
         public JsonResult SetNewPassword(string password) {
             string result = "";

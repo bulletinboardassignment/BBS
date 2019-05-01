@@ -75,9 +75,7 @@ namespace EBBS.Data.DAO
                     dbEntry.firstName = addEditUser.firstName;
                     dbEntry.lastName = addEditUser.lastName;
                     dbEntry.password = addEditUser.password;
-                    //dbEntry.createTime = DateTime.Now;
                     dbEntry.updateTime = DateTime.Now;
-                    //dbEntry.lastLogin = DateTime.Now;
                     dbEntry.questionId = addEditUser.questionId;
                     dbEntry.answer = addEditUser.answer;
                     dbEntry.userType = addEditUser.userType;
@@ -106,12 +104,7 @@ namespace EBBS.Data.DAO
             return result;
 
         }
-
-        public bool Logout()
-        {
-            return true;
-        }
-
+     
         public string Encrypt(string clearText)
         {
             string EncryptionKey = "MAKV2SPBNI99212";
@@ -169,19 +162,7 @@ namespace EBBS.Data.DAO
             return dbEntry;
         }
 
-        //public User Delete(int? id)
-        //{
-        //    User dbEntry = context.User.Find(id);
-        //    if (dbEntry != null)
-        //    {
-        //        context.User.Remove(dbEntry);
-        //        context.SaveChanges();
-        //    }
-
-        //    return dbEntry;
-
-        //}
-
+       
         public bool UniqueEmail(string email)
         {
             var result = true;
@@ -222,12 +203,7 @@ namespace EBBS.Data.DAO
             return context.User.Where(x => x.userId == userId).FirstOrDefault();
         }
 
-        //public void DeleteUser(int userId)
-        //{
-        //    context.User.Remove(this.GetUser(userId));
-        //    context.SaveChanges();
-        //}
-
+        
         public void EditUser(int oldUserId, User newUser)
         {
             User oldUser = this.GetUser(oldUserId);
@@ -284,7 +260,7 @@ namespace EBBS.Data.DAO
                 testUser.questionId = 1;
 
                 testUser.answer = "admintest";
-                testUser.userType = 2;
+                testUser.userType = 1;
 
                 if (context.User.Where(x => x.username == "admintest@ebbs.com" && x.firstName == "admintest").FirstOrDefault() == null)
                 {
@@ -358,40 +334,7 @@ namespace EBBS.Data.DAO
                 throw new Exception(errorMessage, dbEx);
             }
         }
-
-
-        //public void DeleteUser(User deleteUser)
-        //{
-        //    try
-        //    {
-        //        if (context.User == null)
-        //        {
-        //            throw new ArgumentNullException("deleteUser");
-        //        }
-
-        //        User userById = UserById(deleteUser.userId);
-
-        //        context.User.Remove(userById);
-
-        //        context.SaveChanges();
-        //    }
-
-        //    catch (DbEntityValidationException dbEx)
-        //    {
-        //        string errorMessage = "";
-
-        //        foreach (var validationErrors in dbEx.EntityValidationErrors)
-        //        {
-        //            foreach (var validationError in validationErrors.ValidationErrors)
-        //            {
-        //                errorMessage += Environment.NewLine + string.Format("Property: {0} Error: {1}",
-        //                                    validationError.PropertyName, validationError.ErrorMessage);
-        //            }
-        //        }
-        //        throw new Exception(errorMessage, dbEx);
-        //    }
-        //}
-
+        
 
         public User UserById(int id)
         {
